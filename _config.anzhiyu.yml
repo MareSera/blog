@@ -17,19 +17,19 @@ menu:
 
 # nav相关配置
 nav:
-  enable: false
+  enable: true
   travelling: false
   clock: false
   menu:
     - title: 网页
       item:
         - name: 博客
-          link: https://blog.anheyu.com/
+          link: https://www.maresera.top/
           icon: /img/favicon.ico
     - title: 项目
       item:
-        - name: 安知鱼图床
-          link: https://image.anheyu.com/
+        - name: Github源码
+          link: https://github.com/MareSera/blog
           icon: https://image.anheyu.com/favicon.ico
 
 # Code Blocks (代码相关)
