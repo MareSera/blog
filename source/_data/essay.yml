@@ -1,0 +1,12 @@
+- title: 即刻短文
+  subTitle: 咸鱼的日常生活。
+  tips: 随时随地，分享生活
+  buttonText: B站主页
+  buttonLink: url(https://space.bilibili.com/1158812072)
+  limit: 30
+  home_essay: true
+  top_background: https://img1.imgtp.com/2023/07/12/aZeojyzJ.jpg
+  essay_list:
+    - content: 建站完成~欢迎常来玩
+      date: 2023/07/14
+      link: https://www.ayublog.xyz/
