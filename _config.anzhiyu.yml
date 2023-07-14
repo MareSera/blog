@@ -938,7 +938,7 @@ home_top:
   subTitle: 有志竟成 朝夕不倦
   siteText: www.maresera.top
   category:
-    - name: c++
+    - name: C++
       path: /categories/c++/
       shadow: var(--anzhiyu-shadow-blue)
       class: blue
