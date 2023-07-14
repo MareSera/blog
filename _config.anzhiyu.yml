@@ -129,7 +129,13 @@ cover:
   position: left
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
-    - /img/default_cover.jpg
+    - https://i0.hdslb.com/bfs/article/aa4eed1d4c2ef847d2a21517fd949a92cfb23778.jpg
+    - https://i0.hdslb.com/bfs/article/f6d1120865f4557e750ad8d0c4df00265f39d77e.jpg
+    - https://i0.hdslb.com/bfs/article/2b0a2e5e53ebe4b7649c4972865424bd46f34979.jpg
+    - https://i0.hdslb.com/bfs/article/145f727ba239de4321b64eb0b6938a4412af8714.jpg
+    - https://i0.hdslb.com/bfs/article/4946c7f45b749e633c207b5556fe9ebf900fa8ed.jpg
+    - https://i0.hdslb.com/bfs/article/22f29c2b82db754ce4b7e3b127bf62ff9603a191.jpg
+    - https://i0.hdslb.com/bfs/article/4c3e1cbf2efc8840db25ab3dc1dbaec9fcb4c475.jpg
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
