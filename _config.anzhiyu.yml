@@ -14,7 +14,6 @@ menu:
   #   相册集: /album/ || anzhiyu-icon-images
   其他:
     小空调: /air-conditioner/ || anzhiyu-icon-fan
-    不能看哦: /love/ || anzhiyu-icon-paper-plane
     随便逛逛: javascript:toRandomPost() || anzhiyu-icon-shoe-prints1
 
 # nav相关配置
