@@ -1031,7 +1031,7 @@ ptool:
 
 # 欢迎语配置
 greetingBox:
-  enable: false
+  enable: true
   default: 晚上好👋
   list:
     - greeting: 晚安😴
