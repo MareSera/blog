@@ -85,7 +85,7 @@
     music_tips: 音乐偏好
     music_title: 毛不易、国风、二次元
     music_bg: https://img1.imgtp.com/2023/07/14/0vbeAP52.jpg
-    music_link: /music
+    music_link: https://music.163.com/#/playlist?id=2774020520
   reward_list:
     - name: 无
       amount: 0.0
