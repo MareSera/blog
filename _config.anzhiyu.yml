@@ -129,12 +129,7 @@ cover:
   position: left
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
-    - https://img1.imgtp.com/2023/07/14/1CN4HSIk.jpg
-    - https://img1.imgtp.com/2023/07/14/3suVObRw.jpg
-    - https://img1.imgtp.com/2023/07/14/Q7FisNdZ.jpg
-    - https://img1.imgtp.com/2023/07/14/vqvGjA9o.jpg
-    - https://img1.imgtp.com/2023/07/14/7kyxQ3Di.jpg
-    - https://img1.imgtp.com/2023/07/14/4wGMae6Z.jpg
+    - \source\img
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
