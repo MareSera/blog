@@ -938,7 +938,7 @@ home_top:
   siteText: www.ayublog.xyz
   category:
     - name: C++
-      path: /categories/C++/
+      path: /categories/c++/
       shadow: var(--anzhiyu-shadow-blue)
       class: blue
       icon: anzhiyu-icon-dove
