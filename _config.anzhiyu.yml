@@ -203,12 +203,12 @@ post_copyright:
 reward:
   enable: true
   QR_code:
-    - img: https://img1.imgtp.com/2023/07/01/qE7Bgebi.jpg
+    - img: https://img1.imgtp.com/2023/07/14/Afjd12nN.jpg
       link:
-      text: wechat
-    - img: https://img1.imgtp.com/2023/07/01/resexaLn.jpg
+      text: 微信
+    - img: https://img1.imgtp.com/2023/07/14/OEFs4fQG.jpg
       link:
-      text: alipay
+      text: 支付宝
 
 # Post edit
 # Easily browse and edit blog source code online.
