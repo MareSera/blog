@@ -939,7 +939,7 @@ home_top:
   siteText: www.maresera.top
   category:
     - name: C++
-      path: /categories/c++/
+      path: /categories/cpp/
       shadow: var(--anzhiyu-shadow-blue)
       class: blue
       icon: anzhiyu-icon-dove
