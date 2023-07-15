@@ -1089,7 +1089,6 @@ accesskey:
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
 inject:
   head:
-    - <link rel="stylesheet" href="/css/home.css"> # 首页文章卡片擦亮效果
 
   bottom:
     # 自定义js
