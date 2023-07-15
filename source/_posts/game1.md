@@ -3,7 +3,6 @@ abbrlink: ''
 categories:
 - - 日常
 date: '2023-07-15T09:56:11.214935+08:00'
-sticky: 1
 tags:
 - 日常
 title: 蛋糕是个谎言——《传送门2》游戏测评
