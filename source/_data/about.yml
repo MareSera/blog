@@ -87,7 +87,7 @@
     music_bg: https://img1.imgtp.com/2023/07/14/0vbeAP52.jpg
     music_link: https://music.163.com/#/playlist?id=2774020520
   reward_list:
-    - name: 无
-      amount: 0.0
-      datatime: 2023-07-14
+    - name: SAW
+      amount: 1.0
+      datatime: 2023-07-16
   extra: false
