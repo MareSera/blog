@@ -88,6 +88,6 @@
     music_link: https://music.163.com/#/playlist?id=2774020520
   reward_list:
     - name: SAW
-      amount: 1.0
+      amount: 2.0
       datatime: 2023-07-16
   extra: false
