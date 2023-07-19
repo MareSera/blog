@@ -1,0 +1,13 @@
+{
+  "newFileLocation": "current",
+  "attachmentFolderPath": "/",
+  "showUnsupportedFiles": false,
+  "userIgnoreFilters": [
+    "node_modules/",
+    "public/",
+    "scaffolds/",
+    "themes/"
+  ],
+  "showInlineTitle": true,
+  "promptDelete": false
+}

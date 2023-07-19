@@ -1,0 +1,179 @@
+{
+  "main": {
+    "id": "2589da0182bbb029",
+    "type": "split",
+    "children": [
+      {
+        "id": "79c5e889561cfb19",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "346bb135958c3906",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/c++-wai.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "191e21ad894f16be",
+    "type": "split",
+    "children": [
+      {
+        "id": "35c4dee2b101dcc0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "11fea057d191be58",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "2a32f061b2dba4bb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e88dc71c90993ab4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          },
+          {
+            "id": "4f89cf0e4bf1987a",
+            "type": "leaf",
+            "state": {
+              "type": "file-tree-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "afe8efbb5aa55b5f",
+    "type": "split",
+    "children": [
+      {
+        "id": "a3f0be77c1d3ee93",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6bf1232558d1ea52",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "source/_posts/c++-wai.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "02c135204558a33c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "source/_posts/c++-wai.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "bbea62e8752b9c00",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "a4604eb07a1d2e8a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "source/_posts/c++-wai.md"
+              }
+            }
+          },
+          {
+            "id": "6dbaf2535e69a0fc",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": true,
+      "templates:插入模板": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": true,
+      "command-palette:打开命令面板": true,
+      "file-tree-alternative:File Tree Alternative Plugin": false
+    }
+  },
+  "active": "346bb135958c3906",
+  "lastOpenFiles": [
+    "source/_posts/c++-wai.md",
+    "source/_posts/666",
+    "未命名",
+    "source/_obsidian/Post Template.md",
+    "source/_obsidian/Post Template.txt",
+    "source/_obsidian/新建 文本文档.txt",
+    "source/_obsidian/新建文件夹",
+    "source/_obsidian",
+    "source/新建文件夹"
+  ]
+}
