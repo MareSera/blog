@@ -2,5 +2,6 @@
   "accentColor": "",
   "theme": "system",
   "showViewHeader": true,
-  "translucency": false
+  "translucency": false,
+  "baseFontSize": 22
 }

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/c++-wai.md",
+                "file": "source/_posts/macth1.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/c++-wai.md",
+                "file": "source/_posts/macth1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/c++-wai.md",
+                "file": "source/_posts/macth1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/c++-wai.md"
+                "file": "source/_posts/macth1.md"
               }
             }
           },
@@ -167,6 +167,7 @@
   "active": "346bb135958c3906",
   "lastOpenFiles": [
     "source/_posts/c++-wai.md",
+    "source/_posts/macth1.md",
     "source/_posts/666",
     "未命名",
     "source/_obsidian/Post Template.md",
