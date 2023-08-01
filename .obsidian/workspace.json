@@ -164,7 +164,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 333.5
+    "width": 362.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -177,7 +177,7 @@
       "command-palette:打开命令面板": true
     }
   },
-  "active": "1e81967e744a7430",
+  "active": "6dbaf2535e69a0fc",
   "lastOpenFiles": [
     "source/_posts/c++bj1.md",
     "source/_posts/c++bj2.md",
