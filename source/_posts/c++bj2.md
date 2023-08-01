@@ -194,3 +194,45 @@ int main() {
      return 0;
 }
 ```
+## 输出小数的位数
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    char ch;
+    bool flag=false;
+    int count=0;
+    while((ch=getchar())!='\n'){
+        if(ch>='0'&&ch<='9'){
+               if(flag)
+            {
+               count++;
+           }
+        }
+        if(ch=='.')
+        {
+            flag=true;
+        }
+    }
+    cout<<count;
+
+     return 0;
+}
+```
+## string and getline
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    string s;
+    getline(cin,s);
+    for(int i=0;i<s.size();i++){
+        cout<<s[i]<<endl;
+    }
+    //cout<<s;
+
+     return 0;
+}
+```
