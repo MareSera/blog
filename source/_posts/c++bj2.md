@@ -66,3 +66,21 @@ int main() {
 }
 }
 ```
+## 字符数组
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    char a[2000];
+    gets(a);
+    for(int i=0;a[i]!='\0';i++)
+    {
+        cout<<a[i]<<"  ";
+    }
+    //puts(a);
+    cout<<a;
+
+     return 0;
+}
+```
