@@ -147,3 +147,27 @@ int main() {
      return 0;
 }
 ```
+## 统计字符的个数
+[原题](http://82.156.147.155/problem/P1059)
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    char a[20];
+    int big=0,small=0,math=0;
+    cin>>a;
+    for(int i=0;a[i]!='#';i++){
+        if(a[i]>='a'&&a[i]<='z'){
+            small++;
+        }
+        if(a[i]>='A'&&a[i]<='Z'){
+            big++;
+        }
+        if(a[i]>='0'&&a[i]<='9'){
+            math++;
+        }
+    }
+    cout<<big<<" "<<small<<" "<<math;
+     return 0;
+}
+```
