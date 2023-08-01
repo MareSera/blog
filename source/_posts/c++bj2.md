@@ -105,6 +105,7 @@ int main() {
 }
 ```
 ## 输入一串字符 判断小写字符
+##优化前
 ```c++
 //输入一串字符 判断小写字符
 #include<iostream>
@@ -119,6 +120,29 @@ int main() {
         }
     }
     cout<<x;
+
+     return 0;
+}
+```
+### 优化后
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    char a[2000],m;
+    int i=0,b[26]={0};
+    gets(a);
+    for(i=0;a[i]!='\0';i++){
+        if(a[i]>='a'&&a[i]<='z'){
+            b[a[i]-'a']++;
+        }
+    }
+    for(i=0;i<26;i++)
+    {
+        m='a'+i;
+        cout<<m<<":"<<b[i]<<endl;
+    }
 
      return 0;
 }
