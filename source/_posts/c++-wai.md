@@ -3,7 +3,6 @@ abbrlink: ''
 categories:
 - - cpp
 date: '2023-07-14T09:50:00.913186+08:00'
-sticky: 1
 tags:
 - 进制转换
 - cpp

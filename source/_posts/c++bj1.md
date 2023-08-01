@@ -3,6 +3,7 @@ abbrlink: ''
 categories:
 - - cpp
 date: '2023-07-31T10:11:50.987381+08:00'
+sticky: 1
 tags:
 - cpp
 title: 7.31-C++学习记录
