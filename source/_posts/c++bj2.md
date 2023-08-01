@@ -84,3 +84,42 @@ int main() {
      return 0;
 }
 ```
+## 输入英语句子 输出各个小写字母的出现次数
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    char a[2000];
+    int count;
+    gets(a);
+    for(char i='a';i<='z';i++){
+        for(int b=0;a[b]!='\0';b++){
+            if(a[b]==i)
+                count++;
+        }
+        cout<<i<<":"<<count<<endl;
+        count=0;
+    }
+     return 0;
+}
+```
+## 输入一串字符 判断小写字符
+```c++
+//输入一串字符 判断小写字符
+#include<iostream>
+using namespace std;
+int main() {
+	char a[2000];
+    int x=0,i;
+    gets(a);
+    for(i=0;a[i]!='\0';i++){
+        if(a[i]>='a'&&a[i]<='z'){
+            x++;
+        }
+    }
+    cout<<x;
+
+     return 0;
+}
+```
