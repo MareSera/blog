@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/c++-wai.md",
+                "file": "source/_posts/c++bj1.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/c++-wai.md",
+                "file": "source/_posts/c++bj1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/c++-wai.md",
+                "file": "source/_posts/c++bj1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/c++-wai.md"
+                "file": "source/_posts/c++bj1.md"
               }
             }
           },
@@ -159,15 +159,18 @@
       "templates:插入模板": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
+      "file-tree-alternative:File Tree Alternative Plugin": false,
       "daily-notes:打开/创建今天的日记": true,
-      "command-palette:打开命令面板": true,
-      "file-tree-alternative:File Tree Alternative Plugin": false
+      "command-palette:打开命令面板": true
     }
   },
   "active": "346bb135958c3906",
   "lastOpenFiles": [
-    "source/_posts/macth1.md",
     "source/_posts/c++-wai.md",
+    "source/_posts/c++2.md",
+    "source/_posts/c++bj1.md",
+    "source/_posts/c++sb.md",
+    "source/_posts/macth1.md",
     "source/_posts/666",
     "未命名",
     "source/_obsidian/Post Template.md",
