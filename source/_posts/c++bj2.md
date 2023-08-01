@@ -171,3 +171,26 @@ int main() {
      return 0;
 }
 ```
+## 倒置输出字符串
+[原题](http://82.156.147.155/problem/P1105)
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    char a[255]={0};
+    cin>>a;
+    int i;
+    for(int j=0;j<=255;j++)
+    {
+        if(a[j]=='\0'){
+            i=j-1;
+            break;
+        }
+    }
+    for(int j=i;j>=0;j--){
+        cout<<a[j];
+    }
+     return 0;
+}
+```
