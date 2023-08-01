@@ -48,7 +48,7 @@ int main() {
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
-    for(int i=0;i<n;i++){
+    for(int i=1;i<n;i++){
         for(int j=n;j>i;j--){
             if(a[j]<a[j-1]){
                 //交换
@@ -63,5 +63,6 @@ int main() {
     }
 
      return 0;
+}
 }
 ```
