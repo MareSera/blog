@@ -6,6 +6,7 @@ date: '2023-08-02T10:11:50.987381+08:00'
 sticky: 1
 tags:
 - cpp
+- 笔记
 title: 8.2-C++学习记录
 updated: 2023-7-14T15:59:14.948+8:0
 ---
@@ -57,6 +58,26 @@ void show(){
 int main() {
 
     show();
+
+     return 0;
+}
+```
+## 函数2
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+void show(int geshu){
+    int i;
+    for(i=1;i<=geshu;i++)
+        cout<<"*";
+    cout<<endl;
+}
+int main() {
+    int n=4;
+    show(1);
+    show(2);
+    show(n-1);
+    show(n);
 
      return 0;
 }
