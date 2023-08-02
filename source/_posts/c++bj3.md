@@ -29,25 +29,24 @@ int main() {
     do{
         i++;
         if(a[i]){
-            for(int j=2;j<=100/i;j++){
+            for(int j=2;j<=n/i;j++){
                 a[i*j]=false;
             }
         }
-    }while(i<=100);
+    }while(i<=n);
     int num;
     for(i=1;i<=n;i++){
         if(a[i]){
             cout<<i<<" ";
             num++;
-            if(num%6==0) cout<<endl;
+            if(num%5==0) cout<<endl;
         }
     }
     
 
 
      return 0;
-}
-```
+}```
 ## 函数
 ```c++
 #include<bits/stdc++.h>
