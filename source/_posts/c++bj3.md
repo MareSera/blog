@@ -124,6 +124,7 @@ bool sushu(int n){
         }
     else if(n==2)
         return true;
+        else return false;
     return true;
 }
 int main() {
