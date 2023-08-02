@@ -44,10 +44,10 @@ int main() {
         }
     }
     
-
-
      return 0;
-}```
+}
+```
+
 ## 函数
 ```c++
 #include<bits/stdc++.h>
