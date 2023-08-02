@@ -48,3 +48,17 @@ int main() {
      return 0;
 }
 ```
+## 函数
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+void show(){
+    cout<<"***";
+}
+int main() {
+
+    show();
+
+     return 0;
+}
+```
