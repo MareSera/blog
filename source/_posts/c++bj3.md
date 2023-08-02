@@ -139,3 +139,34 @@ int main() {
      return 0;
 }
 ```
+## 输出1~100之间的素数，五个一行
+``` c++
+#include<bits/stdc++.h>
+using namespace std;
+bool sushu(int n){
+    if(n%2!=0)
+        for(int i=3;i<=sqrt(n);i+=2)
+        {
+            if(n%i==0)
+                return false;
+        }
+    else if(n==2)
+        return true;
+        else return false;
+    return true;
+}
+int main() {
+    int sum;
+    for(int i=2;i<=100;i++){
+        if(sushu(i)){
+            cout<<setw(5)<<i;
+            sum++;
+            if(sum%5==0){
+                cout<<endl;
+            }
+            }
+            
+    }
+     return 0;
+}
+```
