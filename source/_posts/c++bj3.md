@@ -82,3 +82,30 @@ int main() {
      return 0;
 }
 ```
+## 输入N判断N是不是素数，是就返回true，不是就false
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+bool sushu(int n){
+    bool x=0;
+    for(int i=2;i<=n/i;i++)
+    {
+        if(n%i==0)
+            x=false;
+        if(n%i!=0)
+            x=true;
+    }
+    return x;
+}
+int main() {
+    int n;
+    cin>>n;
+    if(sushu(n)==true){
+        cout<<"true";
+        }
+    else{
+        cout<<"false";
+        }
+     return 0;
+}
+```
