@@ -74,3 +74,44 @@ int main(){
      return 0;
 }
 ```
+## 挛生素数
+[原题](http://82.156.147.155/problem/P1179)
+```c++
+#include<bits/stdc++.h>
+int m,n;
+using namespace std;
+bool s(int n)
+{
+    if(n%2!=0)
+        for(int i=3;i<=sqrt(n);i+=2)
+        {
+            if(n%i==0)
+                return false;
+        }
+    else if(n==2)
+        return true;
+        else return false;
+    return true;
+}
+
+bool g(int x){
+        if(s(x)&&s(x+2))
+        {
+            m=x;
+            n=x+2;
+            return true;
+        }
+    return false;
+}
+
+int main(){
+    int x;
+    cin>>x;
+    for(int i=2;i<=x;i++){
+        if(g(i)){
+            cout<<m<<" "<<n<<endl;
+            }
+    }
+     return 0;
+}
+```
