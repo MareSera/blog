@@ -64,7 +64,7 @@ int main(){
 ### 输出：
 `第2个数`
 ### 代码：
-```
+```c++
 #include<bits/stdc++.h>
 using namespace std;
 int main() {
@@ -76,14 +76,15 @@ int main() {
     cin>>n;
     low=1;
     high=10;
-    while(low<high){
+    while(low<=high){
         mid=(low+high)/2;
-        if(n==a[mid])
-            {cout<<"第"<<mid<<"个数";
-            break;}
+        if(n==a[mid]){
+            cout<<"第"<<mid<<"个数";
+            break;
+            }
         else if(n>a[mid])
-                low=mid-1;
-            else high=mid+1;
+                low=mid+1;
+            else high=mid-1;
     }//2 5 13 24 27 34 38 49 55 66
 
      return 0;
