@@ -90,3 +90,41 @@ int main() {
      return 0;
 }
 ```
+## 二分查找（题库）
+### 输入：
+`10`
+`1 3 5 7 9 11 13 15 17 19
+`3`
+### 输出：
+`2`
+### 程序：
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    int a[1000001],n,low,high,mid,x;
+    cin>>x;
+    for(int i=1;i<=x;i++){
+        cin>>a[i];
+    }
+    cin>>n;
+    low=1;
+    high=x;
+    bool flag=true;
+    while(low<=high){
+        mid=(low+high)/2;
+        if(n==a[mid]){
+            cout<<mid;
+            flag=false;
+            break;
+            }
+        else if(n>a[mid])
+                low=mid+1;
+            else high=mid-1;
+    }//2 5 13 24 27 34 38 49 55 66
+    if(flag) cout<<"-1";
+
+     return 0;
+}
+```
