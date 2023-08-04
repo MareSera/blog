@@ -13,7 +13,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/c++bj5.md",
+                "file": "source/_posts/zhizhen.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3d4ef1c09b300eb4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/c++-wai.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/c++bj5.md",
+                "file": "source/_posts/zhizhen.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/c++bj5.md",
+                "file": "source/_posts/zhizhen.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/c++bj5.md"
+                "file": "source/_posts/zhizhen.md"
               }
             }
           },
@@ -164,17 +176,18 @@
       "command-palette:打开命令面板": true
     }
   },
-  "active": "4f89cf0e4bf1987a",
+  "active": "43b88912dd3fdddc",
   "lastOpenFiles": [
+    "source/_posts/c++-wai.md",
+    "source/_posts/zhizhen.md",
+    "source/_posts/c++bj5.md",
     "source/_posts/未命名看板.md",
     "source/_posts/hello-world.md",
-    "source/_posts/c++bj5.md",
     "source/_posts/c++bj4.md",
     "source/_posts/game1.md",
     "source/_posts/c++bj3.md",
     "source/_posts/c++bj1.md",
     "source/_posts/c++bj2.md",
-    "source/_posts/c++-wai.md",
     "source/_posts/c++2.md",
     "source/_posts/c++sb.md",
     "source/_posts/macth1.md",
