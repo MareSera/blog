@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/zhizhen.md",
+                "file": "source/_posts/zhizhen1.md",
                 "mode": "source",
                 "source": false
               }
@@ -106,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/zhizhen.md",
+                "file": "source/_posts/zhizhen1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/zhizhen.md",
+                "file": "source/_posts/zhizhen1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/zhizhen.md"
+                "file": "source/_posts/zhizhen1.md"
               }
             }
           },
@@ -176,10 +176,10 @@
       "command-palette:打开命令面板": true
     }
   },
-  "active": "43b88912dd3fdddc",
+  "active": "6dbaf2535e69a0fc",
   "lastOpenFiles": [
     "source/_posts/c++-wai.md",
-    "source/_posts/zhizhen.md",
+    "source/_posts/zhizhen1.md",
     "source/_posts/c++bj5.md",
     "source/_posts/未命名看板.md",
     "source/_posts/hello-world.md",
