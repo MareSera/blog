@@ -57,3 +57,35 @@ int main(){
 }
 
 ```
+## 二分法
+### 输入：
+`2 5 13 24 27 34 38 49 55 66`
+`5`
+### 输出：
+`第2个数`
+### 代码：
+```
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    int a[11],n,low,high,mid;
+    for(int i=1;i<=10;i++){
+        cin>>a[i];
+    }
+    cin>>n;
+    low=1;
+    high=10;
+    while(low<high){
+        mid=(low+high)/2;
+        if(n==a[mid])
+            {cout<<"第"<<mid<<"个数";
+            break;}
+        else if(n>a[mid])
+                low=mid-1;
+            else high=mid+1;
+    }//2 5 13 24 27 34 38 49 55 66
+
+     return 0;
+}
+```
