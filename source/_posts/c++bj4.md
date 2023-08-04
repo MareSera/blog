@@ -3,7 +3,6 @@ abbrlink: ''
 categories:
 - - cpp
 date: '2023-08-03T10:11:50.987381+08:00'
-sticky: 1
 tags:
 - cpp
 - 笔记
