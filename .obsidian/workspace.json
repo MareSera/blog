@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/c++bj7.md",
+                "file": "source/_posts/c++bj8.md",
                 "mode": "source",
                 "source": false
               }
@@ -106,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/c++bj7.md",
+                "file": "source/_posts/c++bj8.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/c++bj7.md",
+                "file": "source/_posts/c++bj8.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/c++bj7.md"
+                "file": "source/_posts/c++bj8.md"
               }
             }
           },
@@ -176,21 +176,23 @@
       "command-palette:打开命令面板": true
     }
   },
-  "active": "4f89cf0e4bf1987a",
+  "active": "3d4ef1c09b300eb4",
   "lastOpenFiles": [
+    "source/_posts/c++-wai.md",
+    "source/_posts/c++1.md",
+    "source/_posts/c++bj2.md",
+    "source/_posts/c++bj3.md",
+    "source/_posts/c++bj4.md",
+    "source/_posts/c++bj5.md",
+    "source/_posts/c++bj6.md",
+    "source/_posts/c++bj7.md",
+    "source/_posts/c++bj8.md",
+    "source/_posts/game1.md",
     "source/_posts/zhizhen1.md",
     "source/_posts/qiangzhi.md",
-    "source/_posts/c++bj6.md",
-    "source/_posts/c++bj5.md",
-    "source/_posts/c++bj7.md",
-    "source/_posts/c++-wai.md",
     "source/_posts/hello-world.md",
     "source/_posts/未命名看板.md",
-    "source/_posts/c++bj4.md",
-    "source/_posts/game1.md",
-    "source/_posts/c++bj3.md",
     "source/_posts/c++bj1.md",
-    "source/_posts/c++bj2.md",
     "source/_posts/c++2.md",
     "source/_posts/c++sb.md",
     "source/_posts/macth1.md",
