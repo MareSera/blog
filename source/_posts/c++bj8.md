@@ -29,3 +29,8 @@ C：$192.168.0.0-192.168.255.255$
 ![6cb24ac2a7d1426cbd9bc680022bcf9e.png](https://img1.imgtp.com/2023/08/10/D5op4Jup.png)
 
 # 排列组合
+排列：$P(n,k)=\frac{n!}{(n-k)!}$
+组合：$C(n,k)=\frac{n!}{k!·(n-k)!}$
+$n!=1*2*3*···*n$
+
+>
