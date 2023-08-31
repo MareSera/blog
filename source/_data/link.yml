@@ -2,6 +2,10 @@
   class_desc: 那些人，那些事
   flink_style: anzhiyu
   link_list:
+    - name: MareSera
+      link: https://www.maresera.top/
+      avatar: https://img1.imgtp.com/2023/07/01/Yoj2FO6H.png
+      descr: 实事求是 坚韧不拔 有志竟成 朝夕不倦
     - name: 安知鱼
       hundredSuffix: ""
       link: https://blog.anheyu.com
@@ -26,3 +30,7 @@
       link: https://blog.kouseki.cn/
       avatar: https://blog.kouseki.cn/imgs/avatar.webp
       descr: 愿岁并谢，与友长兮
+    - name: Dash博客
+      link: https://dashbing.github.io/
+      avatar: https://s1.ax1x.com/2023/07/06/pC6Z3hd.jpg
+      descr: ⌈搏海之明辉，何来彼岸？⌋
