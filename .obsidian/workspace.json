@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/c++biji.md",
+                "file": "source/_posts/c++-tanxin.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/c++biji.md",
+                "file": "source/_posts/c++-tanxin.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/c++biji.md",
+                "file": "source/_posts/c++-tanxin.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/c++biji.md"
+                "file": "source/_posts/c++-tanxin.md"
               }
             }
           },
@@ -166,8 +166,9 @@
   },
   "active": "57019a801668598d",
   "lastOpenFiles": [
-    "source/_posts/c++bj9.md",
     "source/_posts/c++biji.md",
+    "source/_posts/c++-tanxin.md",
+    "source/_posts/c++bj9.md",
     "source/_posts/c++bj8.md",
     "source/_posts/c++bj7.md",
     "source/_posts/c++bj6.md",
