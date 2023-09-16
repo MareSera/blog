@@ -18,8 +18,33 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "a61b1f7ee25ef3f6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/c++biji.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "5f646567ccaa12f8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/c++daima.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -94,7 +119,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/c++-tanxin.md",
+                "file": "source/_posts/c++biji.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +136,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/c++-tanxin.md",
+                "file": "source/_posts/c++biji.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/c++-tanxin.md"
+                "file": "source/_posts/c++biji.md"
               }
             }
           },
@@ -164,25 +189,26 @@
       "command-palette:打开命令面板": true
     }
   },
-  "active": "57019a801668598d",
+  "active": "a61b1f7ee25ef3f6",
   "lastOpenFiles": [
+    "source/_posts/c++daima.md",
+    "source/_posts/c++-wai.md",
     "source/_posts/c++biji.md",
+    "source/_posts/hello-world.md",
+    "source/_posts/zhizhen1.md",
+    "source/_posts/kuaisulijie.md",
     "source/_posts/c++-tanxin.md",
     "source/_posts/c++bj9.md",
     "source/_posts/c++bj8.md",
     "source/_posts/c++bj7.md",
     "source/_posts/c++bj6.md",
-    "source/_posts/c++daima.md",
     "source/_posts/c++bj4.md",
     "source/_posts/c++bj1.md",
     "source/_posts/c++bj5.md",
     "source/_posts/c++bj2.md",
-    "source/_posts/zhizhen1.md",
-    "source/_posts/hello-world.md",
     "source/_posts/game1.md",
     "source/_posts/c++2.md",
     "source/_posts/c++1.md",
-    "source/_posts/c++-wai.md",
     "集训程序合集.md",
     "source/_posts/README.md",
     "source/_posts/c++bj3.md",
