@@ -80,7 +80,7 @@ tags: csp-j
 
 最后补充一句：**不骗分，是骗分的最高境界。**
 
-#VScode美化方案
+# VScode美化方案
 顺带分享一下我的VScode美化，大家需要的话我可能单独出一篇文章水一下
 ![0](https://img1.imgtp.com/2023/09/17/QwVml4Jg.png)
 
