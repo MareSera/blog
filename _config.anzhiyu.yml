@@ -28,6 +28,9 @@ nav:
         - name: 博客
           link: https://www.maresera.top/
           icon: /img/favicon.ico
+        - name: 接单
+          link: https://docs.maresera.top/
+          icon: https://image.anheyu.com/favicon.ico
     - title: 项目
       item:
         - name: Github源码
