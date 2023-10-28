@@ -5,7 +5,7 @@ menu:
     标签: /tags/ || anzhiyu-icon-tags
   社交:
     友人帐: /link/ || anzhiyu-icon-link
-    关于本人: /about/ || anzhiyu-icon-paper-plane
+    关于本人(图床损坏 内容修复中): /about/ || anzhiyu-icon-paper-plane
     闲言碎语: /essay/ || anzhiyu-icon-lightbulb
   #   朋友圈: /fcircle/ || anzhiyu-icon-artstation
   #   留言板: /comments/ || anzhiyu-icon-envelope
@@ -113,7 +113,7 @@ favicon: /img/favicon.ico
 
 # Avatar (头像)
 avatar:
-  img: https://img1.imgtp.com/2023/07/01/Yoj2FO6H.png
+  img: https://ooo.0x0.ooo/2023/10/28/ONobPG.jpg
   effect: false
 
 # Disable all banner image
@@ -135,7 +135,7 @@ cover:
   position: left
   # When cover is not set, the default cover is displayed (当没有设置cover时，默认的封面显示)
   default_cover:
-    - https://img1.imgtp.com/2023/07/14/0vbeAP52.jpg
+    - https://ooo.0x0.ooo/2023/10/28/ONok91.png
 
 # Replace Broken Images (替换无法显示的图片)
 error_img:
@@ -208,12 +208,15 @@ post_copyright:
 reward:
   enable: true
   QR_code:
-    - img: https://img1.imgtp.com/2023/07/14/Afjd12nN.jpg
+    - img: https://img.tg/image/wx2.ONoFvD
       link:
       text: 微信
-    - img: https://img1.imgtp.com/2023/07/14/OEFs4fQG.jpg
+    - img: https://img.tg/image/zfb2.ONohdF
       link:
       text: 支付宝
+    - img: https://img.tg/image/qq2.ONozTI
+      link:
+      text: QQ
 
 # Post edit
 # Easily browse and edit blog source code online.
@@ -966,7 +969,7 @@ home_top:
   banner:
     tips: B站主页
     title: B站主页
-    image: https://img1.imgtp.com/2023/07/14/vqvGjA9o.jpg
+    image: https://ooo.0x0.ooo/2023/10/28/ONonO6.jpg
     link: https://space.bilibili.com/1158812072
 
 # 朋友圈配置
@@ -1016,7 +1019,7 @@ comment_barrage_config:
 # https://github.com/metowolf/MetingJS
 nav_music:
   enable: true
-  console_widescreen_music: false # 宽屏状态控制台显示音乐而不是标签 enable为true 控制台依然会显示
+  console_widescreen_music: true # 宽屏状态控制台显示音乐而不是标签 enable为true 控制台依然会显示
   id: 7238030777
   server: netease
   all_playlist: https://music.163.com/#/playlist?id=7238030777
