@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "347c7aa9e41c448a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/zongli.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -174,7 +187,7 @@
       "command-palette:打开命令面板": true
     }
   },
-  "active": "e28a5ab7590c6e55",
+  "active": "347c7aa9e41c448a",
   "lastOpenFiles": [
     "source/_posts/2023csp-jganwu.md",
     "source/_posts/c++-tanxin.md",
