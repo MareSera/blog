@@ -1004,7 +1004,7 @@ gitcalendar:
     type: id
     name: recent-posts
     index: 0
-  user: Fomalhaut-Blog #git用户名
+  user: MareSera #git用户名
   apiurl: 'https://gitcalendar.akilar.top'	# 这是我的API，最好自己弄一个
   minheight:
     pc: 280px #桌面端最小高度
