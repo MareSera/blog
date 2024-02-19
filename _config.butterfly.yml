@@ -84,10 +84,10 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    - https://img.tg/image/OyqeRF
-    - https://img.tg/image/OyqNFD
-    - https://img.tg/image/Oyq1uI
-    - https://img.tg/image/OyqnE1
+    - /img/cover1.jpg
+    - /img/cover2.jpg
+    - /img/cover3.jpg
+    - /img/cover4.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
