@@ -165,10 +165,10 @@ reward:
   enable: true
   text:
   QR_code:
-    - img: https://img.tg/image/ONoFvD
+    - img: /img/wx.jpg
       link: 
       text: wechat
-    - img: https://img.tg/image/ONohdF
+    - img: /img/zfb.jpg
       link:
       text: alipay
 
