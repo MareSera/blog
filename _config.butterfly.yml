@@ -230,11 +230,11 @@ aside:
     button:
       enable: true
       icon: fab fa-github
-      text: Follow Me
-      link: https://github.com/xxxxxx
+      text: 我的GitHub地址
+      link: https://github.com/MareSera
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 欢迎来到我的小站👋！</br>这里不定期更新一些内容！欢迎收藏！</br>如果你发现这里的内容有些许问题！欢迎来到QQ群👉769551310
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
@@ -296,7 +296,7 @@ newest_comments:
 
 # Conversion between Traditional and Simplified Chinese (簡繁轉換)
 translate:
-  enable: false
+  enable: true
   # The text of a button
   default: 繁
   # the language of website (1 - Traditional Chinese/ 2 - Simplified Chinese）
