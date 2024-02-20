@@ -914,6 +914,7 @@ inject:
     - <link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'">
   bottom:
     - <script defer src="/js/cursor.js"></script>
+    - <script async src="//at.alicdn.com/t/c/font_4438943_olcbfcimvh.js"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
