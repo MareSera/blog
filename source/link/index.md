@@ -78,13 +78,22 @@ date: 2021-06-16 00:34:27
                   <div class="info">这是一个分享IT技术的小站。</div>
                </div>
             </div>
-            <div class="card">
-               <img class="ava" src="https://yingwiki.top/avatar" />
+            <!-- <div class="card">
+               <img class="ava" src="<图片>" />
                <div class="card-header">
                   <div>
-                     <a href="https://yingwiki.top">越行勤's Blog</a>
+                     <a href="<链接>">名称</a>
                   </div>
-                  <div class="info">努力学习的小菜鸟</div>
+                  <div class="info">简介</div>
+               </div>
+            </div> -->
+            <div class="card">
+               <img class="ava" src="https://www.saroprock.com/profile.jpg" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://www.saroprock.com/">EveSunMaple</a>
+                  </div>
+                  <div class="info">浮萍尚有重逢日 人岂全无见面时</div>
                </div>
             </div>
          </div>
