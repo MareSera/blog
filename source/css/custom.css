@@ -58,3 +58,13 @@
   -ms-transform: scale(0.5);
   -o-transform: scale(0.5);
 }
+/*图标*/
+@import "//at.alicdn.com/t/c/font_4438943_olcbfcimvh.css";
+.iconfont {
+  font-family: "iconfont" !important;
+  /* 这里可以自定义图标大小 */
+  font-size: 3em;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
