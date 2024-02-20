@@ -913,7 +913,7 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'">
   bottom:
-    # - <script src="xxxx"></script>
+    - <script defer src="/js/cursor.js"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
