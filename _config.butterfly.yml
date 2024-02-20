@@ -9,7 +9,7 @@ nav:
 
 # Menu 目錄
 menu:
-  首页: / || icon-shouye
+  首页: / || fas fa-home
   归档: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
@@ -914,7 +914,6 @@ inject:
     - <link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'">
   bottom:
     - <script defer src="/js/cursor.js"></script>
-    - <script async src="//at.alicdn.com/t/c/font_4438943_olcbfcimvh.js"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
