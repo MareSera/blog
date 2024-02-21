@@ -2,6 +2,7 @@
 title: CSP-J备战初学（即背即用）
 date: 2024/02/20
 tags: C++
+sticky: 2
 ---
 
 >想要详细了解+理解记忆请看文章👉[CSP-J备战初学笔记（定义 无算法 理解记忆）](https://blog.maresera.top/2024/02/20/c++bei/)
