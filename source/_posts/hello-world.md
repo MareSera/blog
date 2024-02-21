@@ -5,6 +5,7 @@ description: 我再一次重置了我的网站，第三次，开始
 tags: "杂谈"
 archives: "杂谈"
 sticky: 999
+cover: /img/first_cover.jpg
 ---
 >本文写自 2024/02/20
 

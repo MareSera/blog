@@ -2,7 +2,6 @@
 title: CSP-J备战初学笔记（定义 无算法 理解记忆）
 date: 2024/02/20
 tags: C++
-cover: /img/first_cover.jpg
 ---
 >想要临时抱佛脚+100%背诵内容请看文章👉[CSP-J备战初学（即背即用）](https://blog.maresera.top/2024/02/20/c++bei/)
 
