@@ -118,7 +118,7 @@ date: 2021-06-16 00:34:27
                <img class="ava" src="https://s1.ax1x.com/2023/07/06/pC6Z3hd.jpg" />
                <div class="card-header">
                   <div>
-                     <a href="https://blog.dashbing.link/">Dash 博客</a>
+                     <a href="https://dashbing.github.io/">Dash 博客</a>
                   </div>
                   <div class="info">⌈搏海之明辉，何来彼岸？⌋</div>
                </div>
