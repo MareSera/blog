@@ -96,7 +96,42 @@ date: 2021-06-16 00:34:27
                   <div class="info">浮萍尚有重逢日 人岂全无见面时</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://www.fomal.cc/assets/avatar.webp" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://www.fomal.cc/">Fomalhaut🥝</a>
+                  </div>
+                  <div class="info">简介</div>
+               </div>
+            </div>
+            <div class="card">
+               <img class="ava" src="https://yy.liveout.cn/photo/photo2.jpg" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://www.liveout.cn/">Echo 的小窝</a>
+                  </div>
+                  <div class="info">漂泊于互联网中的小窝</div>
+               </div>
+            </div>
+            <div class="card">
+               <img class="ava" src="https://s1.ax1x.com/2023/07/06/pC6Z3hd.jpg" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://blog.dashbing.link/">Dash 博客</a>
+                  </div>
+                  <div class="info">⌈搏海之明辉，何来彼岸？⌋</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
 </div>
+
+# 友链内容
+```
+- name: MareSera的小栈
+  link: https://blog.maresera.top/
+  avatar: https://blog.maresera.top/img/tx.jpg
+  descr: ⌈搏海之明辉，何来彼岸？⌋
+```
