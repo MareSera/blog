@@ -102,7 +102,7 @@ date: 2021-06-16 00:34:27
                   <div>
                      <a href="https://www.fomal.cc/">Fomalhaut🥝</a>
                   </div>
-                  <div class="info">简介</div>
+                  <div class="info">Future is now 🍭🍭🍭</div>
                </div>
             </div>
             <div class="card">
