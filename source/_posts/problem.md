@@ -11,7 +11,6 @@ tags: 杂谈
 
 ![you-are-not-prepared.png](https://bu.dusays.com/2022/01/04/76c3a6f596ea3.png)
 
-> 感谢群友 `for you` 提供
 
 ## 避免 xy-problem
 
