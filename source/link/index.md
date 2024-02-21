@@ -133,5 +133,5 @@ date: 2021-06-16 00:34:27
 - name: MareSera的小栈
   link: https://blog.maresera.top/
   avatar: https://blog.maresera.top/img/tx.jpg
-  descr: ⌈搏海之明辉，何来彼岸？⌋
+  descr: 朝夕不倦 实事求是 坚韧不拔 有志竟成
 ```
