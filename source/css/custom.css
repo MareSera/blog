@@ -147,3 +147,9 @@ div#archive {
   background: rgba(25, 25, 25, 0.9) !important;
   color: #ffffff;
 }
+
+@font-face{
+   
+  font-family: 'W03.woff';
+  src: url('../font/W03.woff');   
+}
