@@ -125,7 +125,7 @@ C：$192.168.0.0-192.168.255.255$
 
 
 <div align=center class="aspect-ratio">
-    <iframe src="https://player.bilibili.com/player.html?aid=BV1vy42187Ka&&page=1&as_wide=1&high_quality=1&danmaku=0" 
+    <iframe src="https://www.bilibili.com/video/BV1vy42187Ka/?t=175&spm_id_from=333.1350.jump_directly&vd_source=7ff0146f2099785a07b7f19e90460722" 
     scrolling="no" 
     border="0" 
     frameborder="no" 
