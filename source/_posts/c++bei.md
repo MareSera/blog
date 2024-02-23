@@ -124,14 +124,3 @@ C：$192.168.0.0-192.168.255.255$
 **定义**：只能根据箭头方向走
 
 
-<div align=center class="aspect-ratio">
-    <iframe src="//player.bilibili.com/player.html?aid=1550793664&bvid=BV1vy42187Ka&cid=1447128814&p=1" 
-    scrolling="no" 
-    border="0" 
-    frameborder="no" 
-    framespacing="0" 
-    high_quality=1
-    danmaku=1 
-    allowfullscreen="true"> 
-    </iframe>
-</div>
