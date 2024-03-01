@@ -104,3 +104,16 @@ deploy:
   type: git
   repository: git@github.com:MareSera/blog.git
   branch: main
+
+
+  markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+  plugins:
+  anchors:
+    level: 1
+    collisionSuffix: ''
