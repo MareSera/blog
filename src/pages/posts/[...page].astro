@@ -1,0 +1,64 @@
+---
+// src/pages/posts/[...page].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Pagination from '../../components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+// 将分页配置移到静态路径函数内部
+export async function getStaticPaths() {
+  const postsPerPage = 8; // 在这里定义分页数量
+  const allPosts = await getCollection('posts');
+  const totalPages = Math.ceil(allPosts.length / postsPerPage);
+  
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { 
+      page: i === 0 ? undefined : (i + 1).toString() 
+    },
+    props: {
+      pageNumber: i + 1,
+      totalPages,
+      posts: allPosts
+        .sort((a, b) => b.data.pubDate - a.data.pubDate)
+        .slice(i * postsPerPage, (i + 1) * postsPerPage)
+    }
+  }));
+}
+
+// 接收props
+const { pageNumber, totalPages, posts } = Astro.props;
+---
+
+<BaseLayout title="文章合集">
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-serif mb-8">文海拾贝（共 {posts.length} 篇）</h1>
+    
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      {posts.map(post => (
+        <a href={`/posts/${post.slug}`} class="card hover:translate-y-[-4px] transition-transform">
+          {post.data.cover && (
+            <img src={post.data.cover} alt={post.data.title} 
+                 class="w-full h-48 object-cover rounded-lg mb-4"/>
+          )}
+          <h3 class="text-xl font-medium mb-2">{post.data.title}</h3>
+          <p class="text-secondary line-clamp-2 mb-4">{post.data.description}</p>
+          <div class="flex items-center justify-between text-sm">
+            <time>{post.data.pubDate.toLocaleDateString()}</time>
+            <div class="flex gap-2">
+              {post.data.tags.map(tag => (
+                <span class="px-2 py-1 bg-accent/10 text-accent rounded-full">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <Pagination 
+      currentPage={pageNumber} 
+      totalPages={totalPages} 
+      baseUrl="/posts"
+    />
+  </section>
+</BaseLayout>

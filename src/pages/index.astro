@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// 获取最新文章
+const posts = (await getCollection('posts'))
+  .sort((a, b) => b.data.pubDate - a.data.pubDate)
+  .slice(0, 5);
+
+// 静态数据示例
+const profile = {
+  avatar: "./../img/tx.png",
+  motto: "代码如诗，逻辑为歌",
+  socials: [
+    { icon: "icon-github", link: "#" },
+    { icon: "icon-bilibili", link: "#" }
+  ],
+  featuredProject: {
+    title: "个人主页",
+    desc: "一个美观的个人主页",
+    tech: ["HTML","CSS", "JS"],
+    link: "#"
+  },
+  todos: [
+    { text: "完成博客开发", done: true },
+    { text: "迁移旧博客内容", done: false }
+  ]
+};
+---
+
+<BaseLayout title="首页">
+  <section class="max-w-4xl mx-auto px-4 py-12 space-y-16">
+    <!-- 个人信息 -->
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      <img src={profile.avatar} 
+           class="w-32 h-32 rounded-full border-4 border-accent/20 shadow-lg" 
+           alt="头像" />
+      <div class="text-center md:text-left">
+        <h1 class="text-4xl font-serif mb-4">{profile.motto}</h1>
+        <div class="flex justify-center md:justify-start gap-4">
+          {profile.socials.map(social => (
+            <a href={social.link} 
+               class="p-3 rounded-full bg-accent/10 hover:bg-accent/20 transition-colors">
+              <i class={`iconfont ${social.icon} text-2xl`} />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 特色项目 & Todo -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="card">
+        <h2 class="text-2xl font-serif mb-4">✨ 匠心之作</h2>
+        <h3 class="text-xl mb-2">{profile.featuredProject.title}</h3>
+        <p class="text-secondary mb-4">{profile.featuredProject.desc}</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          {profile.featuredProject.tech.map(tech => (
+            <span class="px-3 py-1 bg-accent/10 text-accent rounded-full">
+              {tech}
+            </span>
+          ))}
+        </div>
+        <a href={profile.featuredProject.link} class="inline-flex items-center gap-2 text-accent hover:underline">
+          探索详情 <i class="iconfont icon-arrow-right" />
+        </a>
+      </div>
+
+      <div class="card">
+        <h2 class="text-2xl font-serif mb-4">📝 今日清单</h2>
+        <ul class="space-y-3">
+          {profile.todos.map((todo, index) => (
+            <li class="flex items-center gap-3">
+              <i class={`iconfont ${todo.done ? 'icon-checkbox-checked text-accent' : 'icon-checkbox-blank'} text-xl`} />
+              <span class:line-through={todo.done}>{todo.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- 最新文章 -->
+    <div class="card">
+      <h2 class="text-2xl font-serif mb-6">📖 新作速览</h2>
+      <div class="grid gap-4">
+        {posts.map(post => (
+          <a href={`/posts/${post.slug}`} 
+             class="group flex items-center justify-between p-4 hover:bg-accent/5 rounded-lg transition-colors">
+            <div>
+              <h3 class="text-lg font-medium group-hover:text-accent">
+                {post.data.title}
+              </h3>
+              <div class="flex items-center gap-3 text-sm text-secondary mt-1">
+                <time>{post.data.pubDate.toLocaleDateString()}</time>
+                <div class="flex gap-2">
+                  {post.data.tags.map(tag => (
+                    <span class="px-2 py-1 bg-accent/10 text-accent rounded-full">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <i class="iconfont icon-arrow-right opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

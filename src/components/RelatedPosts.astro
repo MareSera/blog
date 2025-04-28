@@ -1,0 +1,51 @@
+---
+// src/components/RelatedPosts.astro
+import { getCollection } from 'astro:content';
+
+const { currentPost } = Astro.props;
+
+const allPosts = await getCollection('posts');
+const relatedPosts = allPosts
+  .filter(post => 
+    post.slug !== currentPost.slug &&
+    post.data.tags.some(tag => currentPost.data.tags.includes(tag))
+  )
+  .sort((a, b) => {
+    const aMatches = a.data.tags.filter(t => currentPost.data.tags.includes(t)).length;
+    const bMatches = b.data.tags.filter(t => currentPost.data.tags.includes(t)).length;
+    return bMatches - aMatches;
+  })
+  .slice(0, 3);
+---
+
+<section class="mt-16 border-t pt-12">
+  {relatedPosts.length > 0 ? (
+    <>
+      <h2 class="text-2xl font-serif mb-6">📚 相关推荐</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        {relatedPosts.map(post => (
+          <a 
+            href={`/posts/${post.slug}`}
+            class="card hover:translate-y-[-4px] transition-transform"
+          >
+            {post.data.cover && (
+              <img 
+                src={post.data.cover} 
+                class="w-full h-32 object-cover rounded-lg mb-4"
+                alt={post.data.title}
+              />
+            )}
+            <h3 class="font-medium mb-2">{post.data.title}</h3>
+            <p class="text-secondary line-clamp-2">
+              {post.data.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </>
+  ) : (
+    <div class="text-center text-secondary py-6">
+      暂时没有相关文章推荐
+    </div>
+  )}
+</section>

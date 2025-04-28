@@ -1,0 +1,52 @@
+---
+const links = [
+  { path: "/", name: "首页", icon: "icon-home" },
+  { path: "/posts", name: "文集", icon: "icon-book" },
+  { path: "/friends", name: "友邻", icon: "icon-users" },
+  { path: "/moments", name: "絮语", icon: "icon-chat" },
+  { path: "/about", name: "吾志", icon: "icon-user" }
+];
+---
+
+<nav class="sticky top-0 bg-surface/80 backdrop-blur z-50 border-b">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <a href="/" class="text-xl font-serif font-bold hover:text-accent transition-colors">
+        MareSera
+      </a>
+      
+      <div class="hidden md:flex items-center gap-6">
+        {links.map(link => (
+          <a 
+            href={link.path}
+            class="flex items-center gap-1 hover:text-accent transition-colors"
+            class:list={[{
+              'text-accent': Astro.url.pathname === link.path
+            }]}
+          >
+            <i class={`iconfont ${link.icon} text-lg`} />
+            <span>{link.name}</span>
+          </a>
+        ))}
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-accent/10">
+          <i class="iconfont icon-moon text-lg" id="theme-icon" />
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // 主题切换逻辑
+  const savedTheme = localStorage.getItem('theme') || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+  
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.getElementById('theme-icon').className = `iconfont ${
+      isDark ? 'icon-sun' : 'icon-moon'
+    } text-lg`;
+  });
+</script>

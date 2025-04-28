@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { slug: post.slug }, // 仅传递slug
+  }));
+}
+
+const { slug } = Astro.props;
+const post = await getCollection('posts').then(posts => 
+  posts.find(p => p.slug === slug)
+);
+
+if (!post) return Astro.redirect('/404');
+
+// 正确解构Content组件
+const { Content } = await post.render();
+const contentLength = post.body?.length || 0;
+---
+
+<BaseLayout title={post.data.title}>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-serif mb-6">{post.data.title}</h1>
+      <div class="flex items-center justify-center gap-4 text-secondary mb-4">
+        <time>{post.data.pubDate.toLocaleDateString()}</time>
+        <span>·</span>
+        <span>{Math.ceil(contentLength / 500)}分钟阅读</span>
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center">
+        {post.data.tags.map(tag => (
+          <a href={`/tags/${tag}`} 
+             class="px-3 py-1 bg-accent/10 text-accent rounded-full hover:bg-accent/20 transition-colors">
+            #{tag}
+          </a>
+        ))}
+      </div>
+    </header>
+
+    {post.data.cover && (
+      <img src={post.data.cover} 
+           alt={post.data.title}
+           class="w-full h-64 object-cover rounded-xl mb-8 shadow-lg" />
+    )}
+
+    <section class="prose dark:prose-invert max-w-none">
+      <Content />  <!-- 修复组件引用方式 -->
+    </section>
+
+    <RelatedPosts currentPost={post} />
+  </article>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+import Nav from '../components/Nav.astro';
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} - MareSera</title>
+  <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4525512_abc123def.css">
+  <link rel="stylesheet" href="/src/styles/katex.min.css">
+</head>
+<body class="min-h-screen flex flex-col">
+  <Nav />
+  <main class="flex-1">
+    <slot />
+  </main>
+  <footer class="border-t mt-12 py-6 text-center text-secondary">
+    <p>© 2024 MareSera · 诗意栖居</p>
+  </footer>
+  <style is:inline>
+  /* 修复公式换行问题 */
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1rem 0;
+  }
+
+  /* 适配暗色模式 */
+  .dark .katex {
+    color: rgb(229 231 235);
+  }
+</style>
+</body>
+</html>

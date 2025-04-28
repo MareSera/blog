@@ -1,0 +1,27 @@
+---
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+const getPagePath = (page) => 
+  page === 1 ? baseUrl : `${baseUrl}/${page}`;
+---
+
+<div class="flex justify-center gap-2">
+  {Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1;
+    const isActive = page === currentPage;
+    
+    return (
+      <a
+        href={getPagePath(page)}
+        class={`px-4 py-2 rounded-full transition-colors ${
+          isActive 
+            ? 'bg-accent text-surface cursor-default' 
+            : 'bg-accent/10 text-accent hover:bg-accent/20'
+        }`}
+        aria-current={isActive ? 'page' : undefined}
+      >
+        {page}
+      </a>
+    );
+  })}
+</div>

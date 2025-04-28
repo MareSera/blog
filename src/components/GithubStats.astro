@@ -1,0 +1,53 @@
+---
+import { getGitHubStats } from '../utils/github';
+
+const { username } = Astro.props;
+const stats = await getGitHubStats(username);
+---
+
+<div class="card">
+  <h2 class="text-3xl font-serif mb-6">GitHub 足迹</h2>
+  
+  <!-- 加载状态处理 -->
+  {stats.repos === 0 ? (
+    <div class="text-center py-8 text-secondary">
+      GitHub 数据加载失败，请稍后刷新
+    </div>
+  ) : (
+    <div class="grid md:grid-cols-2 gap-8">
+    <!-- 概览 -->
+    <div>
+      <h3 class="text-xl mb-4">开源贡献</h3>
+      <div class="flex gap-6">
+        <div class="text-center">
+          <div class="text-3xl">{stats.repos}</div>
+          <div class="text-secondary">仓库</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl">{stats.stars}</div>
+          <div class="text-secondary">Stars</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 语言分布 -->
+    <div>
+      <h3 class="text-xl mb-4">常用语言</h3>
+      <div class="space-y-3">
+        {stats.languages.map(lang => (
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>{lang.name}</span>
+              <span>{lang.percent}%</span>
+            </div>
+            <div class="h-2 bg-accent/10 rounded-full">
+              <div class="h-full bg-accent rounded-full" 
+                   style={`width: ${lang.percent}%`} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  )}
+</div>

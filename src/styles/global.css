@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 64 64 64;
+  --color-secondary: 147 147 147;
+  --color-accent: 160 192 160;
+  --color-surface: 255 255 255;
+}
+
+.dark {
+  --color-primary: 235 235 235;
+  --color-secondary: 180 180 180;
+  --color-accent: 128 160 192;
+  --color-surface: 38 38 38;
+}
+
+body {
+  @apply bg-surface text-primary transition-colors duration-300;
+}
+
+/* 自定义卡片样式 */
+.card {
+  @apply p-6 rounded-2xl border border-accent/20 bg-surface/90 backdrop-blur-lg 
+         shadow-md hover:shadow-xl transition-all;
+}
+
+/* 瀑布流布局 */
+.waterfall {
+  column-count: 2;
+  column-gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .waterfall {
+    column-count: 1;
+  }
+}
+
+/* 图标字体 */
+.iconfont {
+  font-family: "iconfont" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* 在global.css添加 */
+.prose a {
+  @apply text-accent hover:underline;
+}
+
+.card {
+  @apply transition-transform duration-300;
+}
+
+/* 在global.css添加 */
+.prose {
+  img {
+    @apply my-4;
+  }
+  pre {
+    @apply bg-gray-100 dark:bg-gray-800 rounded-lg p-4;
+  }
+  line-height: 1.75;  /* 从默认1.5提升到1.75 */
+  
+  p {
+    @apply my-5;      /* 段落上下边距从1em增加到1.25rem */
+  }
+
+  ul, ol {
+    @apply my-5;      /* 列表间距同步增加 */
+  }
+
+  li {
+    @apply my-2;      /* 列表项间距 */
+  }
+
+  blockquote {
+    @apply my-6;      /* 引用块间距 */
+  }
+
+  h1, h2, h3, h4 {
+    @apply my-8;      /* 标题间距 */
+  }
+}
+
+.prose blockquote {
+  @apply border-l-4 border-accent pl-4 italic text-gray-600 dark:text-gray-300;
+  
+  p {
+    @apply m-0; /* 移除段落默认边距 */
+  }
+}
+

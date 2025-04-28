@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GithubStats from '../components/GithubStats.astro';
+
+const skills = [
+  { name: 'HTML', level: 90 },
+  { name: 'VUE', level: 20 },
+  { name: 'C++', level: 75 }
+];
+---
+
+<BaseLayout title="关于">
+  <main class="max-w-4xl mx-auto px-4 py-12 space-y-16">
+    <!-- GitHub统计 -->
+    <GithubStats username="MareSera" />
+
+    <!-- 技能图表 -->
+    <div class="card">
+      <h2 class="text-3xl font-serif mb-8">🛠 技艺图谱</h2>
+      <div class="space-y-6">
+        {skills.map(skill => (
+          <div>
+            <div class="flex justify-between mb-2">
+              <span>{skill.name}</span>
+              <span>{skill.level}%</span>
+            </div>
+            <div class="h-2 bg-accent/10 rounded-full">
+              <div class="h-full bg-accent rounded-full transition-all duration-500" 
+                   style={`width: ${skill.level}%`} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 关于我  -->
+    <div class="card">
+      <h2 class="text-3xl font-serif mb-8">😎 关于我</h2>
+      <a>啥也不是🫠</a></br>
+      </div>
+    </div>
+
+    <!-- 关于本站  -->
+    <div class="card">
+      <h2 class="text-3xl font-serif mb-8">🔭 关于本站</h2>
+      <a>啥也不是🫠</a></br>
+      </div>
+    </div>
+
+    <!-- 联系表单 -->
+    <div class="card text-center">
+      <h2 class="text-3xl font-serif mb-4">📮 鸿雁传书</h2>
+      <p class="text-secondary mb-6">有任何建议或合作意向？欢迎来信交流</p>
+      <a href="mailto:lyt15624134413@163.com" 
+         class="inline-flex items-center gap-2 px-8 py-3 bg-accent text-surface rounded-lg hover:bg-accent/90 transition-colors">
+        <i class="iconfont icon-mail text-xl" />
+        发送邮件
+      </a>
+    </div>
+  </main>
+</BaseLayout>
