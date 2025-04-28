@@ -25,6 +25,8 @@ function createHeaders() {
 
 // 获取基础统计数据
 export async function getGitHubStats(username) {
+  const token = import.meta.env.GITHUB_TOKEN; // 使用 Vercel 环境变量
+  
   try {
     const [userRes, reposRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`, { headers: createHeaders(),agent: insecureAgent  }),
