@@ -93,3 +93,17 @@ body {
   }
 }
 
+/* 添加过渡动画 */
+body {
+  @apply transition-colors duration-300;
+}
+
+/* 优化按钮交互效果 */
+#theme-toggle {
+  @apply transition-all duration-200 hover:scale-110;
+}
+
+/* 暗色模式图标颜色 */
+.dark #theme-icon {
+  @apply text-yellow-400; /* 太阳图标使用黄色 */
+}
