@@ -92,18 +92,30 @@ body {
     @apply m-0; /* 移除段落默认边距 */
   }
 }
-
-/* 添加过渡动画 */
-body {
-  @apply transition-colors duration-300;
-}
-
-/* 优化按钮交互效果 */
+/* 胶囊容器 */
 #theme-toggle {
-  @apply transition-all duration-200 hover:scale-110;
+  width: 3.5rem;  /* w-14 */
+  height: 2rem;   /* h-8 */
+  background: #e5e7eb; /* 日间背景 */
 }
 
-/* 暗色模式图标颜色 */
-.dark #theme-icon {
-  @apply text-yellow-400; /* 太阳图标使用黄色 */
+.dark #theme-toggle {
+  background: #374151; /* 夜间背景 */
+}
+
+/* 滑动块 */
+#theme-thumb {
+  width: 1.5rem;  /* w-6 */
+  height: 1.5rem; /* h-6 */
+  top: 0.25rem;   /* top-1 */
+  left: 0.25rem;  /* 日间位置 */
+}
+
+.dark #theme-thumb {
+  left: calc(100% - 1.5rem - 0.25rem); /* 右对齐 */
+}
+
+/* 图标过渡 */
+#theme-thumb i {
+  transition: opacity 0.3s;
 }
