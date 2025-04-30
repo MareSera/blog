@@ -8,11 +8,17 @@ const links = [
 ];
 ---
 
-<nav class="sticky top-0 bg-surface/80 backdrop-blur z-50 border-b">
+<nav class="sticky top-0 z-50 border-b border-accent/10 backdrop-blur-lg bg-surface/30 dark:bg-surface/50 transition-colors">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex items-center justify-between h-16">
       <!-- 左侧品牌 -->
-      <a href="/" class="text-xl font-serif font-bold hover:text-accent transition-colors">
+      <a 
+        href="/" 
+        class="text-xl font-serif font-bold hover:text-accent transition-colors flex items-center gap-2"
+      >
+        <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
         MareSera
       </a>
 
@@ -23,27 +29,32 @@ const links = [
           {links.map(link => (
             <a 
               href={link.path}
-              class="flex items-center gap-1 hover:text-accent transition-colors"
+              class="flex items-center gap-1.5 hover:text-accent transition-colors group relative"
               class:list={[{
                 'text-accent': Astro.url.pathname === link.path
               }]}
             >
               <i class={`iconfont ${link.icon} text-lg`} />
-              <span>{link.name}</span>
+              <span class="text-sm font-medium tracking-wide">{link.name}</span>
+              
+              {/* 当前页面装饰线 */}
+              {Astro.url.pathname === link.path && (
+                <div class="absolute -bottom-1.5 left-0 w-full h-0.5 bg-accent rounded-full animate-line-expand" />
+              )}
             </a>
           ))}
         </div>
 
-        <!-- 胶囊开关 -->
+        <!-- 昼夜切换按钮 -->
         <button
           id="theme-toggle"
-          class="relative w-14 h-8 rounded-full bg-gray-200 dark:bg-gray-700 transition-colors"
+          class="relative w-14 h-8 rounded-full bg-gray-200 dark:bg-gray-700 transition-colors group"
           aria-label="昼夜切换"
         >
           <div id="theme-thumb" class="
             absolute top-1 w-6 h-6 bg-white dark:bg-gray-300 rounded-full shadow-lg
-            transition-all duration-300
-            left-1 dark:left-7
+            transition-all duration-300 flex items-center justify-center
+            left-1 dark:left-7 group-hover:scale-110
           ">
             <i id="theme-icon" class="
               absolute inset-0 flex items-center justify-center
@@ -66,19 +77,58 @@ const links = [
   </div>
 </nav>
 
+<style>
+  /* 装饰线动画 */
+  .animate-line-expand {
+    animation: line-expand 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @keyframes line-expand {
+    from { transform: scaleX(0) }
+    to { transform: scaleX(1) }
+  }
+
+  /* 移除默认hover效果 */
+  nav a:hover div {
+    width: auto !important;
+  }
+  
+  /* 移动端隐藏品牌图标 */
+  @media (max-width: 768px) {
+    nav a svg {
+      display: none;
+    }
+  }
+</style>
+
 <script>
-  // 初始化主题
+  // 主题初始化
   const initTheme = () => {
     const savedTheme = localStorage.getItem('theme') || 
       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', savedTheme === 'dark');
   };
 
-  // 切换主题
+  // 主题切换事件
   document.getElementById('theme-toggle').addEventListener('click', () => {
     const isDark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    // 添加点击动画
+    const thumb = document.getElementById('theme-thumb');
+    thumb.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      thumb.style.transform = 'scale(1)';
+    }, 100);
   });
 
+  // 初始化主题
   initTheme();
+
+  // 监听系统主题变化
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.classList.toggle('dark', e.matches);
+    }
+  });
 </script>

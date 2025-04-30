@@ -18,104 +18,62 @@
 
 body {
   @apply bg-surface text-primary transition-colors duration-300;
+  background-image: url('/background.svg');
+  background-size: cover; /* 关键自适应属性 */
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: rgb(var(--color-surface)); 
 }
 
-/* 自定义卡片样式 */
+/* 添加背景遮罩层 */
+body::before {
+  content: '';
+  @apply fixed inset-0 bg-surface/50 backdrop-blur-[1px] z-[-1];
+}
+.dark body::before {
+  @apply bg-surface/60; /* 暗色模式增加遮罩深度 */
+}
+/* 卡片样式 */
 .card {
-  @apply p-6 rounded-2xl border border-accent/20 bg-surface/90 backdrop-blur-lg 
+  @apply p-6 rounded-2xl border border-accent/20 
+         bg-surface/30 backdrop-blur-lg
          shadow-md hover:shadow-xl transition-all;
 }
 
-/* 瀑布流布局 */
-.waterfall {
-  column-count: 2;
-  column-gap: 2rem;
+/* 导航栏样式调整 */
+nav {
+  @apply bg-surface/30 backdrop-blur-lg;
+}
+.dark nav {
+  @apply bg-surface/50;
 }
 
-@media (max-width: 768px) {
-  .waterfall {
-    column-count: 1;
-  }
-}
-
-/* 图标字体 */
-.iconfont {
-  font-family: "iconfont" !important;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-/* 在global.css添加 */
-.prose a {
-  @apply text-accent hover:underline;
-}
-
-.card {
-  @apply transition-transform duration-300;
-}
-
-/* 在global.css添加 */
+/* 其他优化 */
 .prose {
+  @apply relative;
   img {
-    @apply my-4;
+    @apply rounded-xl shadow-lg;
   }
-  pre {
-    @apply bg-gray-100 dark:bg-gray-800 rounded-lg p-4;
+  code::before,
+  code::after {
+    content: '';
   }
-  line-height: 1.75;  /* 从默认1.5提升到1.75 */
+}
+@media (max-width: 768px) {
+  body {
+    background-size: auto 100%; /* 移动端垂直适配 */
+    background-position: 75% center;
+  }
   
-  p {
-    @apply my-5;      /* 段落上下边距从1em增加到1.25rem */
-  }
-
-  ul, ol {
-    @apply my-5;      /* 列表间距同步增加 */
-  }
-
-  li {
-    @apply my-2;      /* 列表项间距 */
-  }
-
-  blockquote {
-    @apply my-6;      /* 引用块间距 */
-  }
-
-  h1, h2, h3, h4 {
-    @apply my-8;      /* 标题间距 */
+  /* 移动端减少模糊强度 */
+  body::before {
+    backdrop-filter: blur(2px);
   }
 }
 
-.prose blockquote {
-  @apply border-l-4 border-accent pl-4 italic text-gray-600 dark:text-gray-300;
-  
-  p {
-    @apply m-0; /* 移除段落默认边距 */
+@media (orientation: portrait) {
+  body {
+    background-attachment: scroll; /* 竖屏取消固定定位 */
   }
-}
-/* 胶囊容器 */
-#theme-toggle {
-  width: 3.5rem;  /* w-14 */
-  height: 2rem;   /* h-8 */
-  background: #e5e7eb; /* 日间背景 */
-}
-
-.dark #theme-toggle {
-  background: #374151; /* 夜间背景 */
-}
-
-/* 滑动块 */
-#theme-thumb {
-  width: 1.5rem;  /* w-6 */
-  height: 1.5rem; /* h-6 */
-  top: 0.25rem;   /* top-1 */
-  left: 0.25rem;  /* 日间位置 */
-}
-
-.dark #theme-thumb {
-  left: calc(100% - 1.5rem - 0.25rem); /* 右对齐 */
-}
-
-/* 图标过渡 */
-#theme-thumb i {
-  transition: opacity 0.3s;
 }

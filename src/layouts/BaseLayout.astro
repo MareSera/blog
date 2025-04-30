@@ -1,7 +1,6 @@
 ---
 import Nav from '../components/Nav.astro';
 import '../styles/global.css';
-import 'katex/dist/katex.min.css';
 
 const { title } = Astro.props;
 ---
@@ -11,30 +10,103 @@ const { title } = Astro.props;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} - MareSera</title>
+  <meta name="description" content="MareSera的个人博客 - 记录技术思考与生活感悟">
+  <title>{title} | MareSera</title>
+
+  <!-- 预加载和异步加载背景 -->
+<link 
+  rel="preload" 
+  href="/background.svg" 
+  as="image" 
+  media="(prefers-color-scheme: light)"
+>
+<link 
+  rel="preload" 
+  href="/background-dark.svg" 
+  as="image" 
+  media="(prefers-color-scheme: dark)"
+>
+
+<script>
+// 动态加载背景
+window.addEventListener('load', () => {
+  const bg = new Image();
+  bg.src = window.matchMedia('(prefers-color-scheme: dark)').matches 
+    ? '/background-dark.svg' 
+    : '/background.svg';
+    
+  bg.onload = () => {
+    document.body.style.backgroundImage = `url(${bg.src})`;
+  };
+});
+</script>
+
+  
+  <!-- 图标字体 -->
   <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_4903580_98odgrmhd2m.css">
-  <link rel="stylesheet" href="/src/styles/katex.min.css">
+
+  
+  <!-- 预加载背景图 -->
+  <link rel="preload" href="/background.svg" as="image">
 </head>
-<body class="min-h-screen flex flex-col">
+
+<body class="min-h-screen flex flex-col bg-opacity-90">
   <Nav />
-  <main class="flex-1">
+
+  <main class="flex-1 py-16">
     <slot />
   </main>
-  <footer class="border-t mt-12 py-6 text-center text-secondary">
-    <p>© 2024 MareSera · 诗意栖居</p>
-  </footer>
-  <style is:inline>
-  /* 修复公式换行问题 */
-  .katex-display {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 1rem 0;
-  }
 
-  /* 适配暗色模式 */
-  .dark .katex {
-    color: rgb(229 231 235);
-  }
-</style>
+  <footer class="border-t border-accent/10 mt-24 py-8 text-center text-secondary bg-surface/50">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-6 mb-6">
+        <div>
+          <h3 class="font-serif mb-3">探索</h3>
+          <div class="space-y-2 text-sm">
+            <a href="/posts" class="hover:text-accent">文章合集</a>
+            <a href="/tags" class="hover:text-accent">标签云</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-serif mb-3">社交</h3>
+          <div class="space-y-2 text-sm">
+            <a href="https://github.com/MareSera" class="hover:text-accent">GitHub</a>
+            <a href="#" class="hover:text-accent">Twitter</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-serif mb-3">协议</h3>
+          <div class="space-y-2 text-sm">
+            <a href="/feed.xml" class="hover:text-accent">RSS订阅</a>
+            <a href="/license" class="hover:text-accent">CC BY-NC 4.0</a>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm">© 2024 MareSera · 诗意栖居</p>
+    </div>
+  </footer>
+
+  <style is:global>
+    /* 全局滚动条样式 */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      @apply bg-surface/50;
+    }
+    ::-webkit-scrollbar-thumb {
+      @apply bg-accent/30 rounded-full hover:bg-accent/40;
+    }
+
+    /* 动画效果 */
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.6s ease-out;
+    }
+  </style>
 </body>
 </html>
