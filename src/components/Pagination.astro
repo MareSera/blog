@@ -6,6 +6,15 @@ const getPagePath = (page) =>
 ---
 
 <div class="flex justify-center gap-2">
+  {currentPage > 1 && (
+    <a
+      href={getPagePath(currentPage - 1)}
+      class="px-4 py-2 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
+    >
+      上一页
+    </a>
+  )}
+
   {Array.from({ length: totalPages }, (_, i) => {
     const page = i + 1;
     const isActive = page === currentPage;
@@ -24,4 +33,13 @@ const getPagePath = (page) =>
       </a>
     );
   })}
+
+  {currentPage < totalPages && (
+    <a
+      href={getPagePath(currentPage + 1)}
+      class="px-4 py-2 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
+    >
+      下一页
+    </a>
+  )}
 </div>

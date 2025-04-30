@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  const postsPerPage = 8;
+  
+  // 生成所有标签路径
+  const tagMap = new Map();
+  allPosts.forEach(post => {
+    post.data.tags.forEach(tag => {
+      const slug = tag.toLowerCase().replace(/\s+/g, '-');
+      const entry = tagMap.get(slug) || { name: tag, posts: [] };
+      entry.posts.push(post);
+      tagMap.set(slug, entry);
+    });
+  });
+
+  return Array.from(tagMap).map(([slug, data]) => {
+    const totalPages = Math.ceil(data.posts.length / postsPerPage);
+    return Array.from({ length: totalPages }, (_, i) => ({
+      params: {
+        tag: slug,
+        page: i === 0 ? undefined : i + 1
+      },
+      props: {
+        tag: data.name,
+        posts: data.posts.slice(i * postsPerPage, (i + 1) * postsPerPage),
+        currentPage: i + 1,
+        totalPages: totalPages
+      }
+    }));
+  }).flat();
+}
+
+const { tag, posts, currentPage, totalPages } = Astro.props;
+---
+
+<BaseLayout title={`标签：${tag}`}>
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-serif mb-8">标签：{tag}</h1>
+    
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      {posts.map(post => (
+        <a href={`/posts/${post.slug}`} class="card hover:translate-y-[-4px] transition-transform">
+          {post.data.cover && (
+            <img 
+              src={post.data.cover} 
+              alt={post.data.title}
+              class="w-full h-48 object-cover rounded-lg mb-4"
+            />
+          )}
+          <h3 class="text-xl font-medium mb-2">{post.data.title}</h3>
+          <p class="text-secondary line-clamp-2 mb-4">{post.data.description}</p>
+          <div class="flex items-center justify-between text-sm">
+            <time>{post.data.pubDate.toLocaleDateString()}</time>
+            <div class="flex gap-2">
+              {post.data.tags.map(t => (
+                <span class="px-2 py-1 bg-accent/10 text-accent rounded-full">
+                  #{t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      baseUrl={`/tags/${Astro.params.tag}`}
+    />
+  </section>
+</BaseLayout>

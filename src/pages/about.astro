@@ -11,9 +11,9 @@ const skills = [
 ];
 
 const timeline = [
-  { year: "2020", title: "初识编程", desc: "开始学习Web开发基础" },
-  { year: "2022", title: "全栈实践", desc: "完成首个全栈项目" },
-  { year: "2024", title: "开源贡献", desc: "参与开源社区建设" }
+  { year: "2018", title: "初识编程", desc: "首次认识了图形化编程" },
+  { year: "2022", title: "全栈实践", desc: "首次接触语言化编程" },
+  { year: "2025", title: "开源贡献", desc: "发布许多开源项目" }
 ];
 ---
 
@@ -48,17 +48,29 @@ const timeline = [
     <!-- 时间轴 -->
     <div class="card">
       <h2 class="text-3xl font-serif mb-8">⏳ 时光轨迹</h2>
-      <div class="relative pl-8 border-l-2 border-accent/20">
+      <div class="relative pl-8">
+        {/* 时间轴线 */}
+        <div class="absolute left-0 top-4 bottom-4 w-px bg-gradient-to-b from-accent/20 via-accent/50 to-accent/20" />
+        
         {timeline.map((item, index) => (
-          <div class="relative mb-8">
-            <div class="absolute w-4 h-4 bg-accent rounded-full -left-[9px] top-1" />
-            <h3 class="text-xl font-medium mb-2">
-              <span class="text-accent mr-2">{item.year}</span>
-              {item.title}
-            </h3>
-            <p class="text-secondary leading-relaxed">
-              {item.desc}
-            </p>
+          <div class="relative mb-12 group">
+            {/* 时间节点装饰 */}
+            <div class="absolute left-[-34px] top-1 flex h-8 w-8 items-center justify-center rounded-full bg-accent shadow-lg transition-transform group-hover:scale-110">
+              <svg class="h-4 w-4 text-surface" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+
+            {/* 内容卡片 */}
+            <div class="pl-8">
+              <div class="flex items-baseline gap-4 mb-2">
+                <span class="text-2xl font-bold text-accent">{item.year}</span>
+                <span class="text-lg font-medium opacity-80">{item.title}</span>
+              </div>
+              <p class="text-secondary pl-2 border-l-2 border-accent/30 leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -113,3 +125,16 @@ const timeline = [
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  /* 时间轴优化样式 */
+  .timeline-node {
+    box-shadow: 0 4px 6px -1px rgba(var(--color-accent), 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .timeline-content {
+      padding-left: 2rem;
+    }
+  }
+</style>

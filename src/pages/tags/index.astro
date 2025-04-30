@@ -1,0 +1,83 @@
+---
+// src/pages/tags/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts');
+
+const tagMap = allPosts.reduce((acc, post) => {
+  post.data.tags.forEach(tag => {
+    const slug = tag.toLowerCase().replace(/\s+/g, '-');
+    acc.set(slug, {
+      name: tag,
+      count: (acc.get(slug)?.count || 0) + 1,
+      slug: slug
+    });
+  });
+  return acc;
+}, new Map());
+
+const tags = Array.from(tagMap.values()).sort((a, b) => b.count - a.count);
+const maxCount = Math.max(...tags.map(t => t.count));
+---
+
+<BaseLayout title="标签云">
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-serif mb-8">所有标签</h1>
+    
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-3">
+      {tags.map(tag => {
+        const weight = 0.6 + (tag.count / maxCount) * 0.4;
+        return (
+          <a
+            href={`/tags/${tag.slug}`}
+            class="relative flex items-center justify-center px-6 py-3 rounded-full bg-accent/10 hover:bg-accent/20 transition-all"
+            style={`
+              --scale: ${weight};
+              font-size: calc(1rem * var(--scale));
+              padding-left: calc(1.5rem * var(--scale));
+              padding-right: calc(1.5rem * var(--scale));
+            `}
+          >
+            <span class="whitespace-nowrap">
+              {tag.name}
+              <span class="ml-2 text-accent/80">{tag.count}</span>
+            </span>
+          </a>
+        )
+      })}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* 自适应网格布局 */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: 0.75rem;
+  }
+
+  /* 标签尺寸控制 */
+  [class*="rounded-full"] {
+    min-width: fit-content;
+    transform-origin: center;
+    animation: pop-in 0.3s ease backwards;
+  }
+
+  @keyframes pop-in {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* 移动端优化 */
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    [class*="rounded-full"] {
+      font-size: 0.9rem !important;
+      padding: 0.5rem 1rem !important;
+    }
+  }
+</style>

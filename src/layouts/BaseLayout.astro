@@ -8,6 +8,11 @@ const { title } = Astro.props;
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
 <head>
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" 
+  />
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="MareSera的个人博客 - 记录技术思考与生活感悟">
@@ -71,14 +76,13 @@ window.addEventListener('load', () => {
           <h3 class="font-serif mb-3">社交</h3>
           <div class="space-y-2 text-sm">
             <a href="https://github.com/MareSera" class="hover:text-accent">GitHub</a>
-            <a href="#" class="hover:text-accent">Twitter</a>
+            <a href="https://space.bilibili.com/1158812072" class="hover:text-accent">bilibili</a>
           </div>
         </div>
         <div>
-          <h3 class="font-serif mb-3">协议</h3>
+          <h3 class="font-serif mb-3">特别鸣谢</h3>
           <div class="space-y-2 text-sm">
-            <a href="/feed.xml" class="hover:text-accent">RSS订阅</a>
-            <a href="/license" class="hover:text-accent">CC BY-NC 4.0</a>
+            <a href="https://www.saroprock.com/" class="hover:text-accent">EveSunMaple</a>
           </div>
         </div>
       </div>
@@ -107,6 +111,31 @@ window.addEventListener('load', () => {
     .animate-fade-in {
       animation: fade-in 0.6s ease-out;
     }
+
+    /* 优化中文排版 */
+  .prose {
+    text-spacing: ideograph-alpha ideograph-numeric;
+    hanging-punctuation: allow-end;
+  }
+
+  /* 首段首字下沉 */
+  .prose > p:first-child::first-letter {
+    @apply float-left text-5xl font-serif mr-2 leading-none 
+           text-accent mt-1;
+  }
+
+  /* 段落首行缩进 */
+  .prose p {
+    text-indent: 2em;
+  }
+
+  /* 不缩进的情况 */
+  .prose p:first-child,
+  .prose p > img:first-child + p,
+  .prose ul + p,
+  .prose ol + p {
+    text-indent: 0;
+  }
   </style>
 </body>
 </html>

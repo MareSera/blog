@@ -5,7 +5,7 @@
 :root {
   --color-primary: 64 64 64;
   --color-secondary: 147 147 147;
-  --color-accent: 160 192 160;
+  --color-accent: 160 180 160;
   --color-surface: 255 255 255;
 }
 
@@ -17,56 +17,95 @@
 }
 
 body {
-  @apply bg-surface text-primary transition-colors duration-300;
+  @apply bg-surface text-primary;
   background-image: url('/background.svg');
-  background-size: cover; /* 关键自适应属性 */
+  background-size: cover;
   background-position: center top;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  background-color: rgb(var(--color-surface)); 
 }
 
-/* 添加背景遮罩层 */
 body::before {
   content: '';
   @apply fixed inset-0 bg-surface/50 backdrop-blur-[1px] z-[-1];
 }
 .dark body::before {
-  @apply bg-surface/60; /* 暗色模式增加遮罩深度 */
+  @apply bg-surface/60;
 }
-/* 卡片样式 */
+
 .card {
-  @apply p-6 rounded-2xl border border-accent/20 
-         bg-surface/30 backdrop-blur-lg
-         shadow-md hover:shadow-xl transition-all;
+  @apply p-6 rounded-2xl border border-accent/20 bg-surface/30 backdrop-blur-lg shadow-md transition-all;
 }
 
-/* 导航栏样式调整 */
-nav {
-  @apply bg-surface/30 backdrop-blur-lg;
-}
-.dark nav {
-  @apply bg-surface/50;
-}
-
-/* 其他优化 */
 .prose {
-  @apply relative;
-  img {
-    @apply rounded-xl shadow-lg;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: rgb(var(--color-primary)/.95);
+  
+  p {
+    @apply my-6 text-justify;
+    hyphens: auto;
   }
-  code::before,
-  code::after {
-    content: '';
+
+  h1 { @apply text-4xl font-serif mt-12 mb-8; }
+  h2 { @apply text-3xl font-serif mt-10 mb-6 border-b pb-2 border-accent/20; }
+  h3 { @apply text-2xl font-medium mt-8 mb-4; }
+
+  ul, ol {
+    @apply my-6 pl-6;
+    li {
+      @apply my-3 pl-3;
+      &::marker { @apply text-accent/80; }
+    }
+  }
+
+  pre {
+    @apply rounded-xl p-6 my-8 bg-gray-100 dark:bg-gray-800 overflow-x-auto;
+    code { @apply bg-transparent p-0; }
+  }
+
+  code {
+    @apply px-2 py-1 bg-accent/10 text-accent rounded-md;
+    &::before, &::after { content: ''; }
+  }
+
+  blockquote {
+    @apply border-l-4 border-accent pl-6 my-8 italic bg-surface/50 p-4 rounded-r-lg;
+    p { @apply m-0 text-primary/80; }
+  }
+
+  img {
+    @apply my-8 mx-auto rounded-xl shadow-lg;
+    + em { @apply block text-center text-sm text-secondary mt-2; }
+  }
+
+  table {
+    @apply w-full my-8;
+    th { @apply bg-accent/10 text-left px-4 py-3 font-medium; }
+    td { @apply px-4 py-3 border-t border-accent/10; }
+  }
+
+  a {
+    @apply text-accent underline underline-offset-4 decoration-accent/30 hover:decoration-accent;
   }
 }
+
+.dark .prose {
+  color: rgb(var(--color-primary)/.9);
+  
+  code { @apply bg-accent/20; }
+  blockquote { @apply bg-surface/30; }
+  table {
+    th { @apply bg-accent/20; }
+    td { @apply border-accent/20; }
+  }
+}
+
 @media (max-width: 768px) {
   body {
-    background-size: auto 100%; /* 移动端垂直适配 */
+    background-size: auto 100%;
     background-position: 75% center;
   }
-  
-  /* 移动端减少模糊强度 */
   body::before {
     backdrop-filter: blur(2px);
   }
@@ -74,6 +113,21 @@ nav {
 
 @media (orientation: portrait) {
   body {
-    background-attachment: scroll; /* 竖屏取消固定定位 */
+    background-attachment: scroll;
+  }
+}
+
+.grid {
+  animation: fade-in 0.5s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
