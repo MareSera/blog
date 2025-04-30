@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    name: "个人博客系统",
+    desc: "基于Astro构建的现代静态博客系统，支持Markdown写作、主题切换与响应式设计，集成GitHub API动态展示开发数据。",
+    tech: ["Astro", "Tailwind", "TypeScript", "Vite"],
+    github: "https://github.com/MareSera/blog",
+    demo: "https://blog.maresera.top/"
+  },
+  {
+    name: "个人主页",
+    desc: "完全使用HTML+CSS+JS构建的个人静态主页",
+    tech: ["HTML", "CSS", "JS"],
+    github: "https://github.com/MareSera/home",
+    demo: "https://www.maresera.top/"
+  }
+];
+---
+
+<BaseLayout title="项目作品">
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-serif mb-12 text-center">🚀 项目作品</h1>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      {projects.map(project => (
+        <article class="card group relative overflow-hidden">
+          {/* 内容区域 */}
+          <div class="p-6">
+            <h2 class="text-2xl font-serif mb-4 text-accent">{project.name}</h2>
+            <p class="text-secondary mb-6 leading-relaxed">{project.desc}</p>
+            
+            <div class="flex flex-wrap gap-2 mb-8">
+              {project.tech.map(tech => (
+                <span class="px-3 py-1.5 bg-accent/10 text-accent rounded-full text-sm font-medium">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* 操作按钮组 */}
+          <div class="border-t border-accent/10 flex divide-x divide-accent/10">
+            <a 
+              href={project.demo}
+              target="_blank"
+              class="flex-1 p-4 text-center bg-surface/50 hover:bg-accent/10 transition-colors flex items-center justify-center gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <i class="iconfont icon-external-r text-lg" />
+              <span>预览项目</span>
+            </a>
+            <a 
+              href={project.github}
+              target="_blank"
+              class="flex-1 p-4 text-center bg-surface/50 hover:bg-accent/10 transition-colors flex items-center justify-center gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <i class="iconfont icon-github-fill text-lg" />
+              <span>查看源码</span>
+            </a>
+          </div>
+
+          {/* 悬停覆盖层 */}
+          <div class="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+        </article>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .card {
+    @apply transition-transform duration-300 hover:-translate-y-2;
+  }
+  
+  /* 按钮悬停效果 */
+  [class*="hover:bg-accent/10"] {
+    @apply hover:text-accent;
+  }
+  
+  /* 技术栈标签动画 */
+  span[class*="bg-accent/10"] {
+    @apply transition-transform hover:-translate-y-0.5;
+  }
+
+  /* 移动端优化 */
+  @media (max-width: 768px) {
+    [class*="flex items-center"] span {
+      @apply hidden;
+    }
+    [class*="p-4"] {
+      @apply p-3;
+    }
+  }
+</style>

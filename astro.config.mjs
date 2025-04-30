@@ -27,8 +27,7 @@ export default defineConfig({
   },
   vite: {
     define: {
-      'process.env.GITHUB_TOKEN': JSON.stringify(process.env.GITHUB_TOKEN)
+      'import.meta.env.GITHUB_TOKEN': JSON.stringify(process.env.GITHUB_TOKEN)
     }
-    
   }
 });
