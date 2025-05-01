@@ -109,6 +109,15 @@ body::before {
   body::before {
     backdrop-filter: blur(2px);
   }
+    /* 仅隐藏桌面导航文字 */
+    .desktop-nav span {
+      display: none;
+    }
+    
+    /* 显示移动菜单文字 */
+    #mobile-nav span {
+      display: inline-block !important;
+    }
 }
 
 @media (orientation: portrait) {
