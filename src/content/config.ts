@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 
+// 文章集合配置
 const posts = defineCollection({
-  type: 'content', // 必须明确指定类型
+  type: 'content',
   schema: z.object({
     title: z.string(),
     pubDate: z.date(),
@@ -11,4 +12,18 @@ const posts = defineCollection({
   })
 });
 
-export const collections = { posts };
+// 说说集合配置
+const moments = defineCollection({
+  type: 'content',
+  schema: z.object({
+    mood: z.string(),
+    date: z.date(),
+    tags: z.array(z.string()).optional(),
+    published: z.boolean().default(true)
+  })
+});
+
+export const collections = {
+  posts,
+  moments
+};

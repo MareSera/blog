@@ -1,47 +1,106 @@
 ---
+// src/pages/moments.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { transform } from 'astro:transitions';
 
-const moments = [
-  {
-    content: "优化了昼夜切换！眼睛更舒服了",
-    date: "2025-04-29",
-    mood: "🤠",
-    tags: ["开发日志"]
-  },
-  {
-    content: "今天博客基本内容开发完成了！芜湖",
-    date: "2025-04-28",
-    mood: "😎",
-    tags: ["开发日志"]
-  }
-];
+// 获取所有说说内容
+const moments = await getCollection('moments', ({ data }) => {
+  return import.meta.env.DEV ? true : data.published
+});
+
+// 按日期排序
+const sortedMoments = moments.sort((a, b) => 
+  new Date(b.data.date) - new Date(a.data.date)
+);
 ---
 
 <BaseLayout title="说说">
-  <main class="max-w-4xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-serif mb-8">💬 闲言碎语</h1>
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-serif mb-12 text-center">💬 闲言碎语</h1>
     
-    <div class="waterfall">
-      {moments.map(moment => (
-        <div class="card break-inside-avoid mb-6">
-          <div class="flex items-start gap-3">
-            <span class="text-2xl">{moment.mood}</span>
-            <div class="flex-1">
-              <p class="mb-2 leading-relaxed">{moment.content}</p>
-              <div class="flex items-center justify-between text-sm text-secondary">
-                <time>{moment.date}</time>
-                <div class="flex gap-2">
-                  {moment.tags.map(tag => (
-                    <span class="px-2 py-1 bg-accent/10 text-accent rounded-full">
+    <div class="waterfall-container">
+      {sortedMoments.map(async (moment) => {
+        const { Content } = await moment.render();
+        return (
+          <article class="moment-card animate-card-in">
+            <div class="card p-6">
+              <header class="flex items-center gap-3 mb-4">
+                <span class="text-3xl">{moment.data.mood}</span>
+                <div class="flex-1">
+                  <time class="text-secondary text-sm">
+                    {new Date(moment.data.date).toLocaleDateString('zh-CN', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                </div>
+              </header>
+
+              <section class="prose prose-sm dark:prose-invert max-w-none">
+                <Content />
+              </section>
+
+              {moment.data.tags?.length > 0 && (
+                <footer class="mt-4 flex flex-wrap gap-2">
+                  {moment.data.tags.map(tag => (
+                    <span class="px-2 py-1 bg-accent/10 text-accent rounded-full text-sm">
                       #{tag}
                     </span>
                   ))}
-                </div>
-              </div>
+                </footer>
+              )}
             </div>
-          </div>
-        </div>
-      ))}
+          </article>
+        )
+      })}
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  /* 瀑布流布局 */
+  .waterfall-container {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+  .moment-card {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+
+  /* 卡片入场动画 */
+  .animate-card-in {
+    animation: card-in 0.6s ease-out both;
+  }
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 响应式布局 */
+  @media (max-width: 768px) {
+    .waterfall-container {
+      column-count: 1;
+    }
+  }
+
+  /* 图片优化 */
+  .prose img {
+    @apply rounded-xl my-4 shadow-lg transition-transform hover:scale-[1.02];
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* 暗色模式适配 */
+  .dark .prose img {
+    @apply brightness-90;
+  }
+</style>
