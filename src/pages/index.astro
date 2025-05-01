@@ -60,7 +60,7 @@ const profile = {
     <!-- 特色项目 & Todo -->
     <div class="grid md:grid-cols-2 gap-8">
       <div class="card">
-        <h2 class="text-2xl font-serif mb-4">✨ 匠心之作</h2>
+        <h2 class="text-2xl font-serif mb-4">✨ Main Project</h2>
         <h3 class="text-xl mb-2 text-accent">{profile.featuredProject.title}</h3>
         <p class="text-secondary mb-4">{profile.featuredProject.desc}</p>
         <div class="flex flex-wrap gap-2 mb-4">
@@ -76,7 +76,7 @@ const profile = {
       </div>
 
       <div class="card">
-        <h2 class="text-2xl font-serif mb-4">📝 今日清单</h2>
+        <h2 class="text-2xl font-serif mb-4">📝 Todo List</h2>
         <ul class="space-y-3">
           {profile.todos.map((todo, index) => (
             <li class="group relative flex items-center gap-3 p-2 rounded-lg transition-colors">
@@ -127,7 +127,7 @@ const profile = {
 
     <!-- 最新文章 -->
     <div class="card">
-      <h2 class="text-2xl font-serif mb-6">📖 新作速览</h2>
+      <h2 class="text-2xl font-serif mb-6">📖 New Posts</h2>
       <div class="grid gap-4">
         {posts.map(post => (
           <a href={`/posts/${post.slug}`} class="flex items-center justify-between p-4 hover:bg-accent/5 rounded-lg transition-colors">
