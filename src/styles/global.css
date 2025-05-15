@@ -60,13 +60,25 @@ body::before {
   }
 
   pre {
-    @apply rounded-xl p-6 my-8 bg-gray-100 dark:bg-gray-800 overflow-x-auto;
-    code { @apply bg-transparent p-0; }
+    @apply relative rounded-xl p-6 my-8 bg-gray-100 dark:bg-gray-800 overflow-x-auto;
+    code { 
+      @apply bg-transparent p-0; 
+      &::before, &::after { content: ''; }
+    }
+    
+    /* 复制按钮样式 */
+    .copy-btn {
+      @apply absolute right-4 top-4 px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 
+             dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg transition-colors
+             text-gray-700 dark:text-gray-200 cursor-pointer;
+      border: none;
+      outline: none;
+      font-family: inherit;
+    }
   }
 
   code {
     @apply px-2 py-1 bg-accent/10 text-accent rounded-md;
-    &::before, &::after { content: ''; }
   }
 
   blockquote {
@@ -93,7 +105,9 @@ body::before {
 .dark .prose {
   color: rgb(var(--color-primary)/.9);
   
-  code { @apply bg-accent/20; }
+  code { 
+    @apply bg-transparent; /* 修改这里 */
+  }
   blockquote { @apply bg-surface/30; }
   table {
     th { @apply bg-accent/20; }
@@ -139,26 +153,4 @@ body::before {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-
-/* 在.prose pre部分添加以下样式 */
-.prose pre {
-  @apply relative rounded-xl p-6 my-8 bg-gray-100 dark:bg-gray-800 overflow-x-auto;
-  code { @apply bg-transparent p-0; }
-  
-  /* 复制按钮样式 */
-  .copy-btn {
-    @apply absolute right-4 top-4 px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 
-           dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg transition-colors
-           text-gray-700 dark:text-gray-200 cursor-pointer;
-    border: none;
-    outline: none;
-    font-family: inherit;
-  }
-}
-
-/* 暗黑模式调整 */
-.dark .prose pre .copy-btn {
-  @apply bg-gray-700 hover:bg-gray-600 text-gray-200;
 }
