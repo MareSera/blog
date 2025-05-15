@@ -44,6 +44,42 @@ window.addEventListener('load', () => {
     document.body.style.backgroundImage = `url(${bg.src})`;
   };
 });
+
+// 新增复制功能
+    document.addEventListener('DOMContentLoaded', () => {
+      // 为每个pre元素添加复制按钮
+      document.querySelectorAll('pre').forEach(pre => {
+        const button = document.createElement('button');
+        button.className = 'copy-btn';
+        button.textContent = '复制';
+        button.title = '复制代码';
+        
+        button.addEventListener('click', async () => {
+          const code = pre.querySelector('code')?.textContent || '';
+          try {
+            await navigator.clipboard.writeText(code);
+            button.textContent = '已复制!';
+            setTimeout(() => {
+              button.textContent = '复制';
+            }, 2000);
+          } catch (err) {
+            console.error('复制失败:', err);
+            button.textContent = '失败';
+            setTimeout(() => {
+              button.textContent = '复制';
+            }, 2000);
+          }
+        });
+
+        // 如果pre元素已经有子元素，插入到第一个位置之前
+        if (pre.firstChild) {
+          pre.insertBefore(button, pre.firstChild);
+        } else {
+          pre.appendChild(button);
+        }
+      });
+    });
+    
 </script>
 
   
