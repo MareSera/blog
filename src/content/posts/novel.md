@@ -28,7 +28,9 @@ cover: "/img/posts-covers/edu.jpg"  # 封面图路径（可选）
 * 小说字数：172108字
 * 小说页数：168页（仅正文部分）
 
-# [点这里下载PDF噢~✨](/file/novel/novel.pdf)
+> 由于被非法搬运，暂时不提供下载链接，如有需要请订购纸质版！
+
+微信：liuyt15624134413
 
 <style>
 .progress-container {
