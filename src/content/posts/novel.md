@@ -4,7 +4,7 @@ pubDate: 2025-06-01        # 发布时间（Date格式）
 updatedDate: 2025-06-01      # 更新时间（可选）
 tags:                       # 标签数组
   - "文学创作"
-description: "写小说写上头了怎么办…"  # 摘要
+description: "三个月的时间，我写了一本自己的小说"  # 摘要
 cover: "/img/posts-covers/edu.jpg"  # 封面图路径（可选）
 ---
 
