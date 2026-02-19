@@ -1,6 +1,6 @@
 ---
 title: 纸灰 # 文章标题
-description: 一篇短篇小说
+description: 关于抄袭，我想说点什么
 pubDate: 06 10 2025
 image: /img/posts-covers/zhihui.jpg
 categories:
