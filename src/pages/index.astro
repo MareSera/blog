@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import MainCard from "@/components/MainCard.astro";
+import FeatureCard from "@/components/mdx/FeatureCard.astro";
+import GitHubStats from "@/components/mdx/GitHubStats.astro";
+---
+
+<BaseLayout title="Home">
+  <MainCard
+    title="Welcome to MareSera's Blog"
+    description="一个简单的小站"
+    textOverlay="HOME"
+    infoIcon="lucide:info"
+  >
+    <div class="space-y-8">
+      <!-- Hero Section -->
+      <section class="py-6">
+        <div class="flex flex-col items-center text-center">
+          <h1
+            class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-loose"
+          >
+            🌟 MareSera's Home
+          </h1>
+          <p class="text-xl text-base-content/80 max-w-3xl mb-8">
+            一个热爱编程的高中生小站！</br>
+          </p>
+          <p
+            class="text-l font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-loose"
+          >
+            代码如诗 / 逻辑为歌
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/blog" class="btn btn-primary gap-2 btn-shine-effect">
+              <Icon name="lucide:book-open" class="w-5 h-5" />
+              <span>查看文章</span>
+            </a>
+            <a href="https://github.com/MareSera/" target="_blank" class="btn btn-outline gap-2">
+              <Icon name="lucide:github" class="w-5 h-5" />
+              <span>我的Github</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- GitHub Stats -->
+      <section class="py-6">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <Icon name="lucide:github" class="w-6 h-6 text-primary" />
+          <span>Repository Stats</span>
+        </h2>
+
+        <GitHubStats username="MareSera" repositoryName="LogicLyric" showLanguages={true} showContributors={true} />
+      </section>
+    </div>
+  </MainCard>
+</BaseLayout>
