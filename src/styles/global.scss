@@ -43,6 +43,12 @@ code {
   text-indent: 2em; /* 首行缩进两字符 */
 }
 
+/* 随笔页面取消首行缩进 */
+.prose-essay p {
+  text-indent: 0;
+  text-align: left;
+}
+
 .prose li {
   font-size: 1.0625rem; /* 17px */
   line-height: 1.75;

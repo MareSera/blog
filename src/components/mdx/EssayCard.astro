@@ -18,9 +18,9 @@ const { date, content, image } = Astro.props as EssayCardProps;
     <!-- Decorative top border -->
     <div class="h-1 bg-gradient-to-r from-primary via-secondary to-accent"></div>
 
-    <div class="card-body p-5 relative">
+    <div class="card-body px-5 py-3 relative">
       <!-- Pen Icon with enhanced styling -->
-      <div class="absolute top-4 left-4 z-10">
+      <div class="absolute top-2.5 left-4 z-10">
         <div
           class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full p-2.5 shadow-md group-hover:scale-110 transition-transform duration-300"
         >
@@ -29,7 +29,7 @@ const { date, content, image } = Astro.props as EssayCardProps;
       </div>
 
       <!-- Date with enhanced styling -->
-      <div class="text-right mb-3">
+      <div class="text-right mb-1">
         <div class="inline-flex items-center gap-1.5 bg-base-200/50 px-3 py-1 rounded-full">
           <Icon name="lucide:calendar" class="w-3.5 h-3.5 text-base-content/60" />
           <span class="text-xs text-base-content/70 font-medium">{date}</span>
@@ -39,7 +39,7 @@ const { date, content, image } = Astro.props as EssayCardProps;
       <!-- Image (optional) with enhanced styling -->
       {
         image && (
-          <div class="w-full rounded-xl overflow-hidden mb-4 shadow-md">
+          <div class="w-full rounded-xl overflow-hidden mb-1 shadow-md">
             <Image
               src={image}
               width={400}
@@ -54,12 +54,12 @@ const { date, content, image } = Astro.props as EssayCardProps;
       }
 
       <!-- Content with enhanced typography -->
-      <div class="prose prose-sm max-w-none text-base-content/85">
-        <p class="whitespace-pre-wrap leading-relaxed text-[15px]">{content}</p>
+      <div class="prose prose-sm prose-essay max-w-none text-base-content/85">
+        <p class="whitespace-pre-wrap leading-relaxed text-[15px] my-0">{content}</p>
       </div>
 
       <!-- Decorative bottom accent -->
-      <div class="mt-4 pt-3 border-t border-base-200/50">
+      <div class="mt-1 pt-1 border-t border-base-200/50">
         <div class="flex items-center justify-end gap-2 text-xs text-base-content/50">
           <Icon name="lucide:feather" class="w-3.5 h-3.5" />
           <span>随笔</span>
