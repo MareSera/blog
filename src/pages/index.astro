@@ -7,7 +7,7 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
 <BaseLayout title="Home">
   <MainCard
-    title="Welcome to MareSera's Home"
+    title="Welcome！"
     description="一个简单的小站点，表达态度，表达观点，表达自己"
     textOverlay="HOME"
     infoIcon="lucide:info"
@@ -20,15 +20,16 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <div class="mb-6 relative">
             <div class="absolute inset-0 blur-2xl opacity-30 bg-gradient-to-r from-primary via-secondary to-accent"></div>
             <h1
-              class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-loose relative animate-fade-in"
+              class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent relative animate-fade-in"
+              style="line-height: 1.6; padding-bottom: 0.5rem; display: inline-block;"
             >
-              🌟 MareSera's Home
+              🌟 MareSera's Blog
             </h1>
           </div>
 
           <!-- Subtitle with decoration -->
           <div class="mb-8 relative">
-            <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+            <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-48 md:w-64 h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-expand-horizontal"></div>
             <p class="text-xl md:text-2xl text-base-content/80 max-w-3xl mt-4 animate-slide-up">
               一个高中生的小站！来看看我的态度！
             </p>
@@ -36,17 +37,16 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
           <!-- Poetry Section with enhanced styling -->
           <div class="mb-10 relative max-w-2xl">
-            <div class="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-accent rounded-full"></div>
+            <div class="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-accent rounded-full animate-slide-down"></div>
             <div class="bg-gradient-to-br from-base-200/40 to-base-300/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-base-200/50 shadow-lg animate-fade-in-up">
               <Icon name="lucide:quote" class="w-8 h-8 text-primary/40 mb-3" />
               <p
                 class="text-base md:text-lg font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-relaxed text-left"
               >
-                敏感的人心里住的是春天<br />
+                敏感的人心里住的是春天，
                 所以他们流泪时，<br />
-                滴落的是花瓣，是晨露<br />
-                是清风，是晚霞<br />
-                是倒在地上泥土的气息<br />
+                滴落的是花瓣，是晨露，
+                是草坪泥土的气息<br />
                 是所有的柔软的事物<br />
                 ——唯独不是软弱
               </p>
@@ -195,6 +195,28 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
     }
   }
 
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      height: 0;
+    }
+    to {
+      opacity: 1;
+      height: 100%;
+    }
+  }
+
+  @keyframes expandHorizontal {
+    from {
+      opacity: 0;
+      width: 0;
+    }
+    to {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -212,6 +234,14 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
   .animate-slide-up {
     animation: slideUp 0.8s ease-out 0.2s both;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.8s ease-out 0.3s both;
+  }
+
+  .animate-expand-horizontal {
+    animation: expandHorizontal 0.8s ease-out 0.15s both;
   }
 
   .animate-fade-in-up {

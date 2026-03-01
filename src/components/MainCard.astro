@@ -35,7 +35,7 @@ const accessibleHelpText = `${helpText}: ${title}`;
     image ? (
       // With image - show image with overlay title
       <div class="relative">
-        <div class="aspect-video w-full overflow-hidden">
+        <div class="aspect-[21/9] md:aspect-[21/7] w-full overflow-hidden">
           <Image
             src={image}
             alt={title}
@@ -85,10 +85,10 @@ const accessibleHelpText = `${helpText}: ${title}`;
     ) : textOverlay ? (
       // No image, but with textOverlay - show gradient background with overlay text
       <div class="relative">
-        <div class={`aspect-video w-full overflow-hidden bg-gradient-to-br from-base-300 to-base-100 ${headerClass}`}>
+        <div class={`aspect-[21/9] md:aspect-[21/7] w-full overflow-hidden bg-gradient-to-br from-base-300 to-base-100 ${headerClass}`}>
           {showTextBackground && textOverlay && (
             <div class="absolute inset-0 w-full h-full error-animation-container">
-              <div class="text-9xl md:text-[12rem] font-bold text-primary opacity-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <div class="text-7xl md:text-9xl font-bold text-primary opacity-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 {textOverlay}
               </div>
             </div>
