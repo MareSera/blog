@@ -13,90 +13,201 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
     textOverlay="PROJECTS"
     infoIcon="lucide:code-2"
   >
-    <!-- Featured Projects -->
-    <section class="py-4">
-      <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Icon name="lucide:star" class="w-6 h-6 text-primary" />
-        <span>Featured Projects</span>
-      </h2>
+    <div class="space-y-12">
+      <!-- Header Section -->
+      <section class="text-center py-6 animate-fade-in">
+        <div class="inline-flex items-center gap-4 mb-4">
+          <div class="h-1 w-32 md:w-48 bg-gradient-to-r from-transparent via-secondary to-secondary animate-expand-left"></div>
+          <Icon name="lucide:code-2" class="w-16 h-16 md:w-24 md:h-24 text-secondary animate-float" />
+          <div class="h-1 w-32 md:w-48 bg-gradient-to-l from-transparent via-secondary to-secondary animate-expand-right"></div>
+        </div>
+        <p class="text-base-content/80 max-w-2xl mx-auto text-lg leading-relaxed animate-slide-up">
+          代码如诗，逻辑似画。<br />
+          <span class="text-sm text-base-content/60">这里展示我的开源作品和技术探索</span>
+        </p>
+      </section>
 
-      <GitHubStats username="MareSera" repositoryName="LogicLyric" showLanguages={true} showContributors={true} />
-    </section>
+      <!-- Featured Projects -->
+      <section class="animate-fade-in-up" style="animation-delay: 0.1s;">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full p-3 shadow-md">
+            <Icon name="lucide:star" class="w-6 h-6 text-primary" />
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold">精选项目</h2>
+        </div>
 
-    <!-- My Repositories -->
-    <section class="py-4">
-      <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Icon name="lucide:folder" class="w-6 h-6 text-primary" />
-        <span>My Repositories</span>
-      </h2>
+        <div class="bg-gradient-to-br from-base-200/30 to-base-300/30 rounded-2xl p-6 border border-base-200/50 shadow-lg hover:shadow-xl transition-shadow">
+          <GitHubStats username="MareSera" repositoryName="LogicLyric" showLanguages={true} showContributors={true} />
+        </div>
+      </section>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <RepositoryCard repo="MareSera/LogicLyric" isPinned={true} />
-      </div>
+      <!-- My Repositories -->
+      <section class="animate-fade-in-up" style="animation-delay: 0.2s;">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full p-3 shadow-md">
+            <Icon name="lucide:folder" class="w-6 h-6 text-secondary" />
+          </div>
+          <h2 class="text-2xl md:text-3xl font-bold">我的仓库</h2>
+        </div>
 
-      <div class="flex justify-center mt-10">
-        <a
-          href="https://github.com/EveSunMaple?tab=repositories"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-outline gap-2"
-        >
-          <Icon name="lucide:github" class="w-5 h-5" />
-          <span>View More on GitHub</span>
-        </a>
-      </div>
-    </section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="animate-item" style="animation-delay: 0.1s;">
+            <RepositoryCard repo="MareSera/LogicLyric" isPinned={true} />
+          </div>
+        </div>
 
-    <!-- Open Source Contributions -->
-    <section class="py-4">
-      <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Icon name="lucide:git-pull-request" class="w-6 h-6 text-primary" />
-        <span>Open Source Contributions</span>
-      </h2>
+        <div class="flex justify-center mt-10">
+          <a
+            href="https://github.com/EveSunMaple?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary gap-2 shadow-lg hover:shadow-xl transition-all hover:scale-105 group"
+          >
+            <Icon name="lucide:github" class="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <span>在 GitHub 查看更多</span>
+          </a>
+        </div>
+      </section>
 
-      <div class="card bg-base-200 p-6">
-        <ul class="space-y-6">
-          {
-            [
-              {
-                project: "Astro",
-                description: "Contributed to performance improvements and bug fixes",
-                url: "https://github.com/withastro/astro",
-              },
-              {
-                project: "TailwindCSS",
-                description: "Added new utility classes and documentation improvements",
-                url: "https://github.com/tailwindlabs/tailwindcss",
-              },
-              {
-                project: "DaisyUI",
-                description: "Contributed component enhancements and theme improvements",
-                url: "https://github.com/saadeghi/daisyui",
-              },
-            ].map((contrib) => (
-              <li class="flex items-start gap-4">
-                <div class="flex-shrink-0 bg-base-300 p-2 rounded-full">
-                  <Icon name="lucide:git-commit" class="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 class="text-lg font-bold">
-                    <a
-                      href={contrib.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="hover:text-primary transition-colors flex items-center gap-1"
-                    >
-                      {contrib.project}
-                      <Icon name="lucide:external-link" class="w-4 h-4" />
-                    </a>
-                  </h3>
-                  <p class="text-base-content/80">{contrib.description}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </section>
+      <!-- Call to Action -->
+      <section class="text-center bg-gradient-to-br from-base-200/40 to-base-300/40 backdrop-blur-sm rounded-2xl p-8 border border-base-200/50 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <Icon name="lucide:heart" class="w-12 h-12 text-error mx-auto mb-4 animate-pulse" />
+        <h3 class="text-2xl font-bold mb-3">喜欢我的项目？</h3>
+        <p class="text-base-content/70 mb-6 max-w-2xl mx-auto">
+          如果你觉得这些项目对你有帮助，欢迎给个 Star ⭐ 或者提交 PR！
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a
+            href="https://github.com/MareSera"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary gap-2 shadow-lg hover:shadow-xl transition-all hover:scale-105 group"
+          >
+            <Icon name="lucide:github" class="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            <span>关注我的 GitHub</span>
+          </a>
+          <a href="/friend" class="btn btn-outline btn-primary gap-2 hover:scale-105 transition-transform">
+            <Icon name="lucide:users" class="w-5 h-5" />
+            <span>查看友链</span>
+          </a>
+        </div>
+      </section>
+    </div>
   </MainCard>
 </BaseLayout>
+
+<style>
+  /* Base animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes expandLeft {
+    from {
+      opacity: 0;
+      width: 0;
+    }
+    to {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
+  @keyframes expandRight {
+    from {
+      opacity: 0;
+      width: 0;
+    }
+    to {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes itemFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Apply animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out 0.3s both;
+  }
+
+  .animate-expand-left {
+    animation: expandLeft 0.6s ease-out 0.2s both;
+  }
+
+  .animate-expand-right {
+    animation: expandRight 0.6s ease-out 0.2s both;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-item {
+    animation: itemFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .contrib-item {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  /* Hover effects */
+  .btn, .card, a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>

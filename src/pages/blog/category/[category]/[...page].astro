@@ -22,38 +22,115 @@ const pageLinks = generatePageLinks(totalPages);
 ---
 
 <BaseLayout title={`${t("label.categoryPage")} - ${params.category}`}>
-  <BaseCard title={t("label.categoryPage")}>
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-      <div class="flex items-center gap-2">
-        <Icon name="lucide:folder" class="w-6 h-6 text-primary" />
-        <h1 id="h1" class="text-2xl md:text-3xl font-bold">{params.category}</h1>
-        <div class="badge badge-primary">{page.total} {page.total === 1 ? t("label.post") : t("label.posts")}</div>
+  <!-- Category Header -->
+  <div class="animate-fade-in-up">
+    <BaseCard title={t("label.categoryPage")}>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="flex items-center gap-2">
+          <Icon name="lucide:folder" class="w-6 h-6 text-primary" />
+          <h1 id="h1" class="text-2xl md:text-3xl font-bold">{params.category}</h1>
+          <div class="badge badge-primary">{page.total} {page.total === 1 ? t("label.post") : t("label.posts")}</div>
+        </div>
+        <a href="/blog/categories" class="btn btn-outline btn-sm gap-2">
+          <Icon name="lucide:folder" class="w-4 h-4" />
+          <span>{t("label.allCategories")}</span>
+        </a>
       </div>
-      <a href="/blog/categories" class="btn btn-outline btn-sm gap-2">
-        <Icon name="lucide:folder" class="w-4 h-4" />
-        <span>{t("label.allCategories")}</span>
-      </a>
-    </div>
-    <div class="divider my-2"></div>
-    <p class="text-sm opacity-75">{t("label.categoryDescription")}</p>
-  </BaseCard>
-  <CardGroup cols="1" gap="6">
-    {
-      page.data.map((blog: Post) => (
-        <PostCard
-          title={blog.data.title}
-          image={blog.data.image}
-          description={blog.data.description}
-          url={"/blog/" + blog.slug}
-          pubDate={blog.data.pubDate}
-          badge={blog.data.badge}
-          categories={blog.data.categories}
-          tags={blog.data.tags}
-          word={blog.remarkPluginFrontmatter.totalCharCount}
-          time={blog.remarkPluginFrontmatter.readingTime}
-        />
-      ))
-    }
-  </CardGroup>
-  <Pagination page={page} totalPages={totalPages} pageLinks={pageLinks} baseUrl={`/blog/category/${params.category}`} />
+      <div class="divider my-2"></div>
+      <p class="text-sm opacity-75">{t("label.categoryDescription")}</p>
+    </BaseCard>
+  </div>
+
+  <!-- Blog Post List -->
+  <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
+    <CardGroup cols="1">
+      {
+        page.data.map((blog: Post, index: number) => (
+          <div class="post-card-wrapper" style={`animation-delay: ${0.2 + index * 0.05}s;`}>
+            <PostCard
+              title={blog.data.title}
+              image={blog.data.image}
+              description={blog.data.description}
+              url={"/blog/" + blog.slug}
+              pubDate={blog.data.pubDate}
+              badge={blog.data.badge}
+              categories={blog.data.categories}
+              tags={blog.data.tags}
+              word={blog.remarkPluginFrontmatter.totalCharCount}
+              time={blog.remarkPluginFrontmatter.readingTime}
+            />
+          </div>
+        ))
+      }
+    </CardGroup>
+  </div>
+  
+  <div class="animate-fade-in-up" style="animation-delay: 0.3s;">
+    <Pagination page={page} totalPages={totalPages} pageLinks={pageLinks} baseUrl={`/blog/category/${params.category}`} />
+  </div>
 </BaseLayout>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes postCardFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  .post-card-wrapper {
+    animation: postCardFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+</style>
+
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes postCardFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  .post-card-wrapper {
+    animation: postCardFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+</style>

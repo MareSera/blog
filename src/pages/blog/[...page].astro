@@ -21,86 +21,131 @@ const pageLinks = generatePageLinks(totalPages);
 
 <BaseLayout title="Blog">
   <!-- Blog Navigation Cards -->
-  <CardGroup cols="2">
-    <!-- Archives Card -->
-    <a href="/blog/archives" class="card bg-base-100 shadow-lg">
-      <div class="card-body p-4">
-        <div class="flex items-center gap-3">
-          <div class="rounded-full bg-accent/10 p-3">
-            <Icon name="lucide:archive" class="w-6 h-6 text-accent" />
-          </div>
-          <div>
-            <h2 class="card-title text-lg">{t("label.archivePage")}</h2>
-            <p class="text-sm opacity-75">{t("label.archivesPageDescription")}</p>
+  <div class="mb-8 animate-fade-in-up">
+    <CardGroup cols="2">
+      <!-- Archives Card -->
+      <a href="/blog/archives" class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="rounded-full bg-accent/10 p-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+              <Icon name="lucide:archive" class="w-6 h-6 text-accent" />
+            </div>
+            <div>
+              <h2 class="card-title text-lg group-hover:text-accent transition-colors">{t("label.archivePage")}</h2>
+              <p class="text-sm opacity-75">{t("label.archivesPageDescription")}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
 
-    <!-- Categories Card -->
-    <a href="/blog/categories" class="card bg-base-100 shadow-lg">
-      <div class="card-body p-4">
-        <div class="flex items-center gap-3">
-          <div class="rounded-full bg-primary/10 p-3">
-            <Icon name="lucide:folder" class="w-6 h-6 text-primary" />
-          </div>
-          <div>
-            <h2 class="card-title text-lg">{t("label.categoryPage")}</h2>
-            <p class="text-sm opacity-75">{t("label.categoriesPageDescription")}</p>
+      <!-- Categories Card -->
+      <a href="/blog/categories" class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="rounded-full bg-primary/10 p-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+              <Icon name="lucide:folder" class="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h2 class="card-title text-lg group-hover:text-primary transition-colors">{t("label.categoryPage")}</h2>
+              <p class="text-sm opacity-75">{t("label.categoriesPageDescription")}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
 
-    <!-- Tags Card -->
-    <a href="/blog/tags" class="card bg-base-100 shadow-lg">
-      <div class="card-body p-4">
-        <div class="flex items-center gap-3">
-          <div class="rounded-full bg-secondary/10 p-3">
-            <Icon name="lucide:tag" class="w-6 h-6 text-secondary" />
-          </div>
-          <div>
-            <h2 class="card-title text-lg">{t("label.tagPage")}</h2>
-            <p class="text-sm opacity-75">{t("label.tagsPageDescription")}</p>
+      <!-- Tags Card -->
+      <a href="/blog/tags" class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="rounded-full bg-secondary/10 p-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+              <Icon name="lucide:tag" class="w-6 h-6 text-secondary" />
+            </div>
+            <div>
+              <h2 class="card-title text-lg group-hover:text-secondary transition-colors">{t("label.tagPage")}</h2>
+              <p class="text-sm opacity-75">{t("label.tagsPageDescription")}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
 
-    <!-- Search Card -->
-    <a href="/blog/search" class="card bg-base-100 shadow-lg">
-      <div class="card-body p-4">
-        <div class="flex items-center gap-3">
-          <div class="rounded-full bg-info/10 p-3">
-            <Icon name="lucide:search" class="w-6 h-6 text-info" />
-          </div>
-          <div>
-            <h2 class="card-title text-lg">{t("label.searchPage")}</h2>
-            <p class="text-sm opacity-75">{t("label.searchPageDescription")}</p>
+      <!-- Search Card -->
+      <a href="/blog/search" class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="rounded-full bg-info/10 p-3 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+              <Icon name="lucide:search" class="w-6 h-6 text-info" />
+            </div>
+            <div>
+              <h2 class="card-title text-lg group-hover:text-info transition-colors">{t("label.searchPage")}</h2>
+              <p class="text-sm opacity-75">{t("label.searchPageDescription")}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-  </CardGroup>
+      </a>
+    </CardGroup>
+  </div>
 
   <!-- Blog Post List -->
-  <CardGroup cols="1">
-    {
-      page.data.map((blog: Post) => (
-        <PostCard
-          title={blog.data.title}
-          image={blog.data.image}
-          description={blog.data.description}
-          url={"/blog/" + blog.slug}
-          pubDate={blog.data.pubDate}
-          badge={blog.data.badge}
-          categories={blog.data.categories}
-          tags={blog.data.tags}
-          word={blog.remarkPluginFrontmatter.totalCharCount}
-          time={blog.remarkPluginFrontmatter.readingTime}
-        />
-      ))
-    }
-  </CardGroup>
-  <Pagination page={page} totalPages={totalPages} pageLinks={pageLinks} baseUrl={`/blog`} />
+  <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
+    <CardGroup cols="1">
+      {
+        page.data.map((blog: Post, index: number) => (
+          <div class="post-card-wrapper" style={`animation-delay: ${0.2 + index * 0.05}s;`}>
+            <PostCard
+              title={blog.data.title}
+              image={blog.data.image}
+              description={blog.data.description}
+              url={"/blog/" + blog.slug}
+              pubDate={blog.data.pubDate}
+              badge={blog.data.badge}
+              categories={blog.data.categories}
+              tags={blog.data.tags}
+              word={blog.remarkPluginFrontmatter.totalCharCount}
+              time={blog.remarkPluginFrontmatter.readingTime}
+            />
+          </div>
+        ))
+      }
+    </CardGroup>
+  </div>
+  
+  <div class="animate-fade-in-up" style="animation-delay: 0.3s;">
+    <Pagination page={page} totalPages={totalPages} pageLinks={pageLinks} baseUrl={`/blog`} />
+  </div>
 </BaseLayout>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes postCardFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  .post-card-wrapper {
+    animation: postCardFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .card:hover {
+    background: linear-gradient(135deg, rgba(var(--p), 0.05) 0%, rgba(var(--s), 0.05) 100%);
+  }
+</style>
