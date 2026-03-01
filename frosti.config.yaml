@@ -45,6 +45,11 @@ site:
           svg: "material-symbols:deployed-code-outline"
           target: _self
         # 子菜单项配置
+    - id: essay
+      text: 随笔
+      href: /essay
+      svg: "material-symbols:ink-pen-outline-rounded"
+      target: _self
     - id: project
       text: 项目
       href: /project
