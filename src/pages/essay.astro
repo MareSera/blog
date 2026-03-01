@@ -54,29 +54,29 @@ const essays = [
   >
     <div class="space-y-8">
       <!-- Header Section with enhanced styling -->
-      <section class="text-center py-6">
-        <div class="inline-flex items-center gap-3 mb-4">
-          <div class="h-px w-12 bg-gradient-to-r from-transparent to-primary"></div>
-          <Icon name="material-symbols:ink-pen-outline-rounded" class="w-8 h-8 text-primary animate-pulse" />
-          <div class="h-px w-12 bg-gradient-to-l from-transparent to-primary"></div>
+      <section class="text-center py-6 animate-fade-in">
+        <div class="inline-flex items-center gap-4 mb-4">
+          <div class="h-1 w-32 md:w-48 bg-gradient-to-r from-transparent via-primary to-primary animate-expand-left"></div>
+          <Icon name="material-symbols:ink-pen-outline-rounded" class="w-20 h-20 md:w-32 md:h-32 text-primary" />
+          <div class="h-1 w-32 md:w-48 bg-gradient-to-l from-transparent via-primary to-primary animate-expand-right"></div>
         </div>
-        <p class="text-base-content/80 max-w-2xl mx-auto text-lg leading-relaxed">
-          生活不止眼前的代码，还有诗和远方。<br />
+        <p class="text-base-content/80 max-w-2xl mx-auto text-lg leading-relaxed animate-slide-up">
+          生活不止眼前的苟且，还有诗和远方。<br />
           <span class="text-sm text-base-content/60">这里记录着我的思考、感悟和日常</span>
         </p>
       </section>
 
       <!-- Stats Section -->
-      <section class="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
-        <div class="text-center p-4 bg-base-200/30 rounded-xl border border-base-200/50">
+      <section class="grid grid-cols-3 gap-4 max-w-2xl mx-auto animate-fade-in-up">
+        <div class="text-center p-4 bg-base-200/30 rounded-xl border border-base-200/50 hover:scale-105 transition-transform animate-stat-item" style="animation-delay: 0.1s;">
           <div class="text-2xl font-bold text-primary">{essays.length}</div>
           <div class="text-xs text-base-content/60 mt-1">篇随笔</div>
         </div>
-        <div class="text-center p-4 bg-base-200/30 rounded-xl border border-base-200/50">
+        <div class="text-center p-4 bg-base-200/30 rounded-xl border border-base-200/50 hover:scale-105 transition-transform animate-stat-item" style="animation-delay: 0.2s;">
           <div class="text-2xl font-bold text-secondary">{essays.filter((e) => e.image).length}</div>
           <div class="text-xs text-base-content/60 mt-1">张配图</div>
         </div>
-        <div class="text-center p-4 bg-base-200/30 rounded-xl border border-base-200/50">
+        <div class="text-center p-4 bg-base-200/30 rounded-xl border border-base-200/50 hover:scale-105 transition-transform animate-stat-item" style="animation-delay: 0.3s;">
           <div class="text-2xl font-bold text-accent">
             {essays.reduce((sum, e) => sum + e.content.length, 0)}
           </div>
@@ -141,13 +141,107 @@ const essays = [
     margin-bottom: 1.5rem;
   }
 
-  /* Animation for stats */
-  .grid > div {
-    transition: all 0.3s ease;
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  .grid > div:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes expandLeft {
+    from {
+      opacity: 0;
+      width: 0;
+    }
+    to {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
+  @keyframes expandRight {
+    from {
+      opacity: 0;
+      width: 0;
+    }
+    to {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+
+  @keyframes bounceSlow {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-8px) scale(1);
+    }
+  }
+
+  @keyframes statItem {
+    from {
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out 0.2s both;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out 0.3s both;
+  }
+
+  .animate-expand-left {
+    animation: expandLeft 0.6s ease-out 0.2s both;
+  }
+
+  .animate-expand-right {
+    animation: expandRight 0.6s ease-out 0.2s both;
+  }
+
+  .animate-bounce-slow {
+    animation: bounceSlow 2s ease-in-out infinite;
+  }
+
+  .animate-stat-item {
+    animation: statItem 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
 </style>

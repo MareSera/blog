@@ -173,3 +173,25 @@ const accessibleHelpText = `${helpText}: ${title}`;
     });
   });
 </script>
+
+<style>
+  /* Title popup animation - like a message notification */
+  @keyframes titlePopup {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    50% {
+      transform: scale(1.05) translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Apply animation to all title boxes */
+  .inline-block.bg-black\/60 {
+    animation: titlePopup 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  }
+</style>

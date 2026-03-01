@@ -14,13 +14,13 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
   >
     <div class="space-y-10">
       <!-- Hero Section -->
-      <section class="py-8">
+      <section class="py-8 animate-section">
         <div class="flex flex-col items-center text-center">
           <!-- Animated Title -->
-          <div class="mb-6 relative">
-            <div class="absolute inset-0 blur-2xl opacity-30 bg-gradient-to-r from-primary via-secondary to-accent"></div>
+          <div class="mb-6 relative animate-item" style="animation-delay: 0.1s;">
+            <div class="absolute inset-0 blur-2xl opacity-30 bg-gradient-to-r from-primary via-secondary to-accent animate-pulse-slow"></div>
             <h1
-              class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent relative animate-fade-in"
+              class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent relative"
               style="line-height: 1.6; padding-bottom: 0.5rem; display: inline-block;"
             >
               🌟 MareSera's Blog
@@ -28,18 +28,18 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           </div>
 
           <!-- Subtitle with decoration -->
-          <div class="mb-8 relative">
+          <div class="mb-8 relative animate-item" style="animation-delay: 0.2s;">
             <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-48 md:w-64 h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-expand-horizontal"></div>
-            <p class="text-xl md:text-2xl text-base-content/80 max-w-3xl mt-4 animate-slide-up">
+            <p class="text-xl md:text-2xl text-base-content/80 max-w-3xl mt-4">
               一个高中生的小站！来看看我的态度！
             </p>
           </div>
 
           <!-- Poetry Section with enhanced styling -->
-          <div class="mb-10 relative max-w-2xl">
+          <div class="mb-10 relative max-w-2xl animate-item" style="animation-delay: 0.35s;">
             <div class="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-accent rounded-full animate-slide-down"></div>
-            <div class="bg-gradient-to-br from-base-200/40 to-base-300/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-base-200/50 shadow-lg animate-fade-in-up">
-              <Icon name="lucide:quote" class="w-8 h-8 text-primary/40 mb-3" />
+            <div class="bg-gradient-to-br from-base-200/40 to-base-300/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-base-200/50 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Icon name="lucide:quote" class="w-8 h-8 text-primary/40 mb-3 animate-float" />
               <p
                 class="text-base md:text-lg font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-relaxed text-left"
               >
@@ -51,23 +51,25 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
                 ——唯独不是软弱
               </p>
               <div class="flex justify-end mt-4">
-                <Icon name="lucide:sparkles" class="w-5 h-5 text-secondary/60" />
+                <Icon name="lucide:sparkles" class="w-5 h-5 text-secondary/60 animate-twinkle" />
               </div>
             </div>
           </div>
 
           <!-- Action Buttons with enhanced styling -->
-          <div class="flex flex-wrap gap-4 justify-center animate-fade-in-up">
+          <div class="flex flex-wrap gap-4 justify-center">
             <a
               href="/blog"
-              class="btn btn-primary gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              class="btn btn-primary gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group animate-item"
+              style="animation-delay: 0.5s;"
             >
               <Icon name="lucide:book-open" class="w-5 h-5 group-hover:rotate-12 transition-transform" />
               <span>查看文章</span>
             </a>
             <a
               href="/essay"
-              class="btn btn-secondary gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              class="btn btn-secondary gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group animate-item"
+              style="animation-delay: 0.6s;"
             >
               <Icon name="material-symbols:ink-pen-outline-rounded" class="w-5 h-5 group-hover:rotate-12 transition-transform" />
               <span>我的随笔</span>
@@ -75,7 +77,8 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
             <a
               href="https://github.com/MareSera/"
               target="_blank"
-              class="btn btn-outline btn-primary gap-2 hover:shadow-lg transition-all duration-300 hover:scale-105 group"
+              class="btn btn-outline btn-primary gap-2 hover:shadow-lg transition-all duration-300 hover:scale-105 group animate-item"
+              style="animation-delay: 0.7s;"
             >
               <Icon name="lucide:github" class="w-5 h-5 group-hover:rotate-12 transition-transform" />
               <span>我的Github</span>
@@ -85,7 +88,7 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
       </section>
 
       <!-- Decorative Divider -->
-      <div class="divider my-8">
+      <div class="divider my-8 animate-item" style="animation-delay: 0.8s;">
         <div class="flex items-center gap-2">
           <Icon name="lucide:sparkles" class="w-5 h-5 text-primary/60 animate-pulse" />
           <Icon name="lucide:code-2" class="w-6 h-6 text-primary" />
@@ -94,10 +97,10 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
       </div>
 
       <!-- GitHub Stats Section with enhanced styling -->
-      <section class="py-6 animate-fade-in-up">
-        <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+      <section class="py-6 animate-section" style="animation-delay: 0.9s;">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-4 animate-item">
           <div class="flex items-center gap-3">
-            <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full p-3 shadow-md">
+            <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full p-3 shadow-md hover:scale-110 transition-transform">
               <Icon name="lucide:github" class="w-6 h-6 text-primary" />
             </div>
             <h2 class="text-2xl md:text-3xl font-bold">Repository Stats</h2>
@@ -105,32 +108,33 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <a
             href="https://github.com/MareSera/LogicLyric"
             target="_blank"
-            class="btn btn-sm btn-outline btn-primary gap-2 group"
+            class="btn btn-sm btn-outline btn-primary gap-2 group hover:scale-105 transition-transform"
           >
             <span>访问仓库</span>
             <Icon name="lucide:external-link" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-base-200/30 to-base-300/30 rounded-2xl p-6 border border-base-200/50 shadow-lg">
+        <div class="bg-gradient-to-br from-base-200/30 to-base-300/30 rounded-2xl p-6 border border-base-200/50 shadow-lg hover:shadow-xl transition-shadow duration-300 animate-item" style="animation-delay: 0.1s;">
           <GitHubStats username="MareSera" repositoryName="LogicLyric" showLanguages={true} showContributors={true} />
         </div>
       </section>
 
       <!-- Quick Links Section -->
-      <section class="py-6 animate-fade-in-up">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+      <section class="py-6 animate-section" style="animation-delay: 1s;">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 animate-item">
           <Icon name="lucide:compass" class="w-6 h-6 text-primary" />
           <span>快速导航</span>
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <a
             href="/about"
-            class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group"
+            class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group animate-item"
+            style="animation-delay: 0.1s;"
           >
             <div class="card-body p-6">
               <div class="flex items-center gap-3 mb-2">
-                <div class="bg-primary/10 rounded-full p-2 group-hover:scale-110 transition-transform">
+                <div class="bg-primary/10 rounded-full p-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
                   <Icon name="lucide:user" class="w-5 h-5 text-primary" />
                 </div>
                 <h3 class="card-title text-lg">关于我</h3>
@@ -141,11 +145,12 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
           <a
             href="/project"
-            class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group"
+            class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group animate-item"
+            style="animation-delay: 0.2s;"
           >
             <div class="card-body p-6">
               <div class="flex items-center gap-3 mb-2">
-                <div class="bg-secondary/10 rounded-full p-2 group-hover:scale-110 transition-transform">
+                <div class="bg-secondary/10 rounded-full p-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
                   <Icon name="lucide:folder-code" class="w-5 h-5 text-secondary" />
                 </div>
                 <h3 class="card-title text-lg">我的项目</h3>
@@ -156,11 +161,12 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 
           <a
             href="/friend"
-            class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group"
+            class="card bg-gradient-to-br from-base-100 to-base-200/50 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-base-200/50 group animate-item"
+            style="animation-delay: 0.3s;"
           >
             <div class="card-body p-6">
               <div class="flex items-center gap-3 mb-2">
-                <div class="bg-accent/10 rounded-full p-2 group-hover:scale-110 transition-transform">
+                <div class="bg-accent/10 rounded-full p-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
                   <Icon name="lucide:users" class="w-5 h-5 text-accent" />
                 </div>
                 <h3 class="card-title text-lg">友情链接</h3>
@@ -175,19 +181,11 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
 </BaseLayout>
 
 <style>
-  @keyframes fadeIn {
+  /* Base animations */
+  @keyframes fadeInUp {
     from {
       opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
@@ -217,23 +215,42 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
     }
   }
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
     }
-    to {
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1.2);
     }
   }
 
-  .animate-fade-in {
-    animation: fadeIn 1s ease-out;
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
-  .animate-slide-up {
-    animation: slideUp 0.8s ease-out 0.2s both;
+  /* Apply animations */
+  .animate-item {
+    animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .animate-section {
+    animation: fadeInUp 0.8s ease-out both;
   }
 
   .animate-slide-down {
@@ -244,25 +261,25 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
     animation: expandHorizontal 0.8s ease-out 0.15s both;
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out 0.4s both;
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
   }
 
-  /* Stagger animations for sections */
-  section:nth-child(1) {
-    animation-delay: 0s;
+  .animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite;
   }
 
-  section:nth-child(2) {
-    animation-delay: 0.2s;
+  .animate-pulse-slow {
+    animation: pulseSlow 3s ease-in-out infinite;
   }
 
-  section:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-
-  /* Hover effect for quick links */
+  /* Hover effects */
   .card:hover {
     background: linear-gradient(135deg, rgba(var(--p), 0.05) 0%, rgba(var(--s), 0.05) 100%);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .btn, .card, a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>

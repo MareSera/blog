@@ -2,134 +2,400 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 import MainCard from "@/components/MainCard.astro";
-import LinkCard from "@/components/mdx/LinkCard.astro";
 import FriendCard from "@/components/mdx/FriendCard.astro";
-import Card from "@/components/temple/Card.astro";
 import CardGroup from "@/components/temple/CardGroup.astro";
-import Showcase from "@/components/mdx/Showcase.astro";
 
-const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
+// 友链数据 - 你可以添加更多朋友
+const friends = [
+  {
+    name: "MareSera",
+    avatar: "https://blog.maresera.top/profile.png",
+    description: "……？我本人",
+    url: "https://blog.maresera.top/friend",
+    type: "friend",
+    isOnline: true, // 手动配置是否可访问
+    tags: ["Wait more friend…"]
+  },
+  {
+    name: "EveSunMaple",
+    avatar: "https://github.com/EveSunMaple.png",
+    description: "Coding is my hobby, not my career.",
+    url: "https://github.com/EveSunMaple",
+    type: "contributor",
+    isOnline: true, // 手动配置是否可访问
+    tags: ["Developer", "Open Source"]
+  },
+  // 添加更多朋友...
+];
+
+// 数据分组
+const contributors = friends.filter(f => f.type === "contributor");
+const friendsList = friends.filter(f => f.type === "friend");
+
+// 友链统计
+const stats = {
+  total: friends.length,
+  contributors: contributors.length,
+  friends: friendsList.length,
+};
 ---
 
 <BaseLayout title="Friends">
   <CardGroup cols="1">
     <MainCard
-      title="Friends & Resources"
-      description="这是一个关于朋友和技术的链接合集。"
+      title="Friends & Links"
+      description="我的朋友们和他们的精彩世界"
       textOverlay="FRIENDS"
       infoIcon="lucide:link"
     >
-      <div class="space-y-10">
-        <!-- Friends Section -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Icon name="lucide:users" class="w-6 h-6 text-primary" />
-            <span>Friends</span>
-          </h2>
-
-          
-       
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <FriendCard
-              name="EveSunMaple"
-              avatar="https://github.com/EveSunMaple.png"
-              description="Coding is my hobby, not my career."
-              url="https://github.com/EveSunMaple"
-              type="contributor"
-            />
+      <div class="space-y-12">
+        <!-- Header Section -->
+        <section class="text-center py-4 animate-fade-in">
+          <div class="inline-flex items-center gap-3 mb-4">
+            <div class="h-1 w-24 md:w-32 bg-gradient-to-r from-transparent via-error to-error"></div>
+            <Icon name="lucide:heart" class="w-12 h-12 text-error animate-pulse" />
+            <div class="h-1 w-24 md:w-32 bg-gradient-to-l from-transparent via-error to-error"></div>
           </div>
-        </section>
-
-        <!-- Useful Resources Section -->
-        <section>
-          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Icon name="lucide:bookmark" class="w-6 h-6 text-primary" />
-            <span>Useful Resources</span>
-          </h2>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <LinkCard
-              title="Astro Documentation"
-              desc="The official documentation for Astro, covering everything from getting started to advanced techniques."
-              url="https://docs.astro.build"
-              icon="simple-icons:astro"
-              categories={["Docs", "Learning", "Reference"]}
-            />
-
-            <LinkCard
-              title="Tailwind CSS Documentation"
-              desc="Learn how to use Tailwind's utility classes to style your website without writing CSS."
-              url="https://tailwindcss.com/docs"
-              icon="simple-icons:tailwindcss"
-              categories={["Docs", "CSS", "Reference"]}
-            />
-
-            <LinkCard
-              title="DaisyUI Components"
-              desc="Browse DaisyUI's component library and learn how to use them in your project."
-              url="https://daisyui.com/components/"
-              icon="simple-icons:daisyui"
-              categories={["Components", "UI", "Reference"]}
-            />
-
-            <LinkCard
-              title="TypeScript Handbook"
-              desc="The TypeScript Handbook is a comprehensive guide to the TypeScript language."
-              url="https://www.typescriptlang.org/docs/handbook/intro.html"
-              icon="simple-icons:typescript"
-              categories={["Docs", "TypeScript", "Reference"]}
-            />
-          </div>
-        </section>
-
-        <div class="divider my-8">
-          <Icon name="lucide:heart" class="w-10 h-10 text-primary" />
-        </div>
-
-        <div class="text-center">
-          <p class="text-base-content/80 mb-4">
-            Want to be featured on this page? Feel free to reach out or contribute to the project!
+          <p class="text-base-content/80 max-w-2xl mx-auto text-lg mb-4">
+            感谢这些优秀的朋友，让我的开发之路不再孤单！
           </p>
-          <a
-            href="https://github.com/EveSunMaple/Frosti"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary gap-2"
+          <button 
+            id="randomVisitBtn"
+            class="btn btn-primary btn-sm gap-2 shadow-md hover:shadow-lg transition-all hover:scale-105"
           >
-            <Icon name="lucide:github" class="w-5 h-5" />
-            <span>Contribute on GitHub</span>
-          </a>
-        </div>
-      </div>
-    </MainCard>
-    <Card>
-      <div class="p-4 sm:p-6">
-        <div class="space-y-10">
-          <section>
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
-              <h2 class="text-2xl font-bold flex items-center gap-2">
-                <Icon name="lucide:layout-template" class="w-6 h-6 text-primary" />
-                <span>Sites Using Frosti</span>
-              </h2>
-              <a
-                href="mailto:lyt15624134413@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn btn-sm btn-outline btn-primary gap-2"
-              >
-                <Icon name="lucide:plus-circle" class="w-4 h-4" />
-                Add Your Site
-              </a>
+            <Icon name="lucide:shuffle" class="w-4 h-4" />
+            <span>随机访问</span>
+          </button>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="grid grid-cols-3 gap-4 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.1s;">
+          <div class="text-center p-4 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl border border-primary/20 hover:scale-105 transition-transform">
+            <div class="text-3xl font-bold text-primary">{stats.total}</div>
+            <div class="text-xs text-base-content/60 mt-1">总计</div>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl border border-accent/20 hover:scale-105 transition-transform">
+            <div class="text-3xl font-bold text-accent">{stats.contributors}</div>
+            <div class="text-xs text-base-content/60 mt-1">贡献者</div>
+          </div>
+          <div class="text-center p-4 bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-xl border border-secondary/20 hover:scale-105 transition-transform">
+            <div class="text-3xl font-bold text-secondary">{stats.friends}</div>
+            <div class="text-xs text-base-content/60 mt-1">朋友</div>
+          </div>
+        </section>
+
+        <!-- Friends Button Section -->
+        {friendsList.length > 0 && (
+          <section class="animate-fade-in-up" style="animation-delay: 0.15s;">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full p-3 shadow-md">
+                <Icon name="lucide:users" class="w-6 h-6 text-primary" />
+              </div>
+              <h2 class="text-2xl md:text-3xl font-bold">我的朋友们</h2>
             </div>
-            <p class="text-base-content/70 mb-6">
-              请发送邮箱让我添加您！
-            </p>
-            <div class="flex flex-wrap items-center gap-3">
-              {sites.map((site) => <Showcase name={site.name} url={site.url} />)}
+            
+            <div class="bg-gradient-to-br from-base-200/30 to-base-300/30 rounded-2xl p-6 border border-base-200/50">
+              <div class="flex flex-wrap gap-3">
+                {friendsList.map((friend) => (
+                  <a
+                    href={friend.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-outline gap-2 hover:btn-primary transition-all"
+                  >
+                    <span class={`w-2 h-2 rounded-full transition-colors ${friend.isOnline ? 'bg-success' : 'bg-base-300'}`}></span>
+                    <span>{friend.name}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
+        )}
+
+        <!-- Contributors Grid Section -->
+        {contributors.length > 0 && (
+          <section class="animate-fade-in-up" style="animation-delay: 0.2s;">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="bg-gradient-to-br from-accent/20 to-secondary/20 rounded-full p-3 shadow-md">
+                <Icon name="lucide:award" class="w-6 h-6 text-accent" />
+              </div>
+              <h2 class="text-2xl md:text-3xl font-bold">本站贡献者</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {contributors.map((contributor, index) => (
+                <div style={`animation-delay: ${0.3 + index * 0.1}s;`} class="animate-fade-in-up">
+                  <FriendCard
+                    name={contributor.name}
+                    avatar={contributor.avatar}
+                    description={contributor.description}
+                    url={contributor.url}
+                    type={contributor.type}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Friends List (Alternative View) -->
+        <section class="animate-fade-in-up" style="animation-delay: 0.4s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full p-3 shadow-md">
+              <Icon name="lucide:list" class="w-6 h-6 text-secondary" />
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold">友链列表</h2>
+          </div>
+
+          <div class="bg-gradient-to-br from-base-200/30 to-base-300/30 rounded-2xl p-6 border border-base-200/50">
+            <div class="space-y-3" id="friendsList">
+              {friendsList.map((friend, index) => (
+                <a
+                  href={friend.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="friend-list-item flex items-center gap-4 p-4 bg-base-100 rounded-xl hover:shadow-lg transition-all hover:-translate-y-1 border border-base-200/50 group"
+                  data-index={index}
+                  style={`animation-delay: ${0.5 + index * 0.05}s; display: ${index < 3 ? 'flex' : 'none'};`}
+                >
+                  <div class="avatar">
+                    <div class="w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 group-hover:ring-4 transition-all">
+                      <img src={friend.avatar} alt={friend.name} />
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <div class="font-bold text-lg group-hover:text-primary transition-colors">{friend.name}</div>
+                    <div class="text-sm text-base-content/70">{friend.description}</div>
+                  </div>
+                  <Icon name="lucide:external-link" class="w-5 h-5 text-base-content/40 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </a>
+              ))}
+            </div>
+            
+            {friendsList.length >= 3 && (
+              <div class="text-center mt-4" id="loadMoreContainer">
+                <button 
+                  id="loadMoreBtn"
+                  class="btn btn-outline btn-primary gap-2"
+                  data-visible="3"
+                  data-total={friendsList.length}
+                >
+                  <Icon name="lucide:chevron-down" class="w-4 h-4 transition-transform" />
+                  <span class="load-more-text">加载更多</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <!-- Friends Tags Cloud -->
+        <section class="animate-fade-in-up" style="animation-delay: 0.5s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="bg-gradient-to-br from-accent/20 to-primary/20 rounded-full p-3 shadow-md">
+              <Icon name="lucide:tags" class="w-6 h-6 text-accent" />
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold">标签云</h2>
+          </div>
+
+          <div class="flex flex-wrap gap-3 justify-center bg-gradient-to-br from-base-200/30 to-base-300/30 rounded-2xl p-8 border border-base-200/50">
+            {Array.from(new Set(friends.flatMap(f => f.tags || []))).map((tag, index) => (
+              <div 
+                class="badge badge-lg badge-outline hover:badge-primary transition-all hover:scale-110 cursor-pointer"
+                style={`animation-delay: ${0.6 + index * 0.05}s;`}
+              >
+                {tag}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="divider animate-fade-in" style="animation-delay: 0.6s;">
+          <Icon name="lucide:sparkles" class="w-6 h-6 text-primary" />
         </div>
+
+        <!-- Add Friend Section -->
+        <section class="animate-fade-in-up" style="animation-delay: 0.7s;">
+          <div class="bg-gradient-to-br from-base-200/40 to-base-300/40 backdrop-blur-sm rounded-2xl p-8 border border-base-200/50 text-center">
+            <Icon name="lucide:user-plus" class="w-16 h-16 text-primary mx-auto mb-4" />
+            <h3 class="text-2xl font-bold mb-3">想要交换友链？</h3>
+            <p class="text-base-content/70 mb-6 max-w-2xl mx-auto">
+              欢迎与我交换友链！请确保你的网站内容积极向上，并且能够稳定访问。
+            </p>
+            
+            <!-- 友链要求 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 max-w-3xl mx-auto">
+              <div class="flex items-center gap-3 p-3 bg-base-100 rounded-lg">
+                <Icon name="lucide:check-circle" class="w-5 h-5 text-success flex-shrink-0" />
+                <span class="text-sm text-left">网站内容健康积极</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-base-100 rounded-lg">
+                <Icon name="lucide:check-circle" class="w-5 h-5 text-success flex-shrink-0" />
+                <span class="text-sm text-left">能够稳定访问</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-base-100 rounded-lg">
+                <Icon name="lucide:check-circle" class="w-5 h-5 text-success flex-shrink-0" />
+                <span class="text-sm text-left">原创内容</span>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-base-100 rounded-lg">
+                <Icon name="lucide:check-circle" class="w-5 h-5 text-success flex-shrink-0" />
+                <span class="text-sm text-left">请先添加本站</span>
+              </div>
+            </div>
+
+            <a
+              href="mailto:lyt15624134413@gmail.com"
+              class="btn btn-primary btn-lg gap-2 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            >
+              <Icon name="lucide:mail" class="w-5 h-5" />
+              <span>发送邮件申请</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Footer Quote -->
+        <section class="text-center py-6 animate-fade-in-up" style="animation-delay: 0.8s;">
+          <div class="max-w-2xl mx-auto">
+            <Icon name="lucide:quote" class="w-8 h-8 text-primary/40 mx-auto mb-3" />
+            <p class="text-lg italic text-base-content/70 leading-relaxed">
+              "独行快，众行远。感谢每一位朋友的陪伴与支持！"
+            </p>
+            <div class="flex justify-center mt-4">
+              <Icon name="lucide:sparkles" class="w-5 h-5 text-secondary/60" />
+            </div>
+          </div>
+        </section>
       </div>
-    </Card>
+    </MainCard>
   </CardGroup>
 </BaseLayout>
+
+<script>
+  // 将 friends 数据传递给客户端（排除自己）
+  const friendsData = [
+    {
+      name: "MareSera",
+      avatar: "https://blog.maresera.top/profile.png",
+      description: "……？我本人",
+      url: "https://blog.maresera.top/friend",
+      type: "friend",
+      isOnline: true,
+      tags: ["Wait more friend…"]
+    },
+    {
+      name: "EveSunMaple",
+      avatar: "https://github.com/EveSunMaple.png",
+      description: "Coding is my hobby, not my career.",
+      url: "https://github.com/EveSunMaple",
+      type: "contributor",
+      isOnline: true,
+      tags: ["Developer", "Open Source"]
+    },
+  ].filter(f => f.name !== "MareSera"); // 排除自己
+
+  // 随机跳转功能
+  function setupRandomVisit(friends: typeof friendsData): void {
+    const btn = document.getElementById('randomVisitBtn');
+    if (!btn) {
+      console.warn('Random visit button not found');
+      return;
+    }
+    
+    if (friends.length === 0) {
+      btn.setAttribute('disabled', 'true');
+      return;
+    }
+    
+    btn.addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * friends.length);
+      const randomFriend = friends[randomIndex];
+      
+      window.open(randomFriend.url, '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  // 折叠加载功能
+  function setupCollapseLoad(): void {
+    const btn = document.getElementById('loadMoreBtn');
+    const container = document.getElementById('friendsList');
+    
+    if (!btn || !container) {
+      return;
+    }
+    
+    const items = container.querySelectorAll('.friend-list-item');
+    let visibleCount = 3;
+    const totalCount = items.length;
+    const LOAD_INCREMENT = 5;
+    
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('data-expanded') === 'true';
+      const iconElement = btn.querySelector('svg');
+      const textElement = btn.querySelector('.load-more-text');
+      
+      if (isExpanded) {
+        // 收起：只显示前 3 条
+        items.forEach((item, index) => {
+          (item as HTMLElement).style.display = index < 3 ? 'flex' : 'none';
+        });
+        visibleCount = 3;
+        btn.setAttribute('data-expanded', 'false');
+        if (textElement) textElement.textContent = '加载更多';
+        if (iconElement) iconElement.style.transform = 'rotate(0deg)';
+      } else {
+        // 展开：增加 5 条或显示全部
+        const newVisibleCount = Math.min(visibleCount + LOAD_INCREMENT, totalCount);
+        items.forEach((item, index) => {
+          if (index < newVisibleCount) {
+            (item as HTMLElement).style.display = 'flex';
+          }
+        });
+        visibleCount = newVisibleCount;
+        
+        if (visibleCount >= totalCount) {
+          btn.setAttribute('data-expanded', 'true');
+          if (textElement) textElement.textContent = '收起';
+          if (iconElement) iconElement.style.transform = 'rotate(180deg)';
+        }
+      }
+    });
+  }
+
+  // 初始化所有功能
+  document.addEventListener('astro:page-load', () => {
+    setupRandomVisit(friendsData);
+    setupCollapseLoad();
+  });
+</script>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+</style>
