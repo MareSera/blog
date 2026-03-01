@@ -27,22 +27,24 @@ const url = new URL(`/${blog.slug}`, Astro.url.origin);
 
 <BaseLayout title={blog.data.title} image={blog.data.image} headings={headings} showTOC={true}>
   <MainCard title={blog.data.title} description={blog.data.description} image={blog.data.image} infoIcon="lucide:info">
-    <!-- Article info using PostInfo component -->
-    <PostInfo
-      pubDate={displayDate}
-      badge={blog.data.badge}
-      word={remarkPluginFrontmatter.totalCharCount}
-      time={remarkPluginFrontmatter.readingTime}
-    />
+    <!-- Article metadata section with enhanced styling -->
+    <div class="article-meta-section mb-8 pb-6 border-b border-base-content/10">
+      <PostInfo
+        pubDate={displayDate}
+        badge={blog.data.badge}
+        word={remarkPluginFrontmatter.totalCharCount}
+        time={remarkPluginFrontmatter.readingTime}
+      />
 
-    <!-- Categories and tags using PostFilter component -->
-    <div class="mb-6">
-      <PostFilter categories={blog.data.categories} tags={blog.data.tags} />
+      <!-- Categories and tags -->
+      <div class="mt-4">
+        <PostFilter categories={blog.data.categories} tags={blog.data.tags} />
+      </div>
     </div>
 
-    <!-- Article Content -->
-    <div class="mt-8">
-      <div id="content" class="prose max-w-none prose-headings:scroll-mt-20 prose-img:rounded-xl prose-img:mx-auto">
+    <!-- Article Content with optimized reading container -->
+    <div class="article-content-wrapper">
+      <div id="content" class="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-img:rounded-xl prose-img:mx-auto mx-auto">
         <Content />
         <License
           url={url}
@@ -59,3 +61,48 @@ const url = new URL(`/${blog.slug}`, Astro.url.origin);
     </div>
   </MainCard>
 </BaseLayout>
+
+<style>
+  .article-meta-section {
+    background: linear-gradient(135deg, oklch(var(--b2) / 0.3) 0%, transparent 100%);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin: -0.5rem -0.5rem 2rem -0.5rem;
+  }
+
+  .article-content-wrapper {
+    /* Optimal reading width */
+    max-width: 75ch;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Focus mode - reduce distractions */
+  @media (min-width: 1024px) {
+    .article-content-wrapper {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Smooth scroll behavior for anchor links */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  /* Highlight target heading when navigating via TOC */
+  :global(#content :target) {
+    animation: highlight-heading 2s ease-out;
+  }
+
+  @keyframes highlight-heading {
+    0% {
+      background-color: oklch(var(--p) / 0.2);
+      padding: 0.5rem;
+      margin: -0.5rem;
+      border-radius: 0.5rem;
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+</style>

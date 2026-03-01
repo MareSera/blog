@@ -1,0 +1,363 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import MainCard from "@/components/MainCard.astro";
+
+const title = "内容开发中";
+const description = "这个页面正在努力建设中，敬请期待精彩内容！";
+const textOverlay = "WIP";
+---
+
+<BaseLayout title={title} isIndexed={false}>
+  <MainCard title={title} description={description} textOverlay={textOverlay} infoIcon="lucide:construction">
+    <!-- 主要提示信息 with 进度条 -->
+    <div class="text-center my-8 wip-main-box">
+      <div class="inline-block p-8 bg-base-200/50 rounded-2xl border border-base-content/10 mb-6 shadow-lg backdrop-blur-sm">
+        <div class="wip-icon-wrapper">
+          <Icon name="lucide:hammer" class="wip-icon wip-icon-building w-20 h-20 mx-auto text-base-content mb-4 animate-bounce-slow" />
+          <Icon name="lucide:check-circle" class="wip-icon wip-icon-complete w-20 h-20 mx-auto text-success mb-4 hidden" />
+        </div>
+        <p class="wip-title text-2xl font-bold mb-3">页面正在建设中</p>
+        <p class="wip-subtitle text-base opacity-70 mb-6">我们正在努力完善这个页面，请稍后再来查看</p>
+        
+        <!-- 总进度条 -->
+        <div class="wip-progress-section mt-6 pt-6 border-t border-base-content/10">
+          <div class="flex justify-between items-center mb-3">
+            <div class="flex items-center gap-2 wip-progress-label">
+              <Icon name="lucide:trending-up" class="w-5 h-5 text-primary" />
+              <span class="font-semibold text-sm">总体进度</span>
+            </div>
+            <span class="wip-progress-value text-lg font-bold text-primary">0%</span>
+          </div>
+          <div class="relative w-full h-3 bg-base-300/50 rounded-full overflow-hidden">
+            <!-- 进度条 -->
+            <div class="progress-bar-fill absolute inset-y-0 left-0 bg-primary rounded-full shadow-sm transition-all duration-75">
+              <!-- 光泽效果 -->
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center my-8 wip-buttons">
+      <a href="/" class="btn btn-primary gap-2">
+        <Icon name="lucide:home" class="w-5 h-5" />
+        <span>返回首页</span>
+      </a>
+      <button class="btn btn-outline gap-2" onclick="history.back()">
+        <Icon name="lucide:corner-up-left" class="w-5 h-5" />
+        <span>返回上一页</span>
+      </button>
+    </div>
+
+    <div class="divider my-6 wip-divider">
+      <Icon name="lucide:compass" class="w-10 h-10 opacity-50" />
+    </div>
+
+    <!-- 推荐内容 -->
+    <div class="text-center mb-6 wip-heading">
+      <h3 class="text-xl font-bold mb-4">在此期间，您可以浏览以下内容</h3>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="/blog" class="wip-card card bg-base-200/50 p-6 hover-lift text-center transition-all duration-300 group border border-base-content/10" data-index="0">
+        <div class="text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
+          <Icon name="lucide:book-open" class="w-10 h-10 mx-auto" />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">博客文章</h3>
+        <p class="text-sm opacity-70">阅读最新文章</p>
+      </a>
+
+      <a href="/blog/archives" class="wip-card card bg-base-200/50 p-6 hover-lift text-center transition-all duration-300 group border border-base-content/10" data-index="1">
+        <div class="text-secondary mb-3 group-hover:scale-110 transition-transform duration-300">
+          <Icon name="lucide:archive" class="w-10 h-10 mx-auto" />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">文章归档</h3>
+        <p class="text-sm opacity-70">按时间浏览</p>
+      </a>
+
+      <a href="/project" class="wip-card card bg-base-200/50 p-6 hover-lift text-center transition-all duration-300 group border border-base-content/10" data-index="2">
+        <div class="text-accent mb-3 group-hover:scale-110 transition-transform duration-300">
+          <Icon name="lucide:folder-git-2" class="w-10 h-10 mx-auto" />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">项目展示</h3>
+        <p class="text-sm opacity-70">查看我的项目</p>
+      </a>
+
+      <a href="/about" class="wip-card card bg-base-200/50 p-6 hover-lift text-center transition-all duration-300 group border border-base-content/10" data-index="3">
+        <div class="text-info mb-3 group-hover:scale-110 transition-transform duration-300">
+          <Icon name="lucide:user" class="w-10 h-10 mx-auto" />
+        </div>
+        <h3 class="font-semibold text-lg mb-2">关于我</h3>
+        <p class="text-sm opacity-70">了解更多信息</p>
+      </a>
+    </div>
+  </MainCard>
+</BaseLayout>
+
+<script>
+  function initWipProgress() {
+    // 从URL参数读取进度
+    const urlParams = new URLSearchParams(window.location.search);
+    const progressParam = urlParams.get('progress');
+    const targetProgress = progressParam ? Math.min(Math.max(parseInt(progressParam), 0), 100) : 45;
+    
+    // 更新UI元素
+    const progressBar = document.querySelector('.progress-bar-fill') as HTMLElement;
+    const progressValue = document.querySelector('.wip-progress-value') as HTMLElement;
+    const wipTitle = document.querySelector('.wip-title') as HTMLElement;
+    const wipSubtitle = document.querySelector('.wip-subtitle') as HTMLElement;
+    const iconBuilding = document.querySelector('.wip-icon-building') as HTMLElement;
+    const iconComplete = document.querySelector('.wip-icon-complete') as HTMLElement;
+    
+    // 如果进度是100%，更新文字和图标
+    if (targetProgress === 100) {
+      if (wipTitle) wipTitle.textContent = '内容开发完毕';
+      if (wipSubtitle) wipSubtitle.textContent = '即将上线！';
+      if (iconBuilding) iconBuilding.classList.add('hidden');
+      if (iconComplete) iconComplete.classList.remove('hidden');
+    }
+    
+    if (progressBar && progressValue) {
+      let currentProgress = 0;
+      const duration = 1200;
+      const steps = 60;
+      const increment = targetProgress / steps;
+      const stepDuration = duration / steps;
+      
+      const animateProgress = () => {
+        if (currentProgress < targetProgress) {
+          currentProgress = Math.min(currentProgress + increment, targetProgress);
+          progressBar.style.width = `${currentProgress}%`;
+          progressValue.textContent = `${Math.round(currentProgress)}%`;
+          setTimeout(animateProgress, stepDuration);
+        }
+      };
+      
+      setTimeout(animateProgress, 600);
+    }
+  }
+  
+  document.addEventListener('astro:page-load', initWipProgress);
+</script>
+
+<style>
+  /* 主框淡入缩放动画 */
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .wip-main-box {
+    animation: fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  /* 图标旋转淡入 */
+  @keyframes iconRotateIn {
+    from {
+      opacity: 0;
+      transform: rotate(-180deg) scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  .wip-icon-wrapper {
+    animation: iconRotateIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  }
+
+  /* 标题淡入 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .wip-title {
+    animation: fadeIn 0.6s ease-out 0.5s both;
+  }
+
+  .wip-subtitle {
+    animation: fadeIn 0.6s ease-out 0.7s both;
+  }
+
+  /* 进度区域滑入 */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .wip-progress-section {
+    animation: slideInUp 0.6s ease-out 0.9s both;
+  }
+
+  .wip-progress-label {
+    animation: fadeIn 0.5s ease-out 1.2s both;
+  }
+
+  .wip-progress-value {
+    animation: fadeIn 0.5s ease-out 1.3s both;
+  }
+
+  /* 按钮弹入 */
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3) translateY(20px);
+    }
+    50% {
+      transform: scale(1.05) translateY(-5px);
+    }
+    70% {
+      transform: scale(0.95) translateY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .wip-buttons {
+    animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s both;
+  }
+
+  /* 分隔线展开 */
+  @keyframes expandWidth {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+
+  .wip-divider {
+    animation: expandWidth 0.8s ease-out 1.4s both;
+  }
+
+  /* 标题淡入 */
+  .wip-heading {
+    animation: fadeIn 0.6s ease-out 1.6s both;
+  }
+
+  /* 卡片级联淡入 */
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .wip-card {
+    opacity: 0;
+    animation: cardFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .wip-card[data-index="0"] {
+    animation-delay: 1.8s;
+  }
+
+  .wip-card[data-index="1"] {
+    animation-delay: 1.95s;
+  }
+
+  .wip-card[data-index="2"] {
+    animation-delay: 2.1s;
+  }
+
+  .wip-card[data-index="3"] {
+    animation-delay: 2.25s;
+  }
+
+  /* 悬停上浮效果 */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px -6px oklch(var(--bc) / 0.2);
+  }
+
+  /* 按钮光泽效果 */
+  .btn-shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-shine-effect:hover::before {
+    left: 100%;
+  }
+
+  /* 慢速弹跳动画 */
+  @keyframes bounceSlow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  .animate-bounce-slow {
+    animation: bounceSlow 2.5s ease-in-out infinite;
+  }
+
+  /* 进度条光泽动画 */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  /* 进度条初始状态 */
+  .progress-bar-fill {
+    width: 0%;
+    transition: width 0.05s linear;
+  }
+</style>

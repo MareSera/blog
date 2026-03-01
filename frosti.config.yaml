@@ -73,7 +73,7 @@ user:
   avatar: /profile.png # 用户头像路径
   sidebar: # 侧边栏配置
     social:
-      - href: "https://afdian.com/a/saroprock" # 链接
+      - href: "/wip?progress=100" # 链接
         ariaLabel: Support my work # 图标的可访问性标签
         title: Support my work # 图标的悬浮标题
         svg: "ri:cup-line"
@@ -85,7 +85,7 @@ user:
         ariaLabel: BiliBili
         title: BiliBili
         svg: "ri:bilibili-line"
-      - href: "https://x.com/MareSera"
+      - href: "/wip?progress=50"
         ariaLabel: X(twitter)
         title: X(twitter)
         svg: "ri:twitter-line"

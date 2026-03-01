@@ -55,16 +55,14 @@ const { className = "" } = Astro.props as ThemeToggleProps;
     updateThemeIcons(themeToggle, currentTheme === SITE_THEME.dark);
 
     // Toggle theme on click
-    themeToggle.addEventListener("click", (e) => {
+    themeToggle.addEventListener("click", () => {
       const currentTheme = document.documentElement.getAttribute("data-theme");
       const newTheme = currentTheme === SITE_THEME.light ? SITE_THEME.dark : SITE_THEME.light;
 
-      // Add animation class to button
+      // Add animation class to button only
       themeToggle.classList.add("animate-theme-switch");
 
-      // Set new theme immediately with transition class
-      document.documentElement.classList.add('theme-transitioning');
-      
+      // Set new theme immediately - no transition class needed
       document.documentElement.setAttribute("data-theme", newTheme);
 
       // Set theme type based on which theme is active
@@ -79,11 +77,10 @@ const { className = "" } = Astro.props as ThemeToggleProps;
         updateThemeIcons(toggle, newTheme === SITE_THEME.dark);
       });
 
-      // Remove animation classes after animation completes
+      // Remove animation class after animation completes
       setTimeout(() => {
         themeToggle.classList.remove("animate-theme-switch");
-        document.documentElement.classList.remove('theme-transitioning');
-      }, 500);
+      }, 400);
     });
   });
 </script>
@@ -94,7 +91,7 @@ const { className = "" } = Astro.props as ThemeToggleProps;
       transform: rotate(0deg) scale(1);
     }
     50% {
-      transform: rotate(180deg) scale(1.15);
+      transform: rotate(180deg) scale(1.1);
     }
     100% {
       transform: rotate(360deg) scale(1);
@@ -108,22 +105,22 @@ const { className = "" } = Astro.props as ThemeToggleProps;
     }
     50% {
       opacity: 0;
-      transform: scale(0.3) rotate(180deg);
+      transform: scale(0.4) rotate(90deg);
     }
     100% {
       opacity: 0;
-      transform: scale(0.3) rotate(180deg);
+      transform: scale(0.4) rotate(90deg);
     }
   }
 
   @keyframes icon-swap-in {
     0% {
       opacity: 0;
-      transform: scale(0.3) rotate(-180deg);
+      transform: scale(0.4) rotate(-90deg);
     }
     50% {
       opacity: 0;
-      transform: scale(0.3) rotate(-180deg);
+      transform: scale(0.4) rotate(-90deg);
     }
     100% {
       opacity: 1;
@@ -132,39 +129,18 @@ const { className = "" } = Astro.props as ThemeToggleProps;
   }
 
   .animate-theme-switch {
-    animation: theme-switch 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: theme-switch 0.4s ease-out;
   }
 
   .animate-theme-switch .theme-toggle-icon:not(.hidden) {
-    animation: icon-swap-out 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: icon-swap-out 0.4s ease-out;
   }
 
   .animate-theme-switch .theme-toggle-icon.hidden {
-    animation: icon-swap-in 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: icon-swap-in 0.4s ease-out;
   }
 
   .theme-toggle-icon {
     will-change: transform, opacity;
-  }
-</style>
-
-<style is:global>
-  /* Smooth color transitions only when theme is changing */
-  html.theme-transitioning {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  html.theme-transitioning * {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Optimize transitions for better performance */
-  html.theme-transitioning *::before,
-  html.theme-transitioning *::after {
-    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
