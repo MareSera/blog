@@ -39,9 +39,9 @@ site:
           href: /blog/category/文学
           svg: "material-symbols:unknown-document-outline-rounded"
           target: _self
-        - id: 演讲稿
-          text: 演讲稿
-          href: /blog/category/演讲稿
+        - id: 读后感
+          text: 读后感
+          href: /blog/category/读后感
           svg: "material-symbols:deployed-code-outline"
           target: _self
         # 子菜单项配置
