@@ -52,18 +52,37 @@ const {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
-    background: transparent;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: oklch(var(--p) / 0.1);
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 50%;
     color: oklch(var(--p));
+    position: relative;
+  }
+
+  .play-pause-button::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: oklch(var(--p) / 0.2);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .play-pause-button:hover {
-    background: oklch(var(--p) / 0.1);
-    transform: scale(1.1);
+    background: oklch(var(--p) / 0.15);
+    transform: scale(1.05);
+  }
+
+  .play-pause-button:hover::before {
+    opacity: 1;
+    transform: scale(1);
   }
   
   .play-pause-button:active {
@@ -72,11 +91,38 @@ const {
   
   .play-pause-button:focus-visible {
     outline: 2px solid oklch(var(--p));
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
   
   .play-pause-button svg {
     display: block;
     transition: transform 0.2s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .play-pause-button:active svg {
+    transform: scale(0.9);
+  }
+
+  /* 播放时的脉冲动画 */
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  .play-pause-button.playing::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid oklch(var(--p));
+    animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 </style>
