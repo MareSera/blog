@@ -1,19 +1,26 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import EssayMusicCard from "./EssayMusicCard.astro";
 
 export interface EssayCardProps {
   date: string;
   content: string;
   image?: string;
+  music?: {
+    src: string;
+    title: string;
+    artist: string;
+    cover?: string;
+  };
 }
 
-const { date, content, image } = Astro.props as EssayCardProps;
+const { date, content, image, music } = Astro.props as EssayCardProps;
 ---
 
 <div class="essay-card-wrapper">
   <div
-    class="not-prose card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out hover:-translate-y-2 animate-fade-in-up border border-base-200/50 overflow-hidden group"
+    class="not-prose card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out animate-fade-in-up border border-base-200/50 overflow-hidden group"
   >
     <!-- Decorative top border -->
     <div class="h-1 bg-gradient-to-r from-primary via-secondary to-accent"></div>
@@ -39,7 +46,7 @@ const { date, content, image } = Astro.props as EssayCardProps;
       <!-- Image (optional) with enhanced styling -->
       {
         image && (
-          <div class="w-full rounded-xl overflow-hidden mb-1 shadow-md">
+          <div class="w-full rounded-xl overflow-hidden mb-1 shadow-md mt-2 essay-image-wrapper">
             <Image
               src={image}
               width={400}
@@ -47,7 +54,22 @@ const { date, content, image } = Astro.props as EssayCardProps;
               format="webp"
               alt="Essay image"
               loading="lazy"
-              class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+              class="w-full h-auto object-cover"
+            />
+          </div>
+        )
+      }
+
+      <!-- Music Player (optional) -->
+      {
+        music && (
+          <div class="w-full mb-3 mt-2 essay-music-wrapper">
+            <EssayMusicCard
+              src={music.src}
+              title={music.title}
+              artist={music.artist}
+              cover={music.cover}
+              allowDownload={true}
             />
           </div>
         )
@@ -134,5 +156,16 @@ const { date, content, image } = Astro.props as EssayCardProps;
   }
   .essay-card-wrapper:nth-child(8) .card {
     animation-delay: 0.4s;
+  }
+
+  /* Remove hover scale animations for image and music */
+  .essay-image-wrapper,
+  .essay-music-wrapper {
+    transition: none;
+  }
+
+  .essay-image-wrapper:hover,
+  .essay-music-wrapper:hover {
+    transform: none;
   }
 </style>

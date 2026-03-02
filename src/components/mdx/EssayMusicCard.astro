@@ -1,0 +1,704 @@
+---
+/**
+ * EssayMusicCard - Essay 页面专用的音乐播放器卡片
+ * 紧凑横向布局，左侧小封面 + 右侧信息和控制
+ */
+
+export interface Props {
+  src: string;
+  title: string;
+  artist: string;
+  cover?: string;
+  defaultCover?: string;
+  allowDownload?: boolean;
+  className?: string;
+}
+
+const {
+  src,
+  title,
+  artist,
+  cover,
+  defaultCover = '/img/tx.png',
+  allowDownload = true,
+  className = '',
+} = Astro.props;
+
+const playerId = `essay-music-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div 
+  class={`essay-music-card ${className}`}
+  id={playerId}
+  data-src={src}
+  data-autoplay="false"
+  data-loop="false"
+  data-preload="metadata"
+>
+  <div class="music-card-content">
+    <!-- 左侧：封面和播放按钮 -->
+    <div class="music-cover-wrapper">
+      <div class="music-cover">
+        <img
+          src={cover || defaultCover}
+          alt={`${title} - ${artist}`}
+          loading="lazy"
+          onerror="this.onerror=null; this.src='/img/tx.png'"
+        />
+        <button class="play-button-overlay" aria-label="播放/暂停">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <path class="play-icon" d="M18 14 L18 34 L34 24 Z" fill="currentColor" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 右侧：信息和控制 -->
+    <div class="music-info-wrapper">
+      <!-- 歌曲信息 -->
+      <div class="music-info">
+        <h4 class="music-title">{title}</h4>
+        <p class="music-artist">{artist}</p>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="music-progress">
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="progress-time">
+          <span class="time-current" data-time="0">0:00</span>
+          <span class="time-duration" data-time="0">0:00</span>
+        </div>
+      </div>
+
+      <!-- 控制栏 -->
+      <div class="music-controls">
+        <div class="volume-control">
+          <button class="control-btn volume-btn" aria-label="音量">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" />
+              <path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+          <input type="range" class="volume-slider" min="0" max="100" value="80" aria-label="音量" />
+        </div>
+        
+        {allowDownload && (
+          <a href={src} download={`${artist} - ${title}.mp3`} class="control-btn download-btn" aria-label="下载">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+              <path d="M10 3 L10 13 M10 13 L6 9 M10 13 L14 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4 17 L16 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- 状态显示 -->
+  <div class="music-status">
+    <div class="status-loading" style="display: none;">
+      <span class="loading-spinner"></span>
+      <span>加载中...</span>
+    </div>
+    <div class="status-error" style="display: none;">
+      <span>⚠️</span>
+      <span class="error-message"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { AudioEngine } from './music-player/AudioEngine';
+  import { formatTime } from './music-player/utils';
+  import type { AudioState } from './music-player/types';
+
+  // 存储已初始化的播放器实例
+  const initializedPlayers = new Map<string, { engine: AudioEngine; cleanup: () => void }>();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEssayPlayers);
+  } else {
+    initEssayPlayers();
+  }
+
+  // 页面导航时清理所有播放器
+  document.addEventListener('astro:before-preparation', cleanupAllPlayers);
+  document.addEventListener('astro:page-load', initEssayPlayers);
+
+  function cleanupAllPlayers() {
+    initializedPlayers.forEach(({ engine, cleanup }) => {
+      cleanup();
+      engine.destroy();
+    });
+    initializedPlayers.clear();
+  }
+
+  function initEssayPlayers() {
+    document.querySelectorAll('.essay-music-card').forEach((card) => {
+      const playerId = card.id;
+      const src = card.getAttribute('data-src');
+      
+      if (!src) return;
+
+      // 如果已经初始化过，跳过
+      if (initializedPlayers.has(playerId)) {
+        return;
+      }
+
+      const engine = new AudioEngine(src, {
+        autoPlay: false,
+        loop: false,
+        preload: 'metadata',
+        volume: 0.8,
+      }, playerId);
+
+      const playButton = card.querySelector('.play-button-overlay') as HTMLButtonElement;
+      const playIcon = card.querySelector('.play-icon') as SVGPathElement;
+      const progressBar = card.querySelector('.progress-bar-wrapper') as HTMLElement;
+      const progressFill = card.querySelector('.progress-bar-fill') as HTMLElement;
+      const timeCurrentEl = card.querySelector('.time-current') as HTMLElement;
+      const timeDurationEl = card.querySelector('.time-duration') as HTMLElement;
+      const volumeBtn = card.querySelector('.volume-btn') as HTMLButtonElement;
+      const volumeSlider = card.querySelector('.volume-slider') as HTMLInputElement;
+      const statusLoading = card.querySelector('.status-loading') as HTMLElement;
+      const statusError = card.querySelector('.status-error') as HTMLElement;
+      const errorMessage = card.querySelector('.error-message') as HTMLElement;
+
+      let state: AudioState = {
+        isPlaying: false,
+        currentTime: 0,
+        duration: 0,
+        progress: 0,
+        volume: 0.8,
+        isMuted: false,
+        isLoading: true,
+        error: null,
+      };
+
+      function updateUI() {
+        if (state.isPlaying) {
+          card.classList.add('playing');
+          playIcon?.setAttribute('d', 'M16 14 h4 v20 h-4 Z M28 14 h4 v20 h-4 Z');
+        } else {
+          card.classList.remove('playing');
+          playIcon?.setAttribute('d', 'M18 14 L18 34 L34 24 Z');
+        }
+
+        if (progressFill) progressFill.style.width = `${state.progress}%`;
+        if (timeCurrentEl) timeCurrentEl.textContent = formatTime(state.currentTime);
+        if (timeDurationEl) timeDurationEl.textContent = formatTime(state.duration);
+
+        const volumeSvg = volumeBtn?.querySelector('svg');
+        if (volumeSvg) {
+          if (state.isMuted || state.volume === 0) {
+            volumeSvg.innerHTML = `
+              <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" />
+              <line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            `;
+          } else if (state.volume < 0.5) {
+            volumeSvg.innerHTML = `
+              <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" />
+              <path d="M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            `;
+          } else {
+            volumeSvg.innerHTML = `
+              <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" />
+              <path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            `;
+          }
+        }
+
+        if (volumeSlider) volumeSlider.value = (state.volume * 100).toString();
+        if (statusLoading) statusLoading.style.display = state.isLoading ? 'flex' : 'none';
+        if (statusError) {
+          statusError.style.display = state.error ? 'flex' : 'none';
+          if (state.error && errorMessage) errorMessage.textContent = state.error.message;
+        }
+      }
+
+      const handlePlayClick = async () => {
+        try {
+          if (state.isPlaying) {
+            engine.pause();
+          } else {
+            await engine.play();
+          }
+          state.isPlaying = engine.isPlaying();
+          updateUI();
+        } catch (error) {
+          console.error('播放失败:', error);
+          state.error = { type: 'LOAD_FAILED', message: '播放失败' };
+          updateUI();
+        }
+      };
+
+      let isDragging = false;
+      const handleProgressDragStart = (e: MouseEvent) => {
+        isDragging = true;
+        document.body.style.userSelect = 'none';
+      };
+
+      const handleProgressDragMove = (e: MouseEvent) => {
+        if (!isDragging || !progressBar) return;
+        const rect = progressBar.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        state.currentTime = percent * state.duration;
+        state.progress = percent * 100;
+        updateUI();
+      };
+
+      const handleProgressDragEnd = (e: MouseEvent) => {
+        if (!isDragging || !progressBar) return;
+        const rect = progressBar.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        engine.seek(percent * state.duration);
+        isDragging = false;
+        document.body.style.userSelect = '';
+      };
+
+      const handleVolumeClick = () => {
+        if (state.isMuted) {
+          engine.unmute();
+          state.isMuted = false;
+          state.volume = engine.getVolume();
+        } else {
+          engine.mute();
+          state.isMuted = true;
+        }
+        updateUI();
+      };
+
+      const handleVolumeInput = (e: Event) => {
+        const value = parseInt((e.target as HTMLInputElement).value) / 100;
+        engine.setVolume(value);
+        state.volume = value;
+        state.isMuted = value === 0;
+        updateUI();
+      };
+
+      playButton?.addEventListener('click', handlePlayClick);
+      progressBar?.addEventListener('mousedown', handleProgressDragStart);
+      document.addEventListener('mousemove', handleProgressDragMove);
+      document.addEventListener('mouseup', handleProgressDragEnd);
+      volumeBtn?.addEventListener('click', handleVolumeClick);
+      volumeSlider?.addEventListener('input', handleVolumeInput);
+
+      engine.onTimeUpdate((time) => {
+        state.currentTime = time;
+        state.progress = engine.getProgress();
+        updateUI();
+      });
+
+      engine.onLoadedMetadata(() => {
+        state.duration = engine.getDuration();
+        state.isLoading = false;
+        updateUI();
+      });
+
+      engine.onEnded(() => {
+        state.isPlaying = false;
+        updateUI();
+      });
+
+      engine.onError((error) => {
+        state.error = { type: 'LOAD_FAILED', message: error.message || '加载失败' };
+        state.isLoading = false;
+        updateUI();
+      });
+
+      updateUI();
+
+      // 清理函数
+      const cleanup = () => {
+        playButton?.removeEventListener('click', handlePlayClick);
+        progressBar?.removeEventListener('mousedown', handleProgressDragStart);
+        document.removeEventListener('mousemove', handleProgressDragMove);
+        document.removeEventListener('mouseup', handleProgressDragEnd);
+        volumeBtn?.removeEventListener('click', handleVolumeClick);
+        volumeSlider?.removeEventListener('input', handleVolumeInput);
+      };
+
+      // 存储实例和清理函数
+      initializedPlayers.set(playerId, { engine, cleanup });
+    });
+  }
+
+  // 窗口关闭时清理
+  window.addEventListener('beforeunload', cleanupAllPlayers);
+</script>
+
+<style>
+  .essay-music-card {
+    width: 100%;
+    background: oklch(var(--b1));
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid oklch(var(--bc) / 0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .essay-music-card:hover {
+    box-shadow: 0 4px 16px oklch(var(--bc) / 0.12);
+    border-color: oklch(var(--bc) / 0.12);
+  }
+
+  .music-card-content {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  /* 左侧封面 */
+  .music-cover-wrapper {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+  }
+
+  .music-cover {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.375rem;
+    overflow: hidden;
+  }
+
+  .music-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .play-button-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: oklch(var(--bc) / 0.15);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: none;
+    cursor: pointer;
+    color: white;
+    backdrop-filter: blur(2px);
+    border-radius: 0.375rem;
+    z-index: 2;
+  }
+
+  .essay-music-card:hover .play-button-overlay,
+  .essay-music-card.playing .play-button-overlay {
+    opacity: 1;
+  }
+
+  .play-button-overlay:hover {
+    background: oklch(var(--bc) / 0.25);
+  }
+
+  .play-button-overlay svg {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .play-button-overlay:hover svg {
+    transform: scale(1.3);
+  }
+
+  .play-button-overlay:active svg {
+    transform: scale(0.8);
+  }
+
+  /* 右侧信息 */
+  .music-info-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    min-width: 0;
+  }
+
+  .music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .music-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: oklch(var(--bc) / 0.9);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .essay-music-card:hover .music-title {
+    color: oklch(var(--p));
+  }
+
+  .music-artist {
+    margin: 0;
+    font-size: 0.6875rem;
+    line-height: 1.3;
+    color: oklch(var(--bc) / 0.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .essay-music-card:hover .music-artist {
+    color: oklch(var(--bc) / 0.65);
+  }
+
+  /* 进度条 */
+  .music-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .progress-bar-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 0.25rem 0;
+    cursor: pointer;
+  }
+
+  .progress-bar-track {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: oklch(var(--bc) / 0.1);
+    border-radius: 1.5px;
+    transition: all 0.3s ease;
+  }
+
+  .progress-bar-wrapper:hover .progress-bar-track {
+    height: 4px;
+    background: oklch(var(--bc) / 0.12);
+    transform: scaleY(1.1);
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, oklch(var(--p)) 0%, oklch(var(--p) / 0.85) 100%);
+    border-radius: 1.5px;
+    transition: width 0.1s linear;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, oklch(var(--p) / 0.4) 50%, transparent 100%);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .progress-time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.5625rem;
+    color: oklch(var(--bc) / 0.45);
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
+  }
+
+  .essay-music-card:hover .progress-time {
+    color: oklch(var(--bc) / 0.6);
+  }
+
+  /* 控制栏 */
+  .music-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex: 1;
+  }
+
+  .control-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: transparent;
+    border: none;
+    color: oklch(var(--bc) / 0.6);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .control-btn:hover {
+    background: oklch(var(--bc) / 0.08);
+    color: oklch(var(--p));
+    transform: scale(1.3);
+  }
+
+  .control-btn:active {
+    transform: scale(0.8);
+  }
+
+  .volume-slider {
+    flex: 1;
+    height: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: oklch(var(--bc) / 0.12);
+    outline: none;
+    cursor: pointer;
+    border-radius: 1.5px;
+    transition: all 0.3s ease;
+  }
+
+  .volume-slider:hover {
+    background: oklch(var(--bc) / 0.15);
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background: oklch(var(--p));
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 3px oklch(var(--bc) / 0.2);
+  }
+
+  .volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.4);
+    box-shadow: 0 2px 6px oklch(var(--bc) / 0.3), 0 0 0 3px oklch(var(--p) / 0.2);
+  }
+
+  .volume-slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: oklch(var(--p));
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 3px oklch(var(--bc) / 0.2);
+  }
+
+  .volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.4);
+    box-shadow: 0 2px 6px oklch(var(--bc) / 0.3), 0 0 0 3px oklch(var(--p) / 0.2);
+  }
+
+  /* 状态 */
+  .music-status {
+    min-height: 0;
+  }
+
+  .status-loading,
+  .status-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.375rem;
+    font-size: 0.625rem;
+    color: oklch(var(--bc) / 0.6);
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .status-error {
+    color: oklch(var(--er));
+  }
+
+  .loading-spinner {
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    border: 2px solid oklch(var(--bc) / 0.2);
+    border-top-color: oklch(var(--p));
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* 播放动画 - 在封面层级 */
+  .essay-music-card.playing .music-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, oklch(var(--p) / 0.3) 0%, transparent 70%);
+    animation: pulse 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes pulse {
+    0%, 100% { 
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 1;
+      transform: scale(1.08);
+    }
+  }
+
+  /* 播放时的额外效果 - 在封面层级 */
+  .essay-music-card.playing .music-cover {
+    box-shadow: 0 0 0 2px oklch(var(--p) / 0.4);
+    animation: coverGlow 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  }
+
+  @keyframes coverGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 2px oklch(var(--p) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 0 2px oklch(var(--p) / 0.5), 0 0 12px oklch(var(--p) / 0.3);
+    }
+  }
+
+  .essay-music-card.playing .progress-bar-fill {
+    box-shadow: 0 0 10px oklch(var(--p) / 0.5);
+  }
+</style>
