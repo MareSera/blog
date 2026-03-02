@@ -1,0 +1,101 @@
+# 音乐播放器组件示例
+
+这个文件展示了如何在 MDX 中使用 MusicPlayerCard 组件。
+
+## 基本用法
+
+最简单的用法，只需要提供必需的属性：
+
+```mdx
+<MusicPlayerCard
+  src="/audio/song.mp3"
+  title="歌曲名称"
+  artist="艺术家名称"
+/>
+```
+
+## 带封面的播放器
+
+添加封面图片：
+
+```mdx
+<MusicPlayerCard
+  src="/audio/song.mp3"
+  title="歌曲名称"
+  artist="艺术家名称"
+  cover="/img/cover.jpg"
+/>
+```
+
+## 完整配置示例
+
+使用所有可选属性：
+
+```mdx
+<MusicPlayerCard
+  src="/audio/song.mp3"
+  title="歌曲名称"
+  artist="艺术家名称"
+  cover="/img/cover.jpg"
+  defaultCover="/img/default-cover.png"
+  allowDownload={true}
+  autoPlay={false}
+  loop={false}
+  preload="metadata"
+  accentColor="#3b82f6"
+  className="my-custom-class"
+/>
+```
+
+## 多个播放器
+
+在同一页面中使用多个播放器（同时只有一个会播放）：
+
+```mdx
+<MusicPlayerCard
+  src="/audio/song1.mp3"
+  title="第一首歌"
+  artist="艺术家 A"
+  cover="/img/cover1.jpg"
+/>
+
+<MusicPlayerCard
+  src="/audio/song2.mp3"
+  title="第二首歌"
+  artist="艺术家 B"
+  cover="/img/cover2.jpg"
+/>
+
+<MusicPlayerCard
+  src="/audio/song3.mp3"
+  title="第三首歌"
+  artist="艺术家 C"
+  cover="/img/cover3.jpg"
+/>
+```
+
+## 属性说明
+
+### 必需属性
+
+- `src` (string): 音频文件路径（相对于 public 目录）
+- `title` (string): 歌曲名称
+- `artist` (string): 艺术家名称
+
+### 可选属性
+
+- `cover` (string): 封面图片路径（相对于 public 目录）
+- `defaultCover` (string): 默认封面图片路径，默认为 `/img/tx.png`
+- `allowDownload` (boolean): 是否显示下载按钮，默认为 `true`
+- `autoPlay` (boolean): 是否自动播放，默认为 `false`
+- `loop` (boolean): 是否循环播放，默认为 `false`
+- `preload` ('none' | 'metadata' | 'auto'): 预加载策略，默认为 `'metadata'`
+- `accentColor` (string): 主题色，默认使用 DaisyUI primary 颜色
+- `className` (string): 额外的 CSS 类名
+
+## 注意事项
+
+1. 音频文件应放在 `public` 目录下
+2. 同一页面的多个播放器会自动互斥，同时只有一个播放
+3. 组件支持响应式设计，在移动端会自动调整布局
+4. 支持深色模式

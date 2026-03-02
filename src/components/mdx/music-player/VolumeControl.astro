@@ -1,0 +1,205 @@
+---
+/**
+ * VolumeControl - 音量控制组件
+ * 包含音量图标和滑块
+ */
+
+export interface Props {
+  volume: number;        // 0-1
+  isMuted: boolean;
+  className?: string;
+}
+
+const { 
+  volume = 0.8, 
+  isMuted = false,
+  className = '' 
+} = Astro.props;
+
+const volumePercent = Math.round(volume * 100);
+---
+
+<div class={`volume-control ${className}`}>
+  <button 
+    class="volume-icon-button" 
+    aria-label={isMuted ? '取消静音' : '静音'}
+    type="button"
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {isMuted || volume === 0 ? (
+        <!-- 静音图标 -->
+        <>
+          <path
+            d="M11 5L6 9H2v6h4l5 4V5z"
+            fill="currentColor"
+          />
+          <line
+            x1="23"
+            y1="9"
+            x2="17"
+            y2="15"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <line
+            x1="17"
+            y1="9"
+            x2="23"
+            y2="15"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </>
+      ) : volume < 0.5 ? (
+        <!-- 低音量图标 -->
+        <>
+          <path
+            d="M11 5L6 9H2v6h4l5 4V5z"
+            fill="currentColor"
+          />
+          <path
+            d="M15.54 8.46a5 5 0 010 7.07"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </>
+      ) : (
+        <!-- 高音量图标 -->
+        <>
+          <path
+            d="M11 5L6 9H2v6h4l5 4V5z"
+            fill="currentColor"
+          />
+          <path
+            d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </>
+      )}
+    </svg>
+  </button>
+  
+  <div class="volume-slider-wrapper">
+    <input
+      type="range"
+      class="volume-slider"
+      min="0"
+      max="100"
+      value={volumePercent}
+      aria-label="音量"
+    />
+  </div>
+</div>
+
+<style>
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .volume-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    color: oklch(var(--bc) / 0.7);
+  }
+  
+  .volume-icon-button:hover {
+    background: oklch(var(--bc) / 0.05);
+    transform: scale(1.1);
+    color: oklch(var(--bc));
+  }
+  
+  .volume-icon-button:active {
+    transform: scale(0.95);
+  }
+  
+  .volume-icon-button:focus-visible {
+    outline: 2px solid oklch(var(--p));
+    outline-offset: 2px;
+  }
+  
+  .volume-slider-wrapper {
+    flex: 1;
+    min-width: 60px;
+    max-width: 100px;
+  }
+  
+  .volume-slider {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .volume-slider::-webkit-slider-track {
+    width: 100%;
+    height: 4px;
+    background: oklch(var(--bc) / 0.1);
+    border-radius: 2px;
+  }
+  
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: oklch(var(--p));
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  
+  .volume-slider::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: oklch(var(--bc) / 0.1);
+    border-radius: 2px;
+  }
+  
+  .volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: oklch(var(--p));
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+  }
+  
+  /* 响应式设计 - 在小屏幕上隐藏音量滑块 */
+  @media (max-width: 640px) {
+    .volume-slider-wrapper {
+      display: none;
+    }
+  }
+</style>

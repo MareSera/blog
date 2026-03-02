@@ -1,0 +1,82 @@
+---
+/**
+ * PlayPauseButton - 播放/暂停按钮组件
+ * 使用 SVG 绘制自定义图标
+ */
+
+export interface Props {
+  isPlaying: boolean;
+  size?: number;
+  color?: string;
+  className?: string;
+}
+
+const { 
+  isPlaying, 
+  size = 48, 
+  color = 'currentColor',
+  className = '' 
+} = Astro.props;
+---
+
+<button
+  class={`play-pause-button ${className}`}
+  aria-label={isPlaying ? '暂停' : '播放'}
+  type="button"
+>
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {isPlaying ? (
+      <!-- 暂停图标：两个竖条 -->
+      <>
+        <rect x="14" y="12" width="6" height="24" fill={color} rx="1" />
+        <rect x="28" y="12" width="6" height="24" fill={color} rx="1" />
+      </>
+    ) : (
+      <!-- 播放图标：右指三角形 -->
+      <path
+        d="M16 12 L16 36 L36 24 Z"
+        fill={color}
+      />
+    )}
+  </svg>
+</button>
+
+<style>
+  .play-pause-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    color: oklch(var(--p));
+  }
+  
+  .play-pause-button:hover {
+    background: oklch(var(--p) / 0.1);
+    transform: scale(1.1);
+  }
+  
+  .play-pause-button:active {
+    transform: scale(0.95);
+  }
+  
+  .play-pause-button:focus-visible {
+    outline: 2px solid oklch(var(--p));
+    outline-offset: 2px;
+  }
+  
+  .play-pause-button svg {
+    display: block;
+    transition: transform 0.2s ease;
+  }
+</style>
