@@ -113,11 +113,26 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
   import { AudioEngine } from './music-player/AudioEngine';
   import type { AudioState } from './music-player/types';
 
+  // 存储已初始化的播放器实例
+  const initializedPlayers = new Map<string, { engine: AudioEngine; cleanup: () => void }>();
+
   // 等待 DOM 加载完成
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPlayers);
   } else {
     initPlayers();
+  }
+
+  // 页面导航时清理所有播放器
+  document.addEventListener('astro:before-preparation', cleanupAllPlayers);
+  document.addEventListener('astro:page-load', initPlayers);
+
+  function cleanupAllPlayers() {
+    initializedPlayers.forEach(({ engine, cleanup }) => {
+      cleanup();
+      engine.destroy();
+    });
+    initializedPlayers.clear();
   }
 
   function initPlayers() {
@@ -128,6 +143,11 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       
       if (!src) {
         console.error('音乐播放器缺少 src 属性');
+        return;
+      }
+
+      // 如果已经初始化过，跳过
+      if (initializedPlayers.has(playerId)) {
         return;
       }
 
@@ -245,7 +265,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
     }
 
     // 播放/暂停
-    playButton?.addEventListener('click', async () => {
+    const handlePlayClick = async () => {
       try {
         console.log('播放按钮被点击，当前状态:', state.isPlaying);
         if (state.isPlaying) {
@@ -265,25 +285,21 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
         };
         updateUI();
       }
-    });
+    };
 
     // 进度条点击跳转
-    progressBar?.addEventListener('click', (e) => {
+    const handleProgressClick = (e: MouseEvent) => {
       const rect = progressBar.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
       const time = percent * state.duration;
       engine.seek(time);
-    });
+    };
 
     // 进度条拖动功能
     let isDragging = false;
-    let dragStartX = 0;
-    let dragStartProgress = 0;
 
     const handleProgressDragStart = (e: MouseEvent) => {
       isDragging = true;
-      dragStartX = e.clientX;
-      dragStartProgress = state.progress;
       document.body.style.userSelect = 'none';
       progressBar?.classList.add('dragging');
     };
@@ -314,12 +330,8 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       progressBar?.classList.remove('dragging');
     };
 
-    progressBar?.addEventListener('mousedown', handleProgressDragStart);
-    document.addEventListener('mousemove', handleProgressDragMove);
-    document.addEventListener('mouseup', handleProgressDragEnd);
-
     // 音量控制
-    volumeButton?.addEventListener('click', () => {
+    const handleVolumeClick = () => {
       if (state.isMuted) {
         engine.unmute();
         state.isMuted = false;
@@ -330,15 +342,23 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
         state.volume = 0;
       }
       updateUI();
-    });
+    };
 
-    volumeSlider?.addEventListener('input', (e) => {
+    const handleVolumeInput = (e: Event) => {
       const value = parseInt((e.target as HTMLInputElement).value) / 100;
       engine.setVolume(value);
       state.volume = value;
       state.isMuted = value === 0;
       updateUI();
-    });
+    };
+
+    playButton?.addEventListener('click', handlePlayClick);
+    progressBar?.addEventListener('click', handleProgressClick);
+    progressBar?.addEventListener('mousedown', handleProgressDragStart);
+    document.addEventListener('mousemove', handleProgressDragMove);
+    document.addEventListener('mouseup', handleProgressDragEnd);
+    volumeButton?.addEventListener('click', handleVolumeClick);
+    volumeSlider?.addEventListener('input', handleVolumeInput);
 
     // 监听音频事件
     engine.onTimeUpdate((time) => {
@@ -370,12 +390,24 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
     // 初始化 UI
     updateUI();
 
-    // 清理
-    window.addEventListener('beforeunload', () => {
-      engine.destroy();
-    });
+    // 清理函数
+    const cleanup = () => {
+      playButton?.removeEventListener('click', handlePlayClick);
+      progressBar?.removeEventListener('click', handleProgressClick);
+      progressBar?.removeEventListener('mousedown', handleProgressDragStart);
+      document.removeEventListener('mousemove', handleProgressDragMove);
+      document.removeEventListener('mouseup', handleProgressDragEnd);
+      volumeButton?.removeEventListener('click', handleVolumeClick);
+      volumeSlider?.removeEventListener('input', handleVolumeInput);
+    };
+
+    // 存储实例和清理函数
+    initializedPlayers.set(playerId, { engine, cleanup });
   });
   }
+
+  // 窗口关闭时清理
+  window.addEventListener('beforeunload', cleanupAllPlayers);
 </script>
 
 <style>
