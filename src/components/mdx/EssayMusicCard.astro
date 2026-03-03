@@ -238,7 +238,7 @@ const playerId = `essay-music-${Math.random().toString(36).substring(2, 11)}`;
       };
 
       let isDragging = false;
-      const handleProgressDragStart = (e: MouseEvent) => {
+      const handleProgressDragStart = (_e: MouseEvent) => {
         isDragging = true;
         document.body.style.userSelect = 'none';
       };

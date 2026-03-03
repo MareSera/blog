@@ -156,7 +156,6 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       // 获取配置
       const autoPlay = card.getAttribute('data-autoplay') === 'true';
       const loop = card.getAttribute('data-loop') === 'true';
-      const preload = card.getAttribute('data-preload') || 'metadata';
 
       // 创建音频引擎
       const engine = new AudioEngine(src, {
@@ -298,7 +297,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
     // 进度条拖动功能
     let isDragging = false;
 
-    const handleProgressDragStart = (e: MouseEvent) => {
+    const handleProgressDragStart = (_e: MouseEvent) => {
       isDragging = true;
       document.body.style.userSelect = 'none';
       progressBar?.classList.add('dragging');

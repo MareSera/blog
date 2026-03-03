@@ -185,7 +185,7 @@ const accessibleHelpText = `${helpText}: ${title}`;
       // Remove animation class first
       overlay.classList.remove("text-overlay-enter");
       // Force reflow
-      void overlay.offsetWidth;
+      void (overlay as HTMLElement).offsetWidth;
       // Add animation class
       overlay.classList.add("text-overlay-enter");
     });
