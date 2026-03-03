@@ -162,7 +162,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       const engine = new AudioEngine(src, {
         autoPlay,
         loop,
-        preload: preload as 'none' | 'metadata' | 'auto',
+        preload: 'auto', // 使用 auto 预加载以加快加载速度
         volume: 0.8,
       }, playerId);
 

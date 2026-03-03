@@ -36,11 +36,16 @@ export class AudioEngine {
     // 应用选项
     this.audio.autoplay = options.autoPlay ?? false;
     this.audio.loop = options.loop ?? false;
-    this.audio.preload = options.preload ?? 'metadata';
+    this.audio.preload = options.preload ?? 'auto'; // 默认改为 auto 以加快加载
     
     // 设置初始音量
     this._volume = options.volume ?? 0.8;
     this.audio.volume = this._volume;
+    
+    // 开始预加载
+    if (this.audio.preload === 'auto') {
+      this.audio.load();
+    }
     
     // 监听播放状态变化
     this.audio.addEventListener('play', () => {
