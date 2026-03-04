@@ -107,7 +107,7 @@ const currentPath = Astro.url.pathname;
 
   /* Active menu item indicator */
   .menu-item[aria-current="page"] {
-    background: linear-gradient(90deg, oklch(var(--p) / 0.15), oklch(var(--s) / 0.15));
-    border-left: 3px solid oklch(var(--p));
+    background: oklch(var(--b2));
+    border-left: 3px solid oklch(var(--bc) / 0.3);
   }
 </style>

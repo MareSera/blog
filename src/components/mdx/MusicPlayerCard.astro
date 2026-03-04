@@ -411,7 +411,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
 
 <style>
   .music-player-card {
-    --accent-color: oklch(var(--p));
+    --accent-color: oklch(var(--bc) / 0.8);
     width: 100%;
     max-width: 100%;
     margin: 1.25rem 0;
@@ -615,7 +615,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, oklch(var(--p) / 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle at center, oklch(var(--bc) / 0.1) 0%, transparent 70%);
     animation: pulse 2s ease-in-out infinite;
     z-index: 1;
   }

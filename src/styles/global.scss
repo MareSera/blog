@@ -78,7 +78,7 @@ code {
 .prose blockquote {
   font-size: 1.0625rem; /* 17px */
   line-height: 1.75;
-  border-left: 4px solid oklch(var(--p));
+  border-left: 4px solid oklch(var(--bc) / 0.3);
   background: oklch(var(--b2) / 0.5);
   padding: 1.5em;
   margin: 2em 0;
@@ -96,10 +96,7 @@ code {
 
 .prose h1 {
   font-size: 2.25em;
-  background: linear-gradient(135deg, oklch(var(--p)), oklch(var(--s)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: oklch(var(--bc));
 }
 
 .prose h2 {
@@ -117,16 +114,16 @@ code {
 }
 
 .prose a {
-  color: oklch(var(--p));
+  color: oklch(var(--bc) / 0.8);
   text-decoration: underline;
-  text-decoration-color: oklch(var(--p) / 0.3);
+  text-decoration-color: oklch(var(--bc) / 0.3);
   text-underline-offset: 3px;
   transition: all 0.3s ease;
 }
 
 .prose a:hover {
-  color: oklch(var(--s));
-  text-decoration-color: oklch(var(--s));
+  color: oklch(var(--bc));
+  text-decoration-color: oklch(var(--bc) / 0.5);
   text-underline-offset: 5px;
 }
 
@@ -172,11 +169,11 @@ code {
 }
 
 .prose ul li::marker {
-  color: oklch(var(--p));
+  color: oklch(var(--bc) / 0.6);
 }
 
 .prose ol li::marker {
-  color: oklch(var(--s));
+  color: oklch(var(--bc) / 0.7);
   font-weight: 600;
 }
 
@@ -195,7 +192,7 @@ code {
 }
 
 .prose th {
-  background: oklch(var(--p) / 0.1);
+  background: oklch(var(--b2));
   padding: 0.75em;
   text-align: left;
   font-weight: 600;
@@ -255,15 +252,32 @@ code {
 }
 
 .frosti-heading {
-  @apply text-2xl leading-normal pt-0 font-bold text-base-content bg-clip-text bg-gradient-to-r from-primary to-secondary duration-300 hover:text-transparent;
+  @apply text-2xl leading-normal pt-0 font-bold duration-300;
+  color: oklch(var(--bc));
 }
 
 .btn-category {
-  @apply bg-primary/5 hover:bg-primary text-primary hover:text-primary-content border-none hover:scale-110;
+  @apply border-none hover:scale-110;
+  background: oklch(var(--b2));
+  color: oklch(var(--bc));
+  border: 1px solid oklch(var(--bc) / 0.2);
+  
+  &:hover {
+    background: oklch(var(--b3));
+    color: oklch(var(--bc));
+  }
 }
 
 .btn-tag {
-  @apply bg-secondary/5 hover:bg-secondary text-secondary hover:text-secondary-content border-none hover:scale-110;
+  @apply border-none hover:scale-110;
+  background: oklch(var(--b2));
+  color: oklch(var(--bc) / 0.8);
+  border: 1px solid oklch(var(--bc) / 0.15);
+  
+  &:hover {
+    background: oklch(var(--b3));
+    color: oklch(var(--bc));
+  }
 }
 
 .btn-copy {
@@ -331,7 +345,7 @@ code {
   @apply stats shadow mb-8 w-full bg-base-200/50 backdrop-blur-sm border border-base-content/20;
 
   .stat-figure {
-    @apply text-primary;
+    color: oklch(var(--bc) / 0.7);
 
     svg {
       @apply w-8 h-8;
@@ -339,7 +353,7 @@ code {
   }
 
   .stat-value {
-    @apply text-primary;
+    color: oklch(var(--bc));
   }
 }
 
@@ -388,10 +402,12 @@ code {
   }
 
   &-inner {
-    @apply rounded-2xl overflow-hidden bg-base-100 shadow-md border border-base-300/20 transition-transform duration-300 ease-in-out;
+    @apply rounded-2xl overflow-hidden bg-base-100 shadow-md transition-transform duration-300 ease-in-out;
+    border: 1px solid oklch(var(--bc) / 0.1);
 
     &:hover {
-      @apply -translate-y-1 shadow-lg;
+      @apply -translate-y-1;
+      box-shadow: 0 4px 16px oklch(var(--bc) / 0.12);
     }
 
     &.expanded {
@@ -413,6 +429,8 @@ code {
 
   &-icon {
     @apply flex items-center justify-center w-10 h-10 rounded-full flex-shrink-0;
+    background: oklch(var(--b2));
+    color: oklch(var(--bc) / 0.7);
 
     svg {
       @apply w-5 h-5;
@@ -421,6 +439,8 @@ code {
 
   &-count {
     @apply inline-flex items-center justify-center min-w-6 h-6 px-2 rounded-full text-xs font-bold;
+    background: oklch(var(--b2));
+    color: oklch(var(--bc) / 0.7);
   }
 
   &-divider {
@@ -479,60 +499,8 @@ code {
   }
 }
 
-// Mixin for creating category color variants
-@mixin category-color-variant($color-var) {
-  .category-#{$color-var} {
-    .category-header {
-      background: linear-gradient(120deg, oklch(var(--#{$color-var}) / 0.1), oklch(var(--#{$color-var}) / 0.05));
-    }
-
-    .category-icon {
-      background-color: oklch(var(--#{$color-var}) / 0.15);
-      color: oklch(var(--#{$color-var}));
-    }
-
-    .category-count {
-      background-color: oklch(var(--#{$color-var}) / 0.15);
-      color: oklch(var(--#{$color-var}));
-    }
-
-    &.expanded {
-      border-color: oklch(var(--#{$color-var}) / 0.3);
-    }
-  }
-}
-
-// Apply color variants
-@include category-color-variant("p");
-@include category-color-variant("s");
-@include category-color-variant("a");
-@include category-color-variant("in");
-@include category-color-variant("su");
-@include category-color-variant("wa");
-@include category-color-variant("er");
-
-// Rename for clarity in the component
-.category-primary {
-  @extend .category-p;
-}
-.category-secondary {
-  @extend .category-s;
-}
-.category-accent {
-  @extend .category-a;
-}
-.category-info {
-  @extend .category-in;
-}
-.category-success {
-  @extend .category-su;
-}
-.category-warning {
-  @extend .category-wa;
-}
-.category-error {
-  @extend .category-er;
-}
+// Category color variants removed - using unified grayscale styles
+// All category cards now use consistent grayscale styling defined in .category-icon and .category-count above
 
 // Tags Page Components
 // ===================================================
@@ -562,7 +530,16 @@ code {
   }
 
   &-content {
-    @apply flex items-center gap-2 px-4 py-2 rounded-full bg-base-100 shadow-sm border border-transparent;
+    @apply flex items-center gap-2 px-4 py-2 rounded-full shadow-sm transition-all duration-300;
+    background: oklch(var(--b1));
+    border: 1px solid oklch(var(--bc) / 0.15);
+    color: oklch(var(--bc) / 0.8);
+
+    &:hover {
+      background: oklch(var(--b2));
+      border-color: oklch(var(--bc) / 0.3);
+      color: oklch(var(--bc));
+    }
   }
 
   &-icon {
@@ -570,57 +547,14 @@ code {
   }
 
   &-count {
-    @apply inline-flex items-center justify-center min-w-6 h-6 px-2 text-xs font-bold rounded-full bg-base-300/30 text-base-content/80 duration-300;
+    @apply inline-flex items-center justify-center min-w-6 h-6 px-2 text-xs font-bold rounded-full duration-300;
+    background: oklch(var(--b2));
+    color: oklch(var(--bc) / 0.7);
   }
 }
 
-// Tag color variants
-.tag {
-  &-high {
-    .tags-content {
-      @apply border-primary/20 bg-base-100 text-primary;
-    }
-    .tags-icon {
-      @apply text-primary;
-    }
-  }
-
-  &-medium-high {
-    .tags-content {
-      @apply border-secondary/20 bg-base-100 text-secondary;
-    }
-    .tags-icon {
-      @apply text-secondary;
-    }
-  }
-
-  &-medium {
-    .tags-content {
-      @apply border-accent/20 bg-base-100 text-accent;
-    }
-    .tags-icon {
-      @apply text-accent;
-    }
-  }
-
-  &-medium-low {
-    .tags-content {
-      @apply border-base-content/20 bg-base-100;
-    }
-    .tags-icon {
-      @apply text-base-content/80;
-    }
-  }
-
-  &-low {
-    .tags-content {
-      @apply border-base-300/20 bg-base-100;
-    }
-    .tags-icon {
-      @apply text-base-content/60;
-    }
-  }
-}
+// Tag color variants removed - using unified grayscale styles
+// All tags now use consistent grayscale styling defined in .tags-content and .tags-count above
 
 // Archives Page Components
 // ===================================================
@@ -635,7 +569,8 @@ code {
 
     &::before {
       content: "";
-      @apply absolute top-0 bottom-0 left-1 w-1 rounded bg-gradient-to-b from-primary to-secondary;
+      @apply absolute top-0 bottom-0 left-1 w-1 rounded;
+      background: linear-gradient(to bottom, oklch(var(--bc) / 0.3), oklch(var(--bc) / 0.1));
     }
   }
 }
@@ -664,7 +599,10 @@ code {
   }
 
   &-badge {
-    @apply relative -left-12 bg-primary text-primary-content font-bold text-lg py-2 px-4 rounded-full inline-block shadow-md z-10;
+    @apply relative -left-12 font-bold text-lg py-2 px-4 rounded-full inline-block z-10;
+    background: oklch(var(--bc));
+    color: oklch(var(--b1));
+    box-shadow: 0 2px 8px oklch(var(--bc) / 0.2);
   }
 
   &-content {
@@ -700,18 +638,23 @@ code {
   }
 
   &-marker {
-    @apply absolute -left-2 top-4 w-8 h-8 flex items-center justify-center bg-base-100 border-2 border-primary rounded-full z-10;
+    @apply absolute -left-2 top-4 w-8 h-8 flex items-center justify-center rounded-full z-10;
+    background: oklch(var(--b1));
+    border: 2px solid oklch(var(--bc) / 0.3);
   }
 
   &-icon {
-    @apply w-4 h-4 text-primary;
+    @apply w-4 h-4;
+    color: oklch(var(--bc) / 0.7);
   }
 
   &-card {
     @apply block p-5 bg-base-100 border border-base-content/20 rounded-xl shadow-sm transition-transform duration-300;
 
     &:hover {
-      @apply -translate-y-1 shadow-md border-primary/50 bg-base-200;
+      @apply -translate-y-1 shadow-md;
+      border-color: oklch(var(--bc) / 0.3);
+      background: oklch(var(--b2));
 
       .archive-title {
         @apply text-primary;
@@ -835,7 +778,7 @@ code {
 /* Pagefind UI customization with oklch colors */
 #pagefind-search {
   --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: oklch(var(--a));
+  --pagefind-ui-primary: oklch(var(--bc) / 0.8);
   --pagefind-ui-text: oklch(var(--bc));
   --pagefind-ui-background: oklch(var(--b1));
   --pagefind-ui-border: oklch(var(--bc) / 0.2);
@@ -873,7 +816,10 @@ code {
   }
 
   .pagefind-ui__result-excerpt mark {
-    @apply bg-accent text-accent-content px-1 rounded;
+    background: oklch(var(--bc) / 0.15);
+    color: oklch(var(--bc));
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
   }
 
   .pagefind-ui__button {
