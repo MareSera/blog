@@ -1,11 +1,20 @@
 /* Font face definitions */
 @font-face {
-  font-family: 'KeinannMaruPOP-CN';
-  src: url('/fonts/KeinannMaruPOP（中文安装这个）.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'Delius';
+  src: url('/fonts/Delius-Regular.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F, U+2150-218F, U+4E00-9FFF, U+3400-4DBF, U+20000-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+F900-FAFF, U+2F800-2FA1F;
+  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F, U+2150-218F;
+}
+
+@font-face {
+  font-family: 'RawMarukoGothicCJKtc';
+  src: url('/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+4E00-9FFF, U+3400-4DBF, U+20000-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+2B820-2CEAF, U+F900-FAFF, U+2F800-2FA1F;
 }
 
 @font-face {
