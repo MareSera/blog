@@ -10,16 +10,16 @@ const { headings = [], showTOC = true } = Astro.props as TOCBarProps;
 
 {
   showTOC && headings.length > 0 && (
-    <div id="toc-container" class="mt-4 z-10 md:max-h-[calc(100vh-2rem)] ">
-      <Card>
+    <div id="toc-container" class="mt-4 z-10 md:max-h-[calc(100vh-2rem)]">
+      <Card class="border border-base-content/5">
         <div class="p-4">
-          <nav class="toc-nav max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-none relative">
-            {/* Animated active indicator - now moved outside the ul structure */}
+          <nav class="toc-nav max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-base-content/10 scrollbar-track-transparent relative">
+            {/* Animated active indicator */}
             <div
               id="active-indicator"
-              class="absolute bg-primary/10 rounded-lg opacity-0 shadow-sm pointer-events-none z-0"
+              class="absolute bg-base-content/5 rounded-md opacity-0 pointer-events-none z-0 border-l-2 border-base-content/20"
             />
-            <ul class="space-y-0 relative z-10">
+            <ul class="space-y-0.5 relative z-10">
               {headings.map((heading, index) => (
                 <li>
                   <a
@@ -27,12 +27,12 @@ const { headings = [], showTOC = true } = Astro.props as TOCBarProps;
                     data-heading-slug={heading.slug}
                     data-heading-depth={heading.depth}
                     data-index={index}
-                    class={`toc-link relative flex items-center py-2 px-2 rounded-lg ${heading.depth === 1 ? "font-medium" : ""}`}
-                    style={`padding-left: ${12 + (heading.depth - 1) * 16}px;`}
+                    class={`toc-link relative flex items-center py-2 px-2 rounded-md hover:bg-base-content/5 transition-all duration-200 text-sm ${heading.depth === 1 ? "font-medium" : "font-normal"}`}
+                    style={`padding-left: ${8 + (heading.depth - 1) * 12}px;`}
                   >
                     <Icon
                       name="tabler:chevron-right"
-                      class="icon-indicator absolute left-1 opacity-0 transition-all duration-200 w-4 h-4 text-primary"
+                      class="icon-indicator absolute left-1 opacity-0 transition-all duration-200 w-3 h-3"
                     />
                     <span class="link-text transition-transform duration-200">{heading.text}</span>
                   </a>
@@ -48,12 +48,12 @@ const { headings = [], showTOC = true } = Astro.props as TOCBarProps;
 
 <style>
   .toc-link:hover .link-text {
-    transform: translateX(2px);
+    transform: translateX(3px);
   }
 
   .toc-link.active {
-    color: var(--p);
     font-weight: 500;
+    background: oklch(var(--bc) / 0.05);
   }
 
   .toc-link.active .icon-indicator {
@@ -63,6 +63,24 @@ const { headings = [], showTOC = true } = Astro.props as TOCBarProps;
 
   .toc-link:hover .icon-indicator {
     opacity: 0.5;
+  }
+
+  /* Minimal scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: oklch(var(--bc) / 0.1);
+    border-radius: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--bc) / 0.2);
   }
 </style>
 

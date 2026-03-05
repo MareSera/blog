@@ -24,30 +24,30 @@ export default {
     themes: [
       {
         "monochrome-light": {
-          // Base colors
-          "base-100": "#ffffff",      // Main background
-          "base-200": "#f5f5f5",      // Secondary background
-          "base-300": "#e5e5e5",      // Tertiary background
-          "base-content": "#1a1a1a",  // Main text
+          // Base colors - lighter and softer
+          "base-100": "#ffffff",      // Main background (pure white)
+          "base-200": "#fafafa",      // Secondary background (very light gray)
+          "base-300": "#f0f0f0",      // Tertiary background (soft gray)
+          "base-content": "#404040",  // Main text (medium gray instead of dark)
           
-          // Semantic colors (using grayscale)
-          "primary": "#404040",        // Dark gray
+          // Semantic colors (lighter grayscale)
+          "primary": "#707070",        // Medium gray (lighter)
           "primary-content": "#ffffff",
-          "secondary": "#6b6b6b",      // Medium gray
+          "secondary": "#909090",      // Light gray
           "secondary-content": "#ffffff",
-          "accent": "#8a8a8a",         // Light gray
+          "accent": "#a8a8a8",         // Very light gray
           "accent-content": "#ffffff",
           
-          // State colors (using grayscale, except success for semantic online status)
-          "neutral": "#2a2a2a",
+          // State colors (lighter, except success)
+          "neutral": "#606060",
           "neutral-content": "#ffffff",
-          "info": "#5a5a5a",
+          "info": "#808080",
           "info-content": "#ffffff",
           "success": "#22c55e",        // Green for online status
           "success-content": "#ffffff",
-          "warning": "#6a6a6a",
+          "warning": "#909090",
           "warning-content": "#ffffff",
-          "error": "#3a3a3a",
+          "error": "#707070",
           "error-content": "#ffffff",
         },
         "monochrome-dark": {

@@ -10,12 +10,11 @@ const currentPath = Astro.url.pathname;
 
 <Card class="profile-card-enhanced">
   <div class="relative p-6 flex flex-col">
-    <!-- Avatar with enhanced styling -->
-    <div class="p-2 flex justify-center mb-4">
+    <!-- Avatar with minimal styling -->
+    <div class="flex justify-center mb-6">
       <div class="avatar-wrapper relative group">
-        <div class="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
         <Image
-          class="mask mask-circle relative z-10 ring-4 ring-base-200 group-hover:ring-primary/50 transition-all duration-500 transform group-hover:scale-105"
+          class="mask mask-circle relative z-10 ring-2 ring-base-content/5 group-hover:ring-base-content/15 transition-all duration-300 transform group-hover:scale-[1.02]"
           format="webp"
           width={250}
           height={250}
@@ -26,29 +25,29 @@ const currentPath = Astro.url.pathname;
       </div>
     </div>
 
-    <!-- Menu -->
+    <!-- Menu with minimal design -->
     <ul class="menu bg-transparent w-full m-0 p-0 hidden md:flex flex-col items-center lg:items-start space-y-1">
       {
         SITE_MENU.map((item) => (
-          <li class="w-full relative group/item">
+          <li class="w-full">
             {item.subItems ? (
               <details class="menu-item w-full" data-submenu-id={item.id} open={currentPath.startsWith(item.href)}>
-                <summary class="justify-center lg:justify-start items-center text-center text-xl md:text-3xl lg:text-xl font-bold p-4 hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 rounded-xl transition-all duration-300 cursor-pointer group-hover/item:translate-x-1">
-                  <Icon name={item.svg} class="group-hover/item:scale-110 group-hover/item:text-primary transition-all duration-300" />
-                  <span class="hidden lg:inline ml-2 group-hover/item:text-primary transition-colors duration-300">{item.text}</span>
+                <summary class="justify-center lg:justify-start items-center text-xl md:text-3xl lg:text-lg font-medium p-3 hover:bg-base-content/5 rounded-lg transition-all duration-200 cursor-pointer">
+                  <Icon name={item.svg} class="w-5 h-5" />
+                  <span class="hidden lg:inline ml-3">{item.text}</span>
                 </summary>
-                <ul class="rounded-xl mt-1 space-y-1">
+                <ul class="rounded-lg mt-1 space-y-0.5 ml-2">
                   {item.subItems.map((subItem) => (
-                    <li class="relative">
+                    <li>
                       <a
                         tabindex="0"
-                        class="menu-item text-base md:text-2xl lg:text-base font-bold p-3 hover:bg-gradient-to-r hover:from-secondary/10 hover:to-accent/10 rounded-lg transition-all duration-300 hover:translate-x-2"
+                        class="menu-item text-base md:text-2xl lg:text-sm font-normal p-2.5 pl-8 hover:bg-base-content/5 rounded-lg transition-all duration-200"
                         id={`header-${subItem.id}`}
                         href={subItem.href}
                         target={subItem.target || "_self"}
                         aria-label={subItem.text}
                       >
-                        <Icon name={subItem.svg} class="hover:scale-110 hover:text-secondary transition-all duration-300" />
+                        <Icon name={subItem.svg} class="w-4 h-4" />
                         <span class="hidden lg:inline ml-2">{subItem.text}</span>
                       </a>
                     </li>
@@ -58,14 +57,14 @@ const currentPath = Astro.url.pathname;
             ) : (
               <a
                 tabindex="0"
-                class="flex justify-center lg:justify-start items-center text-center text-xl md:text-3xl lg:text-xl font-bold p-4 hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10 rounded-xl transition-all duration-300 group-hover/item:translate-x-1"
+                class="flex justify-center lg:justify-start items-center text-xl md:text-3xl lg:text-lg font-medium p-3 hover:bg-base-content/5 rounded-lg transition-all duration-200"
                 id={item.id}
                 href={item.href}
                 target={item.target || "_self"}
                 aria-label={item.text}
               >
-                <Icon name={item.svg} class="group-hover/item:scale-110 group-hover/item:text-primary transition-all duration-300" />
-                <span class="hidden lg:inline ml-2 group-hover/item:text-primary transition-colors duration-300">{item.text}</span>
+                <Icon name={item.svg} class="w-5 h-5" />
+                <span class="hidden lg:inline ml-3">{item.text}</span>
               </a>
             )}
           </li>
@@ -73,8 +72,8 @@ const currentPath = Astro.url.pathname;
       }
     </ul>
 
-    <!-- Social Icons with enhanced styling -->
-    <div class="mt-6 pt-4 border-t border-base-content/10">
+    <!-- Social Icons with minimal styling -->
+    <div class="mt-6 pt-6 border-t border-base-content/5">
       <div class="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-items-center">
         {
           USER_SIDEBAR_SOCIAL_ICONS.map((icon) => (
@@ -84,9 +83,9 @@ const currentPath = Astro.url.pathname;
                 href={icon.href}
                 aria-label={icon.ariaLabel}
                 target="_blank"
-                class="btn btn-circle btn-ghost hover:bg-gradient-to-br hover:from-primary/20 hover:to-secondary/20 hover:scale-110 transition-all duration-300 group"
+                class="btn btn-sm btn-circle btn-ghost hover:bg-base-content/5 transition-all duration-200"
               >
-                <Icon name={icon.svg} class="text-xl group-hover:scale-125 group-hover:text-primary transition-all duration-300" />
+                <Icon name={icon.svg} class="text-lg" />
               </a>
             </div>
           ))
@@ -102,12 +101,13 @@ const currentPath = Astro.url.pathname;
   }
 
   .profile-card-enhanced {
-    background: linear-gradient(135deg, oklch(var(--b1)) 0%, oklch(var(--b2) / 0.5) 100%);
+    background: oklch(var(--b1));
+    border: 1px solid oklch(var(--bc) / 0.05);
   }
 
   /* Active menu item indicator */
   .menu-item[aria-current="page"] {
-    background: oklch(var(--b2));
-    border-left: 3px solid oklch(var(--bc) / 0.3);
+    background: oklch(var(--bc) / 0.05);
+    font-weight: 500;
   }
 </style>

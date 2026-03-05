@@ -4,7 +4,7 @@ import { Icon } from "astro-icon/components";
 import { t } from "@config";
 ---
 
-<Card>
+<Card class="border border-base-content/5">
   <div class="p-4">
     <form action="/blog/search" method="get" class="relative w-full">
       <div class="search-container w-full relative">
@@ -12,15 +12,15 @@ import { t } from "@config";
           type="text"
           name="q"
           placeholder={t("label.search") || "Search..."}
-          class="input input-bordered w-full pl-10 pr-16 py-2"
+          class="input input-bordered w-full pl-10 pr-12 py-2 border border-base-content/10 focus:border-base-content/20 bg-base-100 transition-all duration-200 text-sm"
           aria-label={t("label.search") || "Search"}
         />
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <Icon name="lucide:search" class="w-5 h-5" />
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-base-content/40">
+          <Icon name="lucide:search" class="w-4 h-4" />
         </div>
         <button
           type="submit"
-          class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2"
+          class="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 hover:bg-base-content/5 rounded-md transition-all duration-200"
           aria-label={t("label.search") || "Search"}
         >
           <Icon name="lucide:arrow-right" class="w-4 h-4" />
