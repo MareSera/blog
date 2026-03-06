@@ -37,17 +37,17 @@ site:
         - id: 文学
           text: 文学
           href: /blog/category/文学
-          svg: "material-symbols:unknown-document-outline-rounded"
+          svg: "material-symbols:menu-book-outline-rounded"
           target: _self
         - id: 读后感
           text: 读后感
           href: /blog/category/读后感
-          svg: "material-symbols:deployed-code-outline"
+          svg: "material-symbols:rate-review-outline-rounded"
           target: _self
         - id: 长随笔
           text: 长随笔
           href: /blog/category/长随笔
-          svg: "material-symbols:deployed-code-outline"
+          svg: "material-symbols:edit-note-outline-rounded"
           target: _self
         # 子菜单项配置
     - id: essay
