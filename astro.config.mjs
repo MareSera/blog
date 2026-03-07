@@ -18,6 +18,15 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time";
 export default defineConfig({
   site: USER_SITE,
   output: "static",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+  },
   style: {
     scss: {
       includePaths: ["./src/styles"],
@@ -35,7 +44,13 @@ export default defineConfig({
     tailwind({
       configFile: "./tailwind.config.mjs",
     }),
-    playformCompress(),
+    playformCompress({
+      CSS: true,
+      HTML: true,
+      Image: true,
+      JavaScript: true,
+      SVG: true,
+    }),
   ],
   markdown: {
     shikiConfig: {

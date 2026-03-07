@@ -46,6 +46,10 @@ const { title, image, headings = [], showTOC = false, isIndexed = true } = Astro
         });
       })();
     </script>
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/fonts/Delius-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.ttf" as="font" type="font/ttf" crossorigin />
   </head>
 
   <body class="flex flex-col min-h-screen" {...isIndexed ? { "data-pagefind-body": true } : {}}>
