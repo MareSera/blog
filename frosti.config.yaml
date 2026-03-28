@@ -44,11 +44,6 @@ site:
           href: /blog/category/读后感
           svg: "material-symbols:rate-review-outline-rounded"
           target: _self
-        - id: 长随笔
-          text: 长随笔
-          href: /blog/category/长随笔
-          svg: "material-symbols:edit-note-outline-rounded"
-          target: _self
         # 子菜单项配置
     - id: essay
       text: 随笔
@@ -82,7 +77,7 @@ user:
         ariaLabel: Support my work # 图标的可访问性标签
         title: Support my work # 图标的悬浮标题
         svg: "ri:cup-line"
-      - href: "https://github.com/EveSunMaple"
+      - href: "https://github.com/MareSera"
         ariaLabel: Github
         title: Github
         svg: "ri:github-line"
