@@ -8,6 +8,7 @@ import Sidebar from "@components/Sidebar.astro";
 import Footer from "@components/Footer.astro";
 import Navbar from "@components/Navbar.astro";
 import MobileTOC from "@components/widgets/MobileTOC.astro";
+import MagneticCursor from "@components/MagneticCursor.astro";
 
 const { title, image, headings = [], showTOC = false, isIndexed = true } = Astro.props;
 ---
@@ -74,6 +75,7 @@ const { title, image, headings = [], showTOC = false, isIndexed = true } = Astro
     </div>
 
     <MobileTOC headings={headings} showTOC={showTOC} />
+    <MagneticCursor />
 
     <script define:vars={{ SITE_THEME }} is:inline>
       document.addEventListener("astro:after-swap", () => {

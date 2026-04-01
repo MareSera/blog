@@ -1,0 +1,127 @@
+﻿---
+// Magnetic cursor
+---
+
+<div class="mag-pointer" id="mag-pointer" aria-hidden="true">
+  <div></div><div></div><div></div><div></div>
+</div>
+
+<style is:global>
+  *, *::before, *::after { cursor: none !important; }
+
+  .mag-pointer {
+    --mp-color: oklch(var(--bc));
+    position: fixed;
+    top: 0; left: 0;
+    width: 0; height: 0;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    will-change: transform;
+  }
+  .mag-pointer div {
+    position: absolute;
+    width: 0.7rem; height: 0.7rem;
+    border-width: 0.18rem;
+    border-color: var(--mp-color);
+  }
+  .mag-pointer div:nth-child(1) { top:0;    left:0;  border-top-style:solid;    border-left-style:solid;  }
+  .mag-pointer div:nth-child(2) { top:0;    right:0; border-top-style:solid;    border-right-style:solid; }
+  .mag-pointer div:nth-child(3) { bottom:0; left:0;  border-bottom-style:solid; border-left-style:solid;  }
+  .mag-pointer div:nth-child(4) { bottom:0; right:0; border-bottom-style:solid; border-right-style:solid; }
+</style>
+
+<script is:inline>
+(function () {
+  var DEFAULT_SIZE = 38.4;
+  var POS_SPEED    = 0.14;
+  var SIZE_SPEED   = 0.06;
+  var PAD_RATIO    = 50;
+  var SELECTOR     = "a, button, [role='button'], input, textarea, select, label[for], .btn, .badge";
+
+  var container;
+  var mouseX = -9999, mouseY = -9999;
+  var curX   = -9999, curY   = -9999;
+  var curW   = DEFAULT_SIZE, curH = DEFAULT_SIZE;
+  var targetW = DEFAULT_SIZE, targetH = DEFAULT_SIZE;
+  var rafId = null;
+  var visible = false;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function hitTarget(x, y) {
+    var el = document.elementFromPoint(x, y);
+    while (el && el !== document.body) {
+      if (el.matches && el.matches(SELECTOR)) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function tick() {
+    var hit = hitTarget(mouseX, mouseY);
+
+    var tX = mouseX, tY = mouseY;
+    if (hit) {
+      var r  = hit.getBoundingClientRect();
+      var cx = r.left + r.width  / 2;
+      var cy = r.top  + r.height / 2;
+      tX = cx + (mouseX - cx) * 0.1;
+      tY = cy + (mouseY - cy) * 0.1;
+      var pad = window.innerWidth / PAD_RATIO;
+      targetW = r.width  + pad;
+      targetH = r.height + pad;
+    } else {
+      targetW = DEFAULT_SIZE;
+      targetH = DEFAULT_SIZE;
+    }
+
+    curX = lerp(curX, tX, POS_SPEED);
+    curY = lerp(curY, tY, POS_SPEED);
+    curW = lerp(curW, targetW, SIZE_SPEED);
+    curH = lerp(curH, targetH, SIZE_SPEED);
+
+    container.style.transform = "translate(" + (curX - curW / 2) + "px," + (curY - curH / 2) + "px)";
+    container.style.width  = curW + "px";
+    container.style.height = curH + "px";
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function onMouseMove(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!visible) {
+      curX = mouseX; curY = mouseY;
+      container.style.opacity = "1";
+      visible = true;
+    }
+  }
+
+  function onDocLeave() {
+    container.style.opacity = "0";
+    visible = false;
+  }
+
+  function init() {
+    container = document.getElementById("mag-pointer");
+    if (!container) return;
+    window.addEventListener("mousemove", onMouseMove);
+    document.documentElement.addEventListener("mouseleave", onDocLeave);
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  document.addEventListener("astro:page-load", function () {
+    visible = false;
+    container = document.getElementById("mag-pointer");
+    if (container) container.style.opacity = "0";
+  });
+})();
+</script>
