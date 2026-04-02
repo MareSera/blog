@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "check": "astro check",
-    "build": "astro check && tsx scripts/convert-fonts.ts && astro build && pagefind --site dist",
+    "build": "astro check && pnpm exec tsx scripts/convert-fonts.ts && astro build && pagefind --site dist",
     "convert-fonts": "tsx scripts/convert-fonts.ts",
     "search:clean": "rimraf public/pagefind",
     "search:index": "npm run build && cpy 'dist/pagefind/**' public/pagefind",
