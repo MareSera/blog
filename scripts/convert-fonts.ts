@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * 字体转换脚本：将 public/fonts/ 下的 TTF 文件批量转换为 WOFF2 格式
  * 用法：tsx scripts/convert-fonts.ts

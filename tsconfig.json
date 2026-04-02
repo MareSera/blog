@@ -1,6 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "compilerOptions": { // 或 "module": "ES6"
+  "compilerOptions": {
     "target": "ESNext",
     "baseUrl": ".",
     "module": "ESNext",
@@ -13,7 +13,8 @@
       "@interfaces/*": ["src/interface/*"],
       "@utils/*": ["src/utils/*"]
     },
-    "strict": true, // 或 "target": "ES6"
+    "strict": true,
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["scripts", "node_modules", "dist"]
 }
