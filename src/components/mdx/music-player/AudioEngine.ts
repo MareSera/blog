@@ -12,6 +12,7 @@ import PlayerManager from './PlayerManager';
  */
 export class AudioEngine {
   private audio: HTMLAudioElement;
+  private _src: string;
   private _isPlaying: boolean = false;
   private _volume: number;
   private _isMuted: boolean = false;
@@ -26,7 +27,8 @@ export class AudioEngine {
    * @param playerId - 播放器唯一标识（可选）
    */
   constructor(src: string, options: AudioOptions = {}, playerId?: string) {
-    this.audio = new Audio(src);
+    this._src = src;
+    this.audio = new Audio(); // 不传 src，实现懒加载
     this.playerId = playerId || `player-${Math.random().toString(36).substring(2, 11)}`;
     this.playerManager = PlayerManager.getInstance();
     
@@ -36,16 +38,13 @@ export class AudioEngine {
     // 应用选项
     this.audio.autoplay = options.autoPlay ?? false;
     this.audio.loop = options.loop ?? false;
-    this.audio.preload = options.preload ?? 'auto'; // 默认改为 auto 以加快加载
+    this.audio.preload = options.preload ?? 'none'; // 默认 none，按需加载
     
     // 设置初始音量
     this._volume = options.volume ?? 0.8;
     this.audio.volume = this._volume;
     
-    // 开始预加载
-    if (this.audio.preload === 'auto') {
-      this.audio.load();
-    }
+    // 不在构造时预加载，等待用户触发播放
     
     // 监听播放状态变化
     this.audio.addEventListener('play', () => {
@@ -62,19 +61,22 @@ export class AudioEngine {
   }
 
   /**
-   * 播放音频
+   * 播放音频（懒加载：首次播放时才加载音频）
    * @returns Promise，在播放开始时 resolve
    */
   async play(): Promise<void> {
     try {
-      console.log('AudioEngine.play() 被调用, src:', this.audio.src);
+      // 懒加载：若 src 未设置则设置并触发加载
+      if (!this.audio.src || this.audio.src === window.location.href) {
+        this.audio.src = this._src;
+        this.audio.load();
+      }
       
       // 通知播放器管理器
       this.playerManager.notifyPlay(this.playerId);
       
       await this.audio.play();
       this._isPlaying = true;
-      console.log('音频播放成功');
     } catch (error) {
       console.error('音频播放失败:', error);
       this._isPlaying = false;

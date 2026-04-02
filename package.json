@@ -6,13 +6,15 @@
     "dev": "astro dev",
     "start": "astro dev",
     "check": "astro check",
-    "build": "astro check && astro build && pagefind --site dist",
+    "build": "astro check && tsx scripts/convert-fonts.ts && astro build && pagefind --site dist",
+    "convert-fonts": "tsx scripts/convert-fonts.ts",
     "search:clean": "rimraf public/pagefind",
     "search:index": "npm run build && cpy 'dist/pagefind/**' public/pagefind",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "perf": "tsx scripts/check-performance.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -79,7 +81,9 @@
     "shiki": "^1.29.2",
     "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
+    "ttf2woff2": "^8.0.1",
     "typescript": "^5.8.3",
+    "vite-plugin-compression2": "^2.5.3",
     "vitest": "^4.0.18"
   }
 }

@@ -29,14 +29,35 @@
   .mag-pointer div:nth-child(2) { top:0;    right:0; border-top-style:solid;    border-right-style:solid; }
   .mag-pointer div:nth-child(3) { bottom:0; left:0;  border-bottom-style:solid; border-left-style:solid;  }
   .mag-pointer div:nth-child(4) { bottom:0; right:0; border-bottom-style:solid; border-right-style:solid; }
+
+  /* 禁用自定义光标时恢复默认 */
+  .mag-cursor-disabled *, .mag-cursor-disabled *::before, .mag-cursor-disabled *::after {
+    cursor: auto !important;
+  }
+  .mag-cursor-disabled .mag-pointer {
+    display: none !important;
+  }
 </style>
 
 <script is:inline>
 (function () {
+  // 触摸设备或不支持 RAF 时跳过
+  if ('ontouchstart' in window || !window.requestAnimationFrame) {
+    document.documentElement.classList.add('mag-cursor-disabled');
+    return;
+  }
+
+  // prefers-reduced-motion 时跳过
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('mag-cursor-disabled');
+    return;
+  }
+
   var DEFAULT_SIZE = 38.4;
   var POS_SPEED    = 0.14;
   var SIZE_SPEED   = 0.06;
   var PAD_RATIO    = 50;
+  var IDLE_TIMEOUT = 2000; // 2秒无移动则暂停 RAF
   var SELECTOR     = "a, button, [role='button'], input, textarea, select, label[for], .btn, .badge";
 
   var container;
@@ -46,6 +67,12 @@
   var targetW = DEFAULT_SIZE, targetH = DEFAULT_SIZE;
   var rafId = null;
   var visible = false;
+  var lastMoveTime = 0;
+  var isIdle = false;
+
+  // 当前绑定的事件处理器引用（用于清理）
+  var boundMouseMove = null;
+  var boundDocLeave = null;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
 
@@ -58,7 +85,27 @@
     return null;
   }
 
+  function stopRAF() {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  function startRAF() {
+    if (rafId === null) {
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
   function tick() {
+    // 检测空闲：超过 IDLE_TIMEOUT 毫秒无鼠标移动则暂停
+    if (Date.now() - lastMoveTime > IDLE_TIMEOUT && visible) {
+      isIdle = true;
+      rafId = null;
+      return; // 不再调度下一帧
+    }
+
     var hit = hitTarget(mouseX, mouseY);
 
     var tX = mouseX, tY = mouseY;
@@ -91,10 +138,18 @@
   function onMouseMove(e) {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    lastMoveTime = Date.now();
+
     if (!visible) {
       curX = mouseX; curY = mouseY;
       container.style.opacity = "1";
       visible = true;
+    }
+
+    // 若处于空闲状态，重新启动 RAF
+    if (isIdle) {
+      isIdle = false;
+      startRAF();
     }
   }
 
@@ -103,13 +158,37 @@
     visible = false;
   }
 
+  function cleanup() {
+    stopRAF();
+    if (boundMouseMove) {
+      window.removeEventListener("mousemove", boundMouseMove);
+      boundMouseMove = null;
+    }
+    if (boundDocLeave) {
+      document.documentElement.removeEventListener("mouseleave", boundDocLeave);
+      boundDocLeave = null;
+    }
+  }
+
   function init() {
     container = document.getElementById("mag-pointer");
     if (!container) return;
-    window.addEventListener("mousemove", onMouseMove);
-    document.documentElement.addEventListener("mouseleave", onDocLeave);
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(tick);
+
+    // 清理旧监听器，防止 View Transitions 导致重复绑定
+    cleanup();
+
+    // 重置状态
+    visible = false;
+    isIdle = false;
+    lastMoveTime = Date.now();
+
+    boundMouseMove = onMouseMove;
+    boundDocLeave = onDocLeave;
+
+    window.addEventListener("mousemove", boundMouseMove);
+    document.documentElement.addEventListener("mouseleave", boundDocLeave);
+
+    startRAF();
   }
 
   if (document.readyState === "loading") {
@@ -118,10 +197,9 @@
     init();
   }
 
+  // View Transitions：每次页面加载后重新初始化
   document.addEventListener("astro:page-load", function () {
-    visible = false;
-    container = document.getElementById("mag-pointer");
-    if (container) container.style.opacity = "0";
+    init();
   });
 })();
 </script>

@@ -48,9 +48,12 @@ const { title, image, headings = [], showTOC = false, isIndexed = true } = Astro
       })();
     </script>
 
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="/fonts/Delius-Regular.ttf" as="font" type="font/ttf" crossorigin />
-    <link rel="preload" href="/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.ttf" as="font" type="font/ttf" crossorigin />
+    <!-- Preload critical fonts (WOFF2 for better compression) -->
+    <link rel="preload" href="/fonts/Delius-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- 预加载 LCP 候选图片（首页头像） -->
+    <link rel="preload" as="image" href="/profile.png" />
   </head>
 
   <body class="flex flex-col min-h-screen" {...isIndexed ? { "data-pagefind-body": true } : {}}>

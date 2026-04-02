@@ -8,6 +8,7 @@ import { defineConfig } from "astro/config";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
+import { compression } from "vite-plugin-compression2";
 import { CODE_THEME, USER_SITE } from "./src/config.ts";
 
 import updateConfig from "./src/integration/updateConfig.ts";
@@ -235,5 +236,30 @@ export default defineConfig({
         },
       },
     },
+    build: {
+      // 代码分割：将第三方库打包为独立 vendor chunk
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/katex')) return 'vendor-katex';
+            if (id.includes('node_modules/medium-zoom')) return 'vendor-medium-zoom';
+            if (id.includes('node_modules/@swup') || id.includes('node_modules/swup')) return 'vendor-swup';
+            if (id.includes('node_modules/@pagefind')) return 'vendor-pagefind';
+          },
+        },
+      },
+      // 4KB 以下图片内联为 base64，减少 HTTP 请求
+      assetsInlineLimit: 4096,
+      // 超过 100KB 的 chunk 触发警告
+      chunkSizeWarningLimit: 100,
+    },
+    plugins: [
+      // Brotli 压缩：生成 .br 文件
+      compression({
+        algorithm: 'brotliCompress',
+        exclude: [/\.(br)$/, /\.(gz)$/],
+        threshold: 1024, // 仅压缩大于 1KB 的文件
+      }),
+    ],
   },
 });

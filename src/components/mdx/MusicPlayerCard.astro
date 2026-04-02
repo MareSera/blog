@@ -157,11 +157,11 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       const autoPlay = card.getAttribute('data-autoplay') === 'true';
       const loop = card.getAttribute('data-loop') === 'true';
 
-      // 创建音频引擎
+      // 创建音频引擎（懒加载：不传 preload: 'auto'）
       const engine = new AudioEngine(src, {
         autoPlay,
         loop,
-        preload: 'auto', // 使用 auto 预加载以加快加载速度
+        preload: 'none', // 懒加载，点击播放时才加载
         volume: 0.8,
       }, playerId);
 
@@ -177,7 +177,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       const statusError = card.querySelector('.status-error') as HTMLElement;
       const errorMessage = card.querySelector('.error-message') as HTMLElement;
 
-    // 状态管理
+    // 状态管理（初始为 idle，不预加载）
     let state: AudioState = {
       isPlaying: false,
       currentTime: 0,
@@ -185,7 +185,7 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       progress: 0,
       volume: 0.8,
       isMuted: false,
-      isLoading: true,
+      isLoading: false, // 懒加载：初始不显示加载状态
       error: null,
     };
 
@@ -263,21 +263,24 @@ const playerId = `music-player-${Math.random().toString(36).substring(2, 11)}`;
       }
     }
 
-    // 播放/暂停
+    // 播放/暂停（懒加载：首次点击时显示加载状态）
     const handlePlayClick = async () => {
       try {
-        console.log('播放按钮被点击，当前状态:', state.isPlaying);
         if (state.isPlaying) {
           engine.pause();
-          console.log('暂停播放');
         } else {
+          // 显示加载状态
+          state.isLoading = true;
+          state.error = null;
+          updateUI();
           await engine.play();
-          console.log('开始播放');
         }
         state.isPlaying = engine.isPlaying();
+        state.isLoading = false;
         updateUI();
       } catch (error) {
         console.error('播放失败:', error);
+        state.isLoading = false;
         state.error = {
           type: 'LOAD_FAILED',
           message: '播放失败，请重试',

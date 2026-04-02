@@ -1,6 +1,5 @@
 ---
 import "../styles/global.scss";
-import "/node_modules/katex/dist/katex.min.css";
 import type { HeaderProps } from "@interfaces/data";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -16,3 +15,22 @@ const { description, favicon, image } = Astro.props as HeaderProps;
 <meta name="description" content={description} />
 {image && <meta property="og:image" content={image} />}
 <link rel="canonical" href={canonicalURL.toString()} />
+
+<!-- KaTeX CSS 异步加载，不阻塞首屏渲染 -->
+<link
+  rel="stylesheet"
+  href="/node_modules/katex/dist/katex.min.css"
+  media="print"
+  onload="this.media='all'"
+/>
+<noscript>
+  <link rel="stylesheet" href="/node_modules/katex/dist/katex.min.css" />
+</noscript>
+
+<!-- 预连接到第三方资源域名，减少连接延迟 -->
+<link rel="preconnect" href="https://github.com" crossorigin />
+<link rel="preconnect" href="https://api.github.com" crossorigin />
+<link rel="preconnect" href="https://unpkg.com" crossorigin />
+<link rel="dns-prefetch" href="https://github.com" />
+<link rel="dns-prefetch" href="https://api.github.com" />
+<link rel="dns-prefetch" href="https://unpkg.com" />

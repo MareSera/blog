@@ -1,7 +1,8 @@
 /* Font face definitions */
 @font-face {
   font-family: 'Delius';
-  src: url('/fonts/Delius-Regular.ttf') format('truetype');
+  src: url('/fonts/Delius-Regular.woff2') format('woff2'),
+       url('/fonts/Delius-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -10,7 +11,8 @@
 
 @font-face {
   font-family: 'RawMarukoGothicCJKtc';
-  src: url('/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.ttf') format('truetype');
+  src: url('/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.woff2') format('woff2'),
+       url('/fonts/RawMarukoGothicCJKtc-Regular（不包含韩文）.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -19,7 +21,8 @@
 
 @font-face {
   font-family: 'KeinannMaruPOP-JP';
-  src: url('/fonts/KeinannMaruPOPjp（日文安装这个）.ttf') format('truetype');
+  src: url('/fonts/KeinannMaruPOPjp（日文安装这个）.woff2') format('woff2'),
+       url('/fonts/KeinannMaruPOPjp（日文安装这个）.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
