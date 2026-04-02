@@ -2,7 +2,7 @@
  * 字体转换脚本：将 public/fonts/ 下的 TTF 文件批量转换为 WOFF2 格式
  * 用法：tsx scripts/convert-fonts.ts
  */
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
 import { join, basename, extname } from 'node:path'
 
 interface FontConversionResult {
@@ -21,7 +21,7 @@ async function convertFont(ttfPath: string): Promise<FontConversionResult> {
   const ttf2woff2 = mod.default ?? mod
 
   const input = readFileSync(ttfPath)
-  const output: Buffer = ttf2woff2(input)
+  const output: Buffer = Buffer.from(ttf2woff2(input) as Uint8Array)
 
   const woff2Path = ttfPath.replace(/\.ttf$/i, '.woff2')
   writeFileSync(woff2Path, output)
