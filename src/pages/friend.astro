@@ -311,88 +311,48 @@ const stats = {
   </CardGroup>
 </BaseLayout>
 
-<script>
-  // 将 friends 数据传递给客户端
-  const friendsData = [
-    {
-      name: "MareSera",
-      avatar: "https://blog.maresera.top/profile.png",
-      description: "……？我本人",
-      url: "https://www.maresera.top/",
-      type: "friend",
-      isOnline: true,
-      tags: ["Wait more friend…"]
-    },
-    {
-      name: "EveSunMaple",
-      avatar: "https://github.com/EveSunMaple.png",
-      description: "Coding is my hobby, not my career.",
-      url: "https://github.com/EveSunMaple",
-      type: "contributor",
-      isOnline: true,
-      tags: ["Developer", "Open Source"]
-    },
-  ].filter(f => f.name !== "MareSera"); // 排除自己
-
+<script define:vars={{ friendsData: friends }}>
   // 随机跳转功能
-  function setupRandomVisit(friends: typeof friendsData): void {
+  function setupRandomVisit(friends) {
     const btn = document.getElementById('randomVisitBtn');
-    if (!btn) {
-      console.warn('Random visit button not found');
-      return;
-    }
-    
-    if (friends.length === 0) {
-      btn.setAttribute('disabled', 'true');
-      return;
-    }
-    
+    if (!btn) return;
+    if (friends.length === 0) { btn.setAttribute('disabled', 'true'); return; }
     btn.addEventListener('click', () => {
-      const randomIndex = Math.floor(Math.random() * friends.length);
-      const randomFriend = friends[randomIndex];
-      
-      window.open(randomFriend.url, '_blank', 'noopener,noreferrer');
+      const f = friends[Math.floor(Math.random() * friends.length)];
+      window.open(f.url, '_blank', 'noopener,noreferrer');
     });
   }
 
   // 折叠加载功能
-  function setupCollapseLoad(): void {
+  function setupCollapseLoad() {
     const btn = document.getElementById('loadMoreBtn');
     const container = document.getElementById('friendsList');
-    
-    if (!btn || !container) {
-      return;
-    }
-    
+    if (!btn || !container) return;
+
     const items = container.querySelectorAll('.friend-list-item');
     let visibleCount = 3;
     const totalCount = items.length;
     const LOAD_INCREMENT = 5;
-    
+
     btn.addEventListener('click', () => {
       const isExpanded = btn.getAttribute('data-expanded') === 'true';
       const iconElement = btn.querySelector('svg');
       const textElement = btn.querySelector('.load-more-text');
-      
+
       if (isExpanded) {
-        // 收起：只显示前 3 条
         items.forEach((item, index) => {
-          (item as HTMLElement).style.display = index < 3 ? 'flex' : 'none';
+          item.style.display = index < 3 ? 'flex' : 'none';
         });
         visibleCount = 3;
         btn.setAttribute('data-expanded', 'false');
         if (textElement) textElement.textContent = '加载更多';
         if (iconElement) iconElement.style.transform = 'rotate(0deg)';
       } else {
-        // 展开：增加 5 条或显示全部
         const newVisibleCount = Math.min(visibleCount + LOAD_INCREMENT, totalCount);
         items.forEach((item, index) => {
-          if (index < newVisibleCount) {
-            (item as HTMLElement).style.display = 'flex';
-          }
+          if (index < newVisibleCount) item.style.display = 'flex';
         });
         visibleCount = newVisibleCount;
-        
         if (visibleCount >= totalCount) {
           btn.setAttribute('data-expanded', 'true');
           if (textElement) textElement.textContent = '收起';
@@ -402,7 +362,6 @@ const stats = {
     });
   }
 
-  // 初始化所有功能
   document.addEventListener('astro:page-load', () => {
     setupRandomVisit(friendsData);
     setupCollapseLoad();
