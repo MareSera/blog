@@ -64,66 +64,77 @@ const url = new URL(`/${blog.slug}`, Astro.url.origin);
   </MainCard>
 
   <!-- 沉浸式阅读按钮注入工具栏（保留占位，实际按钮在右下角） -->
+
+  <!-- 沉浸式阅读进入按钮（固定右下角，与返回顶部联动） -->
+  <button
+    id="immersive-btn"
+    aria-label="沉浸式阅读"
+    title="沉浸式阅读"
+    style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;"
+    class="btn btn-circle btn-md bg-base-100 shadow-lg hover:scale-110"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+      <path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+    </svg>
+  </button>
+
+  <!-- 沉浸式阅读退出按钮（固定右下角，沉浸模式时显示） -->
+  <button
+    id="immersive-exit-btn"
+    aria-label="退出沉浸式阅读"
+    title="退出沉浸式阅读"
+    style="display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;align-items:center;gap:0.5rem;padding:0.625rem 1.125rem;border-radius:9999px;border:1px solid oklch(var(--bc)/0.12);font-size:0.875rem;font-weight:500;cursor:pointer;backdrop-filter:blur(12px);"
+    class="bg-base-100 shadow-lg text-base-content/80 hover:bg-base-200"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" style="width:1rem;height:1rem;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/>
+      <path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>
+    </svg>
+    <span>退出沉浸</span>
+  </button>
 </BaseLayout>
-
-<!-- 沉浸式阅读进入按钮（固定右下角，与返回顶部联动） -->
-<button
-  id="immersive-btn"
-  aria-label="沉浸式阅读"
-  title="沉浸式阅读"
-  class="btn btn-circle btn-md fixed bottom-6 right-6 z-50 bg-base-100 shadow-lg transition-all duration-300 hover:scale-110"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
-    <path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
-  </svg>
-</button>
-
-<!-- 沉浸式阅读退出按钮 -->
-<button
-  id="immersive-exit-btn"
-  aria-label="退出沉浸式阅读"
-  title="退出沉浸式阅读"
->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/>
-    <path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/>
-  </svg>
-  <span>退出沉浸</span>
-</button>
 
 <script is:inline>
 (function () {
   var STORAGE_KEY = 'immersive-reading';
+  var initialized = false;
 
   function enter() {
+    var enterBtn = document.getElementById('immersive-btn');
+    var exitBtn = document.getElementById('immersive-exit-btn');
     document.documentElement.classList.add('immersive');
     localStorage.setItem(STORAGE_KEY, '1');
+    if (enterBtn) enterBtn.style.display = 'none';
+    if (exitBtn) exitBtn.style.display = 'flex';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function exit() {
+    var enterBtn = document.getElementById('immersive-btn');
+    var exitBtn = document.getElementById('immersive-exit-btn');
     document.documentElement.classList.remove('immersive');
     localStorage.removeItem(STORAGE_KEY);
+    if (exitBtn) exitBtn.style.display = 'none';
+    if (enterBtn) {
+      enterBtn.style.display = '';
+      updateImmersiveBtnPosition();
+    }
   }
 
   function updateImmersiveBtnPosition() {
     var immersiveBtn = document.getElementById('immersive-btn');
     var scrollTopBtn = document.getElementById('scroll-to-top');
     if (!immersiveBtn) return;
-
-    // 沉浸模式下隐藏进入按钮
     if (document.documentElement.classList.contains('immersive')) {
       immersiveBtn.style.display = 'none';
       return;
     }
     immersiveBtn.style.display = '';
-
-    // 返回顶部按钮可见时，沉浸按钮上移到其上方
     if (scrollTopBtn && scrollTopBtn.classList.contains('visible')) {
-      immersiveBtn.style.bottom = 'calc(1.5rem + 3rem + 0.75rem)'; // bottom-6 + btn-md高度 + gap
+      immersiveBtn.style.bottom = 'calc(1.5rem + 3rem + 0.75rem)';
     } else {
-      immersiveBtn.style.bottom = '1.5rem'; // bottom-6，与返回顶部重叠（返回顶部不可见时）
+      immersiveBtn.style.bottom = '1.5rem';
     }
   }
 
@@ -131,21 +142,22 @@ const url = new URL(`/${blog.slug}`, Astro.url.origin);
     var btn = document.getElementById('immersive-btn');
     var exitBtn = document.getElementById('immersive-exit-btn');
 
-    if (btn) btn.addEventListener('click', function () {
-      document.documentElement.classList.contains('immersive') ? exit() : enter();
-    });
+    if (btn && !btn.dataset.immersiveBound) {
+      btn.dataset.immersiveBound = '1';
+      btn.addEventListener('click', enter);
+    }
 
-    if (exitBtn) exitBtn.addEventListener('click', exit);
+    if (exitBtn && !exitBtn.dataset.immersiveBound) {
+      exitBtn.dataset.immersiveBound = '1';
+      exitBtn.addEventListener('click', exit);
+    }
 
-    // 监听滚动，同步更新按钮位置
     window.addEventListener('scroll', updateImmersiveBtnPosition);
     updateImmersiveBtnPosition();
 
-    // 恢复上次状态
     if (localStorage.getItem(STORAGE_KEY)) enter();
   }
 
-  // 支持 View Transitions
   document.addEventListener('astro:page-load', init);
   if (document.readyState !== 'loading') init();
 })();
@@ -197,54 +209,15 @@ const url = new URL(`/${blog.slug}`, Astro.url.origin);
 
   /* ===== 沉浸式阅读 ===== */
 
-  /* 进入按钮 - 固定右下角，与返回顶部同位置 */
+  /* 进入按钮过渡动画 */
   #immersive-btn {
-    transition: bottom 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+    transition: bottom 0.3s ease, transform 0.2s ease;
   }
 
-  /* 沉浸模式下隐藏进入按钮 */
-  :global(html.immersive) #immersive-btn {
-    display: none !important;
-  }
-
-  /* 悬浮退出按钮 - 默认隐藏 */
-  #immersive-exit-btn {
-    display: none;
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 9999;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.125rem;
-    border-radius: 9999px;
-    background: oklch(var(--b1) / 0.92);
-    border: 1px solid oklch(var(--bc) / 0.12);
-    color: oklch(var(--bc) / 0.8);
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 20px oklch(var(--bc) / 0.1);
-    transition: all 0.25s ease;
-  }
-
-  #immersive-exit-btn svg {
-    width: 1rem;
-    height: 1rem;
-    flex-shrink: 0;
-  }
-
+  /* 退出按钮 hover */
   #immersive-exit-btn:hover {
-    background: oklch(var(--b2));
-    color: oklch(var(--bc));
-    box-shadow: 0 6px 24px oklch(var(--bc) / 0.15);
     transform: translateY(-1px);
-  }
-
-  /* 沉浸模式激活时显示退出按钮 */
-  :global(html.immersive) #immersive-exit-btn {
-    display: flex;
+    box-shadow: 0 6px 24px oklch(var(--bc) / 0.15);
   }
 
   /* 沉浸模式：隐藏侧边栏、导航栏、页脚 */
